@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { GoogleGenAI } from '@google/genai';
+import { GenerateContentConfig, GoogleGenAI, HarmBlockThreshold, HarmCategory } from '@google/genai';
 
 const GEMINI_MODEL = 'gemini-2.5-flash-lite';
 const client = process.env.GEMINI_API_KEY
@@ -18,14 +18,39 @@ export async function POST(request: NextRequest) {
     const { toolId, inputs } = await request.json();
     const prompt = generatePrompt(toolId, inputs);
 
+    const generationConfig = {
+      temperature: 0.9,
+      topK: 1,
+      topP: 1,
+      maxOutputTokens: 2048,
+    };
+
+    const safetySettings = [
+      {
+        category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+        threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+      },
+      {
+        category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+        threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+      },
+      {
+        category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+        threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+      },
+      {
+        category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+        threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+      },
+    ];
+
+    // const text = result.response.text();
+
     const result = await client.models.generateContent({
       model: GEMINI_MODEL,
-      contents: [
-        {
-          role: 'user',
-          parts: [{ text: prompt }],
-        },
-      ],
+      contents: [{ role: 'user', parts: [{ text: prompt }] }],
+      config: generationConfig as GenerateContentConfig,
+      // safetySettings: safetySettings as SafetySettings[],
     });
 
     const rawText = (result as { text?: string | (() => string) }).text;

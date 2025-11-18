@@ -1,9 +1,9 @@
-'use client';
-
 import { useState } from 'react';
 import Modal from './Modal';
 import { CareerTool, generateInputsForTool } from '@/lib/ai-tools';
 import { Loader2 } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 interface FeatureModalProps {
   tool: CareerTool | null;
@@ -105,7 +105,7 @@ export default function FeatureModal({ tool, isOpen, onClose }: FeatureModalProp
       {result && (
         <div className="mt-8 p-6 bg-gray-800/50 rounded-lg border border-white/10 min-h-[150px]">
           <div className="prose prose-invert max-w-none">
-            <div className="whitespace-pre-wrap text-gray-300">{result}</div>
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>{result}</ReactMarkdown>
           </div>
         </div>
       )}
