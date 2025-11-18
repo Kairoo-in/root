@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AstraPath AI - Your AI-Powered Career & Learning Command Center</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0F0F23 0%, #1a1a2e 50%, #16213e 100%);
+            overflow-x: hidden;
+        }
+        
+        .aurora-bg {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120%;
+            height: 100vh;
+            background: 
+                radial-gradient(ellipse 80vw 40vh at 20% 30%, rgba(120, 119, 198, 0.4), transparent 50%),
+                radial-gradient(ellipse 60vw 30vh at 80% 70%, rgba(255, 61, 127, 0.3), transparent 50%),
+                radial-gradient(ellipse 40vw 20vh at 40% 40%, rgba(0, 245, 212, 0.3), transparent 50%),
+                radial-gradient(ellipse 50vw 25vh at 90% 10%, rgba(147, 51, 234, 0.2), transparent 40%),
+                radial-gradient(ellipse 35vw 15vh at 10% 90%, rgba(59, 130, 246, 0.2), transparent 40%);
+            z-index: 0;
+            pointer-events: none;
+            animation: aurora 25s ease-in-out infinite alternate;
+        }
+        
+        .aurora-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse 70vw 35vh at 60% 20%, rgba(236, 72, 153, 0.2), transparent 60%),
+                radial-gradient(ellipse 45vw 22vh at 30% 80%, rgba(34, 197, 94, 0.15), transparent 50%);
+            animation: aurora-secondary 30s ease-in-out infinite alternate-reverse;
+        }
+        
+        @keyframes aurora {
+            0% { 
+                transform: translateX(-50%) scale(1) rotate(0deg);
+                opacity: 0.8;
+            }
+            50% { 
+                transform: translateX(-48%) scale(1.1) rotate(90deg);
+                opacity: 1;
+            }
+            100% { 
+                transform: translateX(-52%) scale(0.95) rotate(180deg);
+                opacity: 0.9;
+            }
+        }
+        
+        @keyframes aurora-secondary {
+            0% { 
+                transform: scale(0.95) rotate(0deg);
+                opacity: 0.6;
+            }
+            100% { 
+                transform: scale(1.05) rotate(-90deg);
+                opacity: 0.8;
+            }
+        }
+        
+        .glass-card {
+            background: rgba(26, 26, 46, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 245, 212, 0.1);
+        }
+        
+        .feature-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .nav-scrolled {
+            background-color: rgba(15, 15, 35, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #7c79c6, #ff3d7f, #00f5d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(8px);
+            z-index: 9998;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal-backdrop.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .modal-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.95);
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        
+        .modal-container.active {
+            opacity: 1;
+            pointer-events: all;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        .pricing-card-popular {
+            transform: scale(1.05);
+            border-color: #00f5d4;
+        }
+        
+        .pricing-card-popular:hover {
+            transform: scale(1.08);
+        }
+    </style>
+</head>
+<body class="text-white">
+    <div class="aurora-bg"></div>
+    
+    <div class="relative z-10">
+        <!-- Navigation -->
+        <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+            <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+                <a href="/projects/AstraPath/index.html" class="text-3xl font-bold tracking-tight gradient-text">AstraPath AI</a>
+                <div class="hidden md:flex items-center space-x-8">
+                    <!-- <a href="/projects/AstraPath/index.html" class="text-gray-300 hover:text-white transition">Home</a> -->
+                    <a href="/projects/AstraPath/index.html#features" class="text-gray-300 hover:text-white transition">Features</a>
+                    <a href="/projects/AstraPath/index.html#pricing" class="text-gray-300 hover:text-white transition">Pricing</a>
+                    <a href="/projects/AstraPath/business-strategy.html" class="text-gray-300 hover:text-white transition">Business Strategy</a>
+                    <a href="/projects/AstraPath/market-analysis.html" class="text-gray-300 hover:text-white transition">Market Analysis</a>
+                    <a href="/projects/AstraPath/investor-deck.html" class="text-gray-300 hover:text-white transition">Investor Resources</a>
+                    <a href="/projects/AstraPath/technical-architecture.html" class="text-gray-300 hover:text-white transition">Tech Architecture</a>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button class="bg-gradient-to-r from-[#7c79c6] to-[#00f5d4] text-white font-bold py-2 px-6 rounded-full hover:opacity-90 transition-opacity">
+                        Get Started
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <header class="pt-32 pb-16 text-center container mx-auto px-6">
+            <div data-aos="fade-up">
+                <div class="mb-8">
+                    <span class="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-purple-500/10 to-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-sm font-medium">
+                        <i data-lucide="sparkles" class="w-4 h-4 mr-2"></i>
+                        Powered by Advanced AI • Gemini Integration
+                    </span>
+                </div>
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-tight">
+                    Your AI-Powered Career & Learning
+                    <span class="block gradient-text mt-2">Command Center</span>
+                </h1>
+                <p class="max-w-4xl mx-auto mt-6 text-lg md:text-xl text-gray-300">
+                    Stop wasting time on scattered career resources. AstraPath AI merges <span class="text-cyan-400 font-semibold">advanced career development tools</span> with 
+                    <span class="text-purple-400 font-semibold">intelligent learning systems</span> and <span class="text-pink-400 font-semibold">strategic business insights</span>. 
+                    From personalized AI roadmaps to enterprise team analytics, we provide everything you need to accelerate professional growth.
+                </p>
+                
+                <div class="mt-8 flex flex-wrap justify-center items-center gap-8 text-sm text-gray-400">
+                    <div class="flex items-center gap-2">
+                        <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                        <span>94/100 Market Validation Score</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
+                        <span>$142B+ Market Opportunity</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
+                        <span>32+ AI-Powered Tools</span>
+                    </div>
+                </div>
+                <div class="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4">
+                    <button class="group bg-gradient-to-r from-[#7c79c6] to-[#00f5d4] text-white font-bold py-4 px-8 rounded-full text-lg hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-cyan-500/25">
+                        <span class="flex items-center gap-2">
+                            Launch Your Journey
+                            <i data-lucide="rocket" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                        </span>
+                    </button>
+                    <button class="group font-semibold text-gray-300 hover:text-white transition-all duration-300 flex items-center gap-2 border border-gray-600 py-4 px-8 rounded-full hover:border-cyan-400 hover:bg-cyan-400/10">
+                        Watch Demo <i data-lucide="play-circle" class="w-5 h-5 group-hover:scale-110 transition-transform"></i>
+                    </button>
+                </div>
+                
+                <div class="mt-12 text-center">
+                    <p class="text-sm text-gray-500 mb-3">Join 1,000+ professionals already using AstraPath AI</p>
+                    <div class="flex justify-center items-center space-x-1">
+                        <div class="flex -space-x-2">
+                            <div class="w-8 h-8 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full border-2 border-gray-900 flex items-center justify-center text-white text-xs font-bold">SC</div>
+                            <div class="w-8 h-8 bg-gradient-to-r from-purple-400 to-pink-500 rounded-full border-2 border-gray-900 flex items-center justify-center text-white text-xs font-bold">MR</div>
+                            <div class="w-8 h-8 bg-gradient-to-r from-orange-400 to-red-500 rounded-full border-2 border-gray-900 flex items-center justify-center text-white text-xs font-bold">AP</div>
+                            <div class="w-8 h-8 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full border-2 border-gray-900 flex items-center justify-center text-white text-xs font-bold">+</div>
+                        </div>
+                        <div class="ml-3 flex text-yellow-400">
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        </div>
+                        <span class="ml-2 text-sm text-gray-400">4.9/5 rating</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="container mx-auto px-6 space-y-24 md:space-y-32">
+            
+            <!-- Platform Overview -->
+            <section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="glass-card p-8 rounded-2xl" data-aos="fade-up" data-aos-delay="100">
+                    <div class="mb-6">
+                        <i data-lucide="briefcase" class="w-12 h-12 text-[#7c79c6] mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-2">Career Development Suite</h3>
+                        <p class="text-gray-400">32+ AI-powered tools for every aspect of your professional journey</p>
+                    </div>
+                    <div class="space-y-2 text-sm text-gray-300">
+                        <div>✨ Dynamic Career Roadmaps</div>
+                        <div>✨ AI Interview Coach</div>
+                        <div>✨ Salary Negotiation Assistant</div>
+                        <div>✨ Performance Review Helper</div>
+                        <div class="text-cyan-400 font-semibold">+28 more tools</div>
+                    </div>
+                </div>
+
+                <div class="glass-card p-8 rounded-2xl" data-aos="fade-up" data-aos-delay="200">
+                    <div class="mb-6">
+                        <i data-lucide="graduation-cap" class="w-12 h-12 text-[#ff3d7f] mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-2">Intelligent Learning Paths</h3>
+                        <p class="text-gray-400">AI-curated learning journeys from the best web resources</p>
+                    </div>
+                    <div class="space-y-2 text-sm text-gray-300">
+                        <div>🎯 Personalized Curricula</div>
+                        <div>🤖 AI Tutor Chatbot</div>
+                        <div>📊 Progress Tracking</div>
+                        <div>🛠️ Project-Based Learning</div>
+                        <div>🔄 Dynamic Adaptation</div>
+                    </div>
+                </div>
+
+                <div class="glass-card p-8 rounded-2xl" data-aos="fade-up" data-aos-delay="300">
+                    <div class="mb-6">
+                        <i data-lucide="bar-chart-3" class="w-12 h-12 text-[#00f5d4] mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-2">Strategic Business Intelligence</h3>
+                        <p class="text-gray-400">Comprehensive market analysis and competitive insights</p>
+                    </div>
+                    <div class="space-y-2 text-sm text-gray-300">
+                        <div>📈 Market Research Tools</div>
+                        <div>🎯 User Persona Development</div>
+                        <div>💼 GTM Strategy Planning</div>
+                        <div>📊 Growth Forecasting</div>
+                        <div>🏢 Enterprise Analytics</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features Grid -->
+            <section id="features" class="text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4" data-aos="fade-up">
+                    The Most Complete Professional Toolkit Ever Built
+                </h2>
+                <p class="max-w-4xl mx-auto mt-4 text-lg text-gray-400 mb-12" data-aos="fade-up" data-aos-delay="100">
+                    Every tool you need to plan, execute, and accelerate your professional growth, learning journey, and business strategy.
+                </p>
+                
+                <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-6" id="features-grid">
+                    <!-- Features will be populated by JavaScript -->
+                </div>
+
+                <div class="mt-16 glass-card p-8 rounded-2xl" data-aos="fade-up">
+                    <h3 class="text-2xl font-bold mb-4">Experience the Power of AI Integration</h3>
+                    <p class="text-gray-400 mb-8">
+                        Every feature is powered by advanced AI models, providing personalized, contextual, and intelligent assistance for your unique needs.
+                    </p>
+                    <button id="demo-btn" class="bg-gradient-to-r from-[#7c79c6] to-[#00f5d4] text-white font-bold py-3 px-8 rounded-full hover:scale-105 transition-transform">
+                        Try Interactive Demo
+                    </button>
+                </div>
+            </section>
+
+            <!-- Success Stories & Testimonials -->
+            <section id="testimonials" class="text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4" data-aos="fade-up">
+                    Real Success Stories
+                </h2>
+                <p class="max-w-3xl mx-auto mt-4 text-lg text-gray-400 mb-12" data-aos="fade-up" data-aos-delay="100">
+                    See how professionals and organizations are transforming their careers with AstraPath AI
+                </p>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+                    <!-- Success Story 1 -->
+                    <div class="glass-card p-8 rounded-2xl text-left" data-aos="fade-up" data-aos-delay="100">
+                        <div class="flex items-start mb-6">
+                            <div class="flex text-yellow-400 mr-4">
+                                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                            </div>
+                            <div class="text-sm text-cyan-400 font-bold">Career Switch Success</div>
+                        </div>
+                        <blockquote class="text-gray-300 mb-6 italic">
+                            "I went from marketing to data science in just 8 months using AstraPath AI. The personalized learning path saved me thousands of hours of research. I landed a $125K role at Google!"
+                        </blockquote>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full flex items-center justify-center text-white font-bold mr-4">
+                                SC
+                            </div>
+                            <div>
+                                <div class="font-bold text-white">Sarah Chen</div>
+                                <div class="text-sm text-gray-400">Data Scientist at Google</div>
+                                <div class="text-xs text-cyan-400">Career Switcher Success</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Success Story 2 -->
+                    <div class="glass-card p-8 rounded-2xl text-left" data-aos="fade-up" data-aos-delay="200">
+                        <div class="flex items-start mb-6">
+                            <div class="flex text-yellow-400 mr-4">
+                                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                            </div>
+                            <div class="text-sm text-purple-400 font-bold">Leadership Growth</div>
+                        </div>
+                        <blockquote class="text-gray-300 mb-6 italic">
+                            "AstraPath's AI coaching helped me navigate my promotion to Staff Engineer. The interview prep and salary negotiation tools were game-changers. Got a 40% raise!"
+                        </blockquote>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-gradient-to-r from-purple-400 to-pink-500 rounded-full flex items-center justify-center text-white font-bold mr-4">
+                                MR
+                            </div>
+                            <div>
+                                <div class="font-bold text-white">Marcus Rodriguez</div>
+                                <div class="text-sm text-gray-400">Staff Engineer at Stripe</div>
+                                <div class="text-xs text-purple-400">40% Salary Increase</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Success Story 3 -->
+                    <div class="glass-card p-8 rounded-2xl text-left" data-aos="fade-up" data-aos-delay="300">
+                        <div class="flex items-start mb-6">
+                            <div class="flex text-yellow-400 mr-4">
+                                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                            </div>
+                            <div class="text-sm text-pink-400 font-bold">Enterprise Transformation</div>
+                        </div>
+                        <blockquote class="text-gray-300 mb-6 italic">
+                            "Our team's productivity increased 300% after implementing AstraPath AI. The analytics dashboard gives us incredible insights into skill gaps and development ROI."
+                        </blockquote>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-gradient-to-r from-orange-400 to-red-500 rounded-full flex items-center justify-center text-white font-bold mr-4">
+                                AP
+                            </div>
+                            <div>
+                                <div class="font-bold text-white">Amanda Park</div>
+                                <div class="text-sm text-gray-400">L&D Director at Salesforce</div>
+                                <div class="text-xs text-pink-400">300% Productivity Gain</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Impact Metrics -->
+                <div class="glass-card p-8 rounded-2xl" data-aos="fade-up" data-aos-delay="400">
+                    <h3 class="text-2xl font-bold mb-8">Measurable Impact Across Industries</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-cyan-400 mb-2">75%</div>
+                            <p class="text-sm text-gray-400">Faster Skill Acquisition</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-purple-400 mb-2">$50K+</div>
+                            <p class="text-sm text-gray-400">Average Salary Increase</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-pink-400 mb-2">6 Months</div>
+                            <p class="text-sm text-gray-400">Average Career Transition Time</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-orange-400 mb-2">95%</div>
+                            <p class="text-sm text-gray-400">User Satisfaction Rate</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Team Analytics Demo -->
+            <section id="team-analytics" class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">Enterprise-Grade Team Analytics</h2>
+                    <p class="text-lg text-gray-300 mb-8">
+                        Transform your organization with AI-powered team skill tracking, development planning, and performance analytics.
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="users" class="w-8 h-8 text-cyan-400 shrink-0"></i>
+                            <div>
+                                <h3 class="font-semibold">Real-Time Team Insights</h3>
+                                <p class="text-gray-400">Monitor skill development across your entire organization</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="trending-up" class="w-8 h-8 text-purple-400 shrink-0"></i>
+                            <div>
+                                <h3 class="font-semibold">Predictive Analytics</h3>
+                                <p class="text-gray-400">Forecast skill gaps and plan strategic development initiatives</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="target" class="w-8 h-8 text-pink-400 shrink-0"></i>
+                            <div>
+                                <h3 class="font-semibold">Goal Alignment</h3>
+                                <p class="text-gray-400">Connect individual development with business objectives</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="p-8 glass-card rounded-2xl" data-aos="zoom-in-left">
+                    <h3 class="font-bold text-lg mb-4 text-center">Team Skill Matrix</h3>
+                    <div class="relative h-80 w-full">
+                        <canvas id="teamSkillChart"></canvas>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Pricing Section -->
+            <section id="pricing" class="text-center">
+                <h2 class="text-3xl md:text-4xl font-bold" data-aos="fade-up">Choose Your Growth Plan</h2>
+                <p class="max-w-3xl mx-auto mt-4 text-lg text-gray-400 mb-12" data-aos="fade-up" data-aos-delay="100">
+                    Start free and scale with your success
+                </p>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                    <!-- Explorer Plan -->
+                    <div class="glass-card p-8 rounded-2xl" data-aos="fade-up" data-aos-delay="200">
+                        <h3 class="text-2xl font-bold">Explorer</h3>
+                        <p class="mt-2 text-gray-400">For curious learners starting their journey</p>
+                        <p class="text-5xl font-extrabold mt-6">$0</p>
+                        <p class="text-gray-400">forever</p>
+                        <button class="w-full mt-6 bg-white/10 border border-white/20 text-white font-bold py-3 rounded-full hover:bg-white/20 transition">
+                            Get Started
+                        </button>
+                        <ul class="mt-8 text-left space-y-3 text-gray-300">
+                            <li class="flex items-center gap-3">
+                                <i data-lucide="check" class="w-5 h-5 text-green-400"></i>
+                                5 AI career tools
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i data-lucide="check" class="w-5 h-5 text-green-400"></i>
+                                1 learning path
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i data-lucide="check" class="w-5 h-5 text-green-400"></i>
+                                Basic progress tracking
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Professional Plan -->
+                    <div class="glass-card p-8 rounded-2xl pricing-card-popular border-2" data-aos="fade-up" data-aos-delay="300">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-2xl font-bold">Professional</h3>
+                            <span class="text-xs bg-cyan-400/20 text-cyan-300 font-bold py-1 px-3 rounded-full">MOST POPULAR</span>
+                        </div>
+                        <p class="mt-2 text-gray-400">For ambitious professionals</p>
+                        <p class="text-5xl font-extrabold mt-6">$29<span class="text-lg font-medium text-gray-400">/mo</span></p>
+                        <button class="w-full mt-6 bg-gradient-to-r from-[#7c79c6] to-[#00f5d4] text-white font-bold py-3 rounded-full hover:opacity-90 transition">
+                            Start 14-Day Free Trial
+                        </button>
+                        <ul class="mt-8 text-left space-y-3 text-gray-300">
+                            <li class="flex items-center gap-3">
+                                <i data-lucide="check" class="w-5 h-5 text-green-400"></i>
+                                All 32+ AI career tools
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i data-lucide="check" class="w-5 h-5 text-green-400"></i>
+                                Unlimited learning paths
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i data-lucide="check" class="w-5 h-5 text-green-400"></i>
+                                Advanced analytics
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i data-lucide="check" class="w-5 h-5 text-green-400"></i>
+                                Priority support
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Enterprise Plan -->
+                    <div class="glass-card p-8 rounded-2xl" data-aos="fade-up" data-aos-delay="400">
+                        <h3 class="text-2xl font-bold">Enterprise</h3>
+                        <p class="mt-2 text-gray-400">For forward-thinking organizations</p>
+                        <p class="text-4xl font-extrabold mt-6">Custom</p>
+                        <button class="w-full mt-6 bg-white/10 border border-white/20 text-white font-bold py-3 rounded-full hover:bg-white/20 transition">
+                            Contact Sales
+                        </button>
+                        <ul class="mt-8 text-left space-y-3 text-gray-300">
+                            <li class="flex items-center gap-3">
+                                <i data-lucide="check" class="w-5 h-5 text-green-400"></i>
+                                Everything in Professional
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i data-lucide="check" class="w-5 h-5 text-green-400"></i>
+                                Team analytics dashboard
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i data-lucide="check" class="w-5 h-5 text-green-400"></i>
+                                Custom integrations
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i data-lucide="check" class="w-5 h-5 text-green-400"></i>
+                                Dedicated success manager
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA Section -->
+            <section class="text-center glass-card rounded-2xl p-8 md:p-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Ready to Transform Your Professional Journey?</h2>
+                <p class="mt-4 text-lg text-gray-300 max-w-2xl mx-auto mb-8">
+                    Join thousands of professionals and organizations already accelerating their growth with AstraPath AI. 
+                    <span class="text-cyan-400 font-semibold">Start your transformation today.</span>
+                </p>
+                
+                <!-- Objection Handling -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 text-left">
+                    <div class="p-4 bg-green-500/10 border border-green-500/20 rounded-lg">
+                        <h4 class="font-bold text-green-400 mb-2 flex items-center">
+                            <i data-lucide="check-circle" class="w-5 h-5 mr-2"></i>
+                            No Risk Trial
+                        </h4>
+                        <p class="text-sm text-gray-300">14-day free trial. Cancel anytime. No credit card required for Explorer plan.</p>
+                    </div>
+                    
+                    <div class="p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
+                        <h4 class="font-bold text-blue-400 mb-2 flex items-center">
+                            <i data-lucide="clock" class="w-5 h-5 mr-2"></i>
+                            Quick Setup
+                        </h4>
+                        <p class="text-sm text-gray-300">Get started in under 5 minutes. Immediate access to all career tools and AI features.</p>
+                    </div>
+                    
+                    <div class="p-4 bg-purple-500/10 border border-purple-500/20 rounded-lg">
+                        <h4 class="font-bold text-purple-400 mb-2 flex items-center">
+                            <i data-lucide="headphones" class="w-5 h-5 mr-2"></i>
+                            Expert Support
+                        </h4>
+                        <p class="text-sm text-gray-300">24/7 AI assistance plus human support from career development experts.</p>
+                    </div>
+                </div>
+                
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                    <button class="group bg-gradient-to-r from-[#7c79c6] to-[#00f5d4] text-white font-bold py-4 px-8 rounded-full hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-cyan-500/25">
+                        <span class="flex items-center gap-2">
+                            Start Free Trial
+                            <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                        </span>
+                    </button>
+                    <button class="group font-semibold text-gray-300 hover:text-white transition-all duration-300 flex items-center gap-2 border border-gray-600 py-4 px-8 rounded-full hover:border-cyan-400 hover:bg-cyan-400/10">
+                        Schedule Demo <i data-lucide="calendar" class="w-5 h-5 group-hover:scale-110 transition-transform"></i>
+                    </button>
+                </div>
+                
+                <div class="mt-6 text-center">
+                    <p class="text-xs text-gray-500">
+                        🔒 Your data is secure and encrypted. SOC 2 Type II compliant. 
+                        <span class="text-cyan-400">GDPR ready.</span>
+                    </p>
+                </div>
+            </section>
+        </main>
+        
+        <!-- Footer -->
+        <footer class="mt-24 md:mt-32 border-t border-white/10">
+            <div class="container mx-auto px-6 py-12">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                    <div>
+                        <h3 class="text-2xl font-bold gradient-text mb-4">AstraPath AI</h3>
+                        <p class="text-gray-400">The most advanced AI-powered platform for career development, learning, and business strategy.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-4">Product</h4>
+                        <ul class="space-y-2 text-gray-400">
+                            <li><a href="#features" class="hover:text-cyan-400">Features</a></li>
+                            <li><a href="#pricing" class="hover:text-cyan-400">Pricing</a></li>
+                            <li><a href="business-strategy.html" class="hover:text-cyan-400">Business Strategy</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-4">Resources</h4>
+                        <ul class="space-y-2 text-gray-400">
+                            <li><a href="market-analysis.html" class="hover:text-cyan-400">Market Analysis</a></li>
+                            <li><a href="investor-deck.html" class="hover:text-cyan-400">Investor Resources</a></li>
+                            <li><a href="#docs" class="hover:text-cyan-400">Documentation</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-4">Company</h4>
+                        <ul class="space-y-2 text-gray-400">
+                            <li><a href="#about" class="hover:text-cyan-400">About</a></li>
+                            <li><a href="#careers" class="hover:text-cyan-400">Careers</a></li>
+                            <li><a href="#contact" class="hover:text-cyan-400">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
+                    <p>&copy; 2025 AstraPath AI. All rights reserved. Made with ❤️ for the future of work.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modal Structure -->
+    <div id="modal-backdrop" class="modal-backdrop"></div>
+    <div id="modal-container" class="modal-container w-11/12 max-w-4xl">
+        <div class="glass-card rounded-2xl shadow-2xl">
+            <div id="modal-content" class="p-8 max-h-[90vh] overflow-y-auto"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

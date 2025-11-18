@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investor Resources - AstraPath AI | Pitch Deck & Growth Forecasting</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https.googleapis.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0F0F23 0%, #1a1a2e 50%, #16213e 100%);
+            overflow-x: hidden;
+        }
+        
+        .aurora-bg {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120%;
+            height: 100vh;
+            background-image: 
+                radial-gradient(ellipse at 20% 20%, rgba(120, 119, 198, 0.2), transparent 50%),
+                radial-gradient(ellipse at 80% 40%, rgba(255, 61, 127, 0.15), transparent 50%),
+                radial-gradient(ellipse at 40% 80%, rgba(0, 245, 212, 0.15), transparent 50%);
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .glass-card {
+            background: rgba(26, 26, 46, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 245, 212, 0.1);
+        }
+        
+        .nav-scrolled {
+            background-color: rgba(15, 15, 35, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #7c79c6, #ff3d7f, #00f5d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .slide-card {
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .metric-card {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-color, #00f5d4), transparent);
+        }
+        
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(8px);
+            z-index: 9998;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal-backdrop.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .modal-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.95);
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        
+        .modal-container.active {
+            opacity: 1;
+            pointer-events: all;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        .timeline-item {
+            border-left: 3px solid var(--accent-color, #00f5d4);
+            position: relative;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 1rem;
+            width: 13px;
+            height: 13px;
+            background: var(--accent-color, #00f5d4);
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body class="text-white">
+    <div class="aurora-bg"></div>
+    
+    <div class="relative z-10">
+        <!-- Navigation -->
+        <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+            <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+                <a href="index.html" class="text-3xl font-bold tracking-tight gradient-text">AstraPath AI</a>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/projects/AstraPath/index.html" class="text-gray-300 hover:text-white transition">Home</a>
+                    <a href="/projects/AstraPath/index.html#features" class="text-gray-300 hover:text-white transition">Features</a>
+                    <a href="/projects/AstraPath/index.html#pricing" class="text-gray-300 hover:text-white transition">Pricing</a>
+                    <a href="/projects/AstraPath/business-strategy.html" class="text-gray-300 hover:text-white transition">Business Strategy</a>
+                    <a href="/projects/AstraPath/market-analysis.html" class="text-gray-300 hover:text-white transition">Market Analysis</a>
+                    <a href="/projects/AstraPath/investor-deck.html" class="text-cyan-400 font-semibold">Investor Resources</a>
+                    <a href="/projects/AstraPath/technical-architecture.html" class="text-gray-300 hover:text-white transition">Tech Architecture</a>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button class="bg-gradient-to-r from-[#7c79c6] to-[#00f5d4] text-white font-bold py-2 px-6 rounded-full hover:opacity-90 transition-opacity">
+                        Contact Investors
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <header class="pt-32 pb-16 text-center container mx-auto px-6">
+            <div data-aos="fade-up">
+                <div class="mb-8">
+                    <span class="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-purple-500/10 to-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-sm font-medium">
+                        <i data-lucide="bar-chart-3" class="w-4 h-4 mr-2"></i>
+                        Investment Opportunity • Series A Ready
+                    </span>
+                </div>
+                <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-tight">
+                    Investor Resources &
+                    <span class="block gradient-text mt-2">Growth Forecasting</span>
+                </h1>
+                <p class="max-w-3xl mx-auto mt-6 text-lg md:text-xl text-gray-300">
+                    Comprehensive investment materials, financial projections, and growth strategies for AstraPath AI - 
+                    the future of AI-powered professional development. Join us in transforming how the world learns and grows.
+                </p>
+                
+                <div class="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4">
+                    <button id="view-pitch-deck" class="bg-gradient-to-r from-[#7c79c6] to-[#00f5d4] text-white font-bold py-4 px-8 rounded-full text-lg hover:scale-105 transition-transform">
+                        View Pitch Deck
+                    </button>
+                    <button id="download-materials" class="font-semibold text-gray-300 hover:text-white transition flex items-center gap-2 border border-gray-600 py-4 px-8 rounded-full hover:border-cyan-400">
+                        Download Materials <i data-lucide="download" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="container mx-auto px-6 space-y-24 md:space-y-32">
+            
+            <!-- Investment Opportunity Overview -->
+            <section id="opportunity" class="text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-12" data-aos="fade-up">
+                    Investment Opportunity Overview
+                </h2>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+                    <div class="metric-card glass-card p-6 rounded-2xl" style="--accent-color: #00f5d4" data-aos="fade-up" data-aos-delay="100">
+                        <div class="text-3xl font-bold text-cyan-400 mb-2">$2.5M</div>
+                        <p class="text-sm text-gray-400">Series A Target</p>
+                    </div>
+                    
+                    <div class="metric-card glass-card p-6 rounded-2xl" style="--accent-color: #7c79c6" data-aos="fade-up" data-aos-delay="200">
+                        <div class="text-3xl font-bold text-purple-400 mb-2">$142B</div>
+                        <p class="text-sm text-gray-400">Market Size (TAM)</p>
+                    </div>
+                    
+                    <div class="metric-card glass-card p-6 rounded-2xl" style="--accent-color: #ff3d7f" data-aos="fade-up" data-aos-delay="300">
+                        <div class="text-3xl font-bold text-pink-400 mb-2">24 Mo</div>
+                        <p class="text-sm text-gray-400">Runway Extension</p>
+                    </div>
+                    
+                    <div class="metric-card glass-card p-6 rounded-2xl" style="--accent-color: #10b981" data-aos="fade-up" data-aos-delay="400">
+                        <div class="text-3xl font-bold text-green-400 mb-2">15-20%</div>
+                        <p class="text-sm text-gray-400">Equity Offering</p>
+                    </div>
+                </div>
+                
+                <div class="glass-card p-8 rounded-2xl" data-aos="fade-up">
+                    <h3 class="text-2xl font-bold mb-6">Why Invest in AstraPath AI?</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+                        <div>
+                            <div class="text-cyan-400 mb-4">
+                                <i data-lucide="rocket" class="w-8 h-8"></i>
+                            </div>
+                            <h4 class="font-bold text-lg mb-2">Massive Market Opportunity</h4>
+                            <p class="text-gray-300">$142B+ addressable market with 16.3% CAGR. AI in education projected to reach $43B by 2027.</p>
+                        </div>
+                        
+                        <div>
+                            <div class="text-purple-400 mb-4">
+                                <i data-lucide="zap" class="w-8 h-8"></i>
+                            </div>
+                            <h4 class="font-bold text-lg mb-2">Unique Competitive Position</h4>
+                            <p class="text-gray-300">Only platform combining career tools, learning paths, and business intelligence in one AI-powered solution.</p>
+                        </div>
+                        
+                        <div>
+                            <div class="text-pink-400 mb-4">
+                                <i data-lucide="trending-up" class="w-8 h-8"></i>
+                            </div>
+                            <h4 class="font-bold text-lg mb-2">Proven Traction</h4>
+                            <p class="text-gray-300">Strong early metrics with 94/100 market validation score and clear path to $10M+ ARR.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 10-Slide Pitch Deck Outline -->
+            <section id="pitch-deck" class="text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-12" data-aos="fade-up">
+                    10-Slide Pitch Deck Structure
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Slide 1 -->
+                    <div class="slide-card glass-card p-6 rounded-2xl text-left" data-aos="fade-up" data-aos-delay="100">
+                        <div class="flex items-center mb-4">
+                            <div class="w-8 h-8 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full flex items-center justify-center text-sm font-bold mr-3">1</div>
+                            <h3 class="text-lg font-bold">Problem</h3>
+                        </div>
+                        <div class="space-y-2 text-sm text-gray-300">
+                            <p>• Career development is fragmented and inefficient</p>
+                            <p>• Information overload prevents skill mastery</p>
+                            <p>• $87B spent annually on ineffective corporate training</p>
+                            <p>• 87% of executives report critical skill gaps</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Slide 2 -->
+                    <div class="slide-card glass-card p-6 rounded-2xl text-left" data-aos="fade-up" data-aos-delay="200">
+                        <div class="flex items-center mb-4">
+                            <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-sm font-bold mr-3">2</div>
+                            <h3 class="text-lg font-bold">Solution</h3>
+                        </div>
+                        <div class="space-y-2 text-sm text-gray-300">
+                            <p>• AI-powered integrated platform</p>
+                            <p>• 32+ career development tools</p>
+                            <p>• Personalized learning paths</p>
+                            <p>• Business intelligence & analytics</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Slide 3 -->
+                    <div class="slide-card glass-card p-6 rounded-2xl text-left" data-aos="fade-up" data-aos-delay="300">
+                        <div class="flex items-center mb-4">
+                            <div class="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-sm font-bold mr-3">3</div>
+                            <h3 class="text-lg font-bold">Market</h3>
+                        </div>
+                        <div class="space-y-2 text-sm text-gray-300">
+                            <p>• $142B Total Addressable Market</p>
+                            <p>• $28B Serviceable Addressable Market</p>
+                            <p>• 16.3% annual growth rate</p>
+                            <p>• 500M+ knowledge workers globally</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Slide 4 -->
+                    <div class="slide-card glass-card p-6 rounded-2xl text-left" data-aos="fade-up" data-aos-delay="100">
+                        <div class="flex items-center mb-4">
+                            <div class="w-8 h-8 bg-gradient-to-r from-pink-500 to-red-500 rounded-full flex items-center justify-center text-sm font-bold mr-3">4</div>
+                            <h3 class="text-lg font-bold">Product Demo</h3>
+                        </div>
+                        <div class="space-y-2 text-sm text-gray-300">
+                            <p>• Interactive AI career coaching</p>
+                            <p>• Dynamic learning path generation</p>
+                            <p>• Real-time skill gap analysis</p>
+                            <p>• Team analytics dashboard</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Slide 5 -->
+                    <div class="slide-card glass-card p-6 rounded-2xl text-left" data-aos="fade-up" data-aos-delay="200">
+                        <div class="flex items-center mb-4">
+                            <div class="w-8 h-8 bg-gradient-to-r from-red-500 to-orange-500 rounded-full flex items-center justify-center text-sm font-bold mr-3">5</div>
+                            <h3 class="text-lg font-bold">Traction</h3>
+                        </div>
+                        <div class="space-y-2 text-sm text-gray-300">
+                            <p>• 1,000+ beta users with 85% retention</p>
+                            <p>• $30K MRR within 90 days</p>
+                            <p>• 12.7% freemium conversion rate</p>
+                            <p>• 5+ enterprise pilot programs</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Slide 6 -->
+                    <div class="slide-card glass-card p-6 rounded-2xl text-left" data-aos="fade-up" data-aos-delay="300">
+                        <div class="flex items-center mb-4">
+                            <div class="w-8 h-8 bg-gradient-to-r from-orange-500 to-yellow-500 rounded-full flex items-center justify-center text-sm font-bold mr-3">6</div>
+                            <h3 class="text-lg font-bold">Business Model</h3>
+                        </div>
+                        <div class="space-y-2 text-sm text-gray-300">
+                            <p>• Freemium + SaaS subscriptions</p>
+                            <p>• Individual: $29/month</p>
+                            <p>• Enterprise: $89/seat/month</p>
+                            <p>• 92% gross margins</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Slide 7 -->
+                    <div class="slide-card glass-card p-6 rounded-2xl text-left" data-aos="fade-up" data-aos-delay="100">
+                        <div class="flex items-center mb-4">
+                            <div class="w-8 h-8 bg-gradient-to-r from-yellow-500 to-green-500 rounded-full flex items-center justify-center text-sm font-bold mr-3">7</div>
+                            <h3 class="text-lg font-bold">Competition</h3>
+                        </div>
+                        <div class="space-y-2 text-sm text-gray-300">
+                            <p>• No direct competitors with full integration</p>
+                            <p>• 68% cost advantage vs alternatives</p>
+                            <p>• Superior AI personalization</p>
+                            <p>• First-mover advantage in combined market</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Slide 8 -->
+                    <div class="slide-card glass-card p-6 rounded-2xl text-left" data-aos="fade-up" data-aos-delay="200">
+                        <div class="flex items-center mb-4">
+                            <div class="w-8 h-8 bg-gradient-to-r from-green-500 to-teal-500 rounded-full flex items-center justify-center text-sm font-bold mr-3">8</div>
+                            <h3 class="text-lg font-bold">Team</h3>
+                        </div>
+                        <div class="space-y-2 text-sm text-gray-300">
+                            <p>• Experienced tech & education leadership</p>
+                            <p>• AI/ML engineering expertise</p>
+                            <p>• Previous exits and unicorn experience</p>
+                            <p>• Strategic advisory board</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Slide 9 -->
+                    <div class="slide-card glass-card p-6 rounded-2xl text-left" data-aos="fade-up" data-aos-delay="300">
+                        <div class="flex items-center mb-4">
+                            <div class="w-8 h-8 bg-gradient-to-r from-teal-500 to-cyan-500 rounded-full flex items-center justify-center text-sm font-bold mr-3">9</div>
+                            <h3 class="text-lg font-bold">Financials</h3>
+                        </div>
+                        <div class="space-y-2 text-sm text-gray-300">
+                            <p>• Path to $10M ARR by Year 2</p>
+                            <p>• 92% gross margins</p>
+                            <p>• Break-even at $2.5M ARR</p>
+                            <p>• 24-month runway with funding</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Slide 10 -->
+                    <div class="slide-card glass-card p-6 rounded-2xl text-left border-2 border-cyan-400" data-aos="fade-up" data-aos-delay="100">
+                        <div class="flex items-center mb-4">
+                            <div class="w-8 h-8 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-full flex items-center justify-center text-sm font-bold mr-3">10</div>
+                            <h3 class="text-lg font-bold">Ask</h3>
+                        </div>
+                        <div class="space-y-2 text-sm text-gray-300">
+                            <p>• Raising $2.5M Series A</p>
+                            <p>• 15-20% equity offering</p>
+                            <p>• Product development & team expansion</p>
+                            <p>• Market expansion & enterprise sales</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Growth Forecasting -->
+            <section id="growth-forecast" class="text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-12" data-aos="fade-up">
+                    12-Month Growth & Revenue Forecast
+                </h2>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <!-- Growth Chart -->
+                    <div class="glass-card p-8 rounded-2xl" data-aos="fade-right">
+                        <h3 class="text-2xl font-bold mb-6">User Growth & MRR Projection</h3>
+                        <div class="relative h-80">
+                            <canvas id="forecastChart"></canvas>
+                        </div>
+                        <div class="mt-6 text-sm text-gray-400">
+                            <p>Assumptions: $29 avg price, 5% monthly churn, 15% monthly growth</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Key Metrics Table -->
+                    <div class="glass-card p-8 rounded-2xl" data-aos="fade-left">
+                        <h3 class="text-2xl font-bold mb-6">Key Financial Projections</h3>
+                        <div class="space-y-4">
+                            <div class="grid grid-cols-4 gap-4 text-xs font-bold text-gray-400 border-b border-gray-700 pb-2">
+                                <div>Month</div>
+                                <div>Users</div>
+                                <div>MRR</div>
+                                <div>Churn</div>
+                            </div>
+                            
+                            <div class="space-y-3 text-sm">
+                                <div class="grid grid-cols-4 gap-4 py-2 hover:bg-white/5 rounded">
+                                    <div class="font-bold text-cyan-400">Month 3</div>
+                                    <div>1,049</div>
+                                    <div class="text-green-400">$30.4K</div>
+                                    <div>5.2%</div>
+                                </div>
+                                <div class="grid grid-cols-4 gap-4 py-2 hover:bg-white/5 rounded">
+                                    <div class="font-bold text-purple-400">Month 6</div>
+                                    <div>3,247</div>
+                                    <div class="text-green-400">$94.2K</div>
+                                    <div>5.0%</div>
+                                </div>
+                                <div class="grid grid-cols-4 gap-4 py-2 hover:bg-white/5 rounded">
+                                    <div class="font-bold text-pink-400">Month 9</div>
+                                    <div>7,891</div>
+                                    <div class="text-green-400">$228.8K</div>
+                                    <div>4.8%</div>
+                                </div>
+                                <div class="grid grid-cols-4 gap-4 py-2 hover:bg-white/5 rounded border-t border-gray-700 pt-4">
+                                    <div class="font-bold text-orange-400">Month 12</div>
+                                    <div>15,234</div>
+                                    <div class="text-green-400">$441.8K</div>
+                                    <div>4.5%</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8 p-4 bg-green-500/10 border border-green-500/20 rounded-lg">
+                            <h4 class="font-bold text-green-400 mb-2">Year 1 Totals</h4>
+                            <div class="grid grid-cols-2 gap-4 text-sm">
+                                <div>
+                                    <div class="text-2xl font-bold text-green-400">15.2K</div>
+                                    <p class="text-xs text-gray-400">Paid Users</p>
+                                </div>
+                                <div>
+                                    <div class="text-2xl font-bold text-green-400">$441K</div>
+                                    <p class="text-xs text-gray-400">Monthly Revenue</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 30-Day MVP Action Plan -->
+            <section id="mvp-plan" class="text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-12" data-aos="fade-up">
+                    30-Day MVP Launch Action Plan
+                </h2>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                    <!-- Week 1 -->
+                    <div class="timeline-item pl-8" style="--accent-color: #00f5d4" data-aos="fade-up" data-aos-delay="100">
+                        <div class="glass-card p-6 rounded-2xl text-left">
+                            <h3 class="text-xl font-bold text-cyan-400 mb-4">Week 1: Foundation</h3>
+                            <div class="space-y-3 text-sm text-gray-300">
+                                <div>
+                                    <h4 class="font-bold text-white">Product Development</h4>
+                                    <ul class="space-y-1 ml-4 text-xs">
+                                        <li>• Finalize MVP feature set</li>
+                                        <li>• Complete UI/UX wireframes</li>
+                                        <li>• Set up development environment</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white">Team Setup</h4>
+                                    <ul class="space-y-1 ml-4 text-xs">
+                                        <li>• Hire 2 additional developers</li>
+                                        <li>• Establish project management</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="mt-4 text-xs text-cyan-400">
+                                <strong>Time Estimate:</strong> 40 hours
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Week 2 -->
+                    <div class="timeline-item pl-8" style="--accent-color: #7c79c6" data-aos="fade-up" data-aos-delay="200">
+                        <div class="glass-card p-6 rounded-2xl text-left">
+                            <h3 class="text-xl font-bold text-purple-400 mb-4">Week 2: Development</h3>
+                            <div class="space-y-3 text-sm text-gray-300">
+                                <div>
+                                    <h4 class="font-bold text-white">Core Features</h4>
+                                    <ul class="space-y-1 ml-4 text-xs">
+                                        <li>• Build AI career roadmap engine</li>
+                                        <li>• Implement user authentication</li>
+                                        <li>• Create core career tools</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white">Infrastructure</h4>
+                                    <ul class="space-y-1 ml-4 text-xs">
+                                        <li>• Set up cloud infrastructure</li>
+                                        <li>• Implement payment processing</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="mt-4 text-xs text-purple-400">
+                                <strong>Time Estimate:</strong> 60 hours
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Week 3 -->
+                    <div class="timeline-item pl-8" style="--accent-color: #ff3d7f" data-aos="fade-up" data-aos-delay="300">
+                        <div class="glass-card p-6 rounded-2xl text-left">
+                            <h3 class="text-xl font-bold text-pink-400 mb-4">Week 3: Testing</h3>
+                            <div class="space-y-3 text-sm text-gray-300">
+                                <div>
+                                    <h4 class="font-bold text-white">Quality Assurance</h4>
+                                    <ul class="space-y-1 ml-4 text-xs">
+                                        <li>• Comprehensive testing</li>
+                                        <li>• Bug fixes and optimization</li>
+                                        <li>• Security audit</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white">Beta Program</h4>
+                                    <ul class="space-y-1 ml-4 text-xs">
+                                        <li>• Recruit 100 beta users</li>
+                                        <li>• Gather feedback</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="mt-4 text-xs text-pink-400">
+                                <strong>Time Estimate:</strong> 50 hours
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Week 4 -->
+                    <div class="timeline-item pl-8" style="--accent-color: #10b981" data-aos="fade-up" data-aos-delay="400">
+                        <div class="glass-card p-6 rounded-2xl text-left">
+                            <h3 class="text-xl font-bold text-green-400 mb-4">Week 4: Launch</h3>
+                            <div class="space-y-3 text-sm text-gray-300">
+                                <div>
+                                    <h4 class="font-bold text-white">Go-to-Market</h4>
+                                    <ul class="space-y-1 ml-4 text-xs">
+                                        <li>• Product Hunt launch</li>
+                                        <li>• Press release distribution</li>
+                                        <li>• Social media campaign</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white">Operations</h4>
+                                    <ul class="space-y-1 ml-4 text-xs">
+                                        <li>• Customer support setup</li>
+                                        <li>• Analytics implementation</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="mt-4 text-xs text-green-400">
+                                <strong>Time Estimate:</strong> 45 hours
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tools & Resources -->
+                <div class="mt-12 glass-card p-8 rounded-2xl" data-aos="fade-up">
+                    <h3 class="text-2xl font-bold mb-6">Required Tools & Resources</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+                        <div>
+                            <h4 class="font-bold text-cyan-400 mb-3">Development Stack</h4>
+                            <ul class="text-sm text-gray-300 space-y-1">
+                                <li>• Next.js + TypeScript</li>
+                                <li>• PostgreSQL + Prisma</li>
+                                <li>• OpenAI GPT-4 API</li>
+                                <li>• Stripe for payments</li>
+                                <li>• Vercel for hosting</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-bold text-purple-400 mb-3">Marketing Tools</h4>
+                            <ul class="text-sm text-gray-300 space-y-1">
+                                <li>• Mailchimp for email</li>
+                                <li>• Buffer for social media</li>
+                                <li>• Google Analytics</li>
+                                <li>• Hotjar for user research</li>
+                                <li>• Webflow for landing pages</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-bold text-pink-400 mb-3">Operational Tools</h4>
+                            <ul class="text-sm text-gray-300 space-y-1">
+                                <li>• Notion for documentation</li>
+                                <li>• Slack for communication</li>
+                                <li>• Figma for design</li>
+                                <li>• GitHub for code</li>
+                                <li>• Zoom for meetings</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact & Investment Interest -->
+            <section id="contact" class="text-center">
+                <div class="glass-card p-12 rounded-2xl" data-aos="fade-up">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Join Our Journey?</h2>
+                    <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+                        Connect with our team to learn more about investment opportunities, 
+                        access detailed financial models, or schedule a product demonstration.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-8">
+                        <button id="contact-investors" class="bg-gradient-to-r from-[#7c79c6] to-[#00f5d4] text-white font-bold py-4 px-8 rounded-full text-lg hover:scale-105 transition-transform">
+                            Contact Investment Team
+                        </button>
+                        <button id="schedule-demo" class="font-semibold text-gray-300 hover:text-white transition flex items-center gap-2 border border-gray-600 py-4 px-8 rounded-full hover:border-cyan-400">
+                            Schedule Demo <i data-lucide="calendar" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+                        <div class="text-center">
+                            <i data-lucide="mail" class="w-6 h-6 mx-auto mb-2 text-cyan-400"></i>
+                            <h4 class="font-bold mb-1">Investment Inquiries</h4>
+                            <p class="text-sm text-gray-400">investors@astrapath.ai</p>
+                        </div>
+                        
+                        <div class="text-center">
+                            <i data-lucide="phone" class="w-6 h-6 mx-auto mb-2 text-purple-400"></i>
+                            <h4 class="font-bold mb-1">Direct Line</h4>
+                            <p class="text-sm text-gray-400">+1 (555) 123-FUND</p>
+                        </div>
+                        
+                        <div class="text-center">
+                            <i data-lucide="linkedin" class="w-6 h-6 mx-auto mb-2 text-pink-400"></i>
+                            <h4 class="font-bold mb-1">LinkedIn</h4>
+                            <p class="text-sm text-gray-400">linkedin.com/company/astrapath-ai</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <!-- Footer -->
+        <footer class="mt-24 md:mt-32 border-t border-white/10">
+            <div class="container mx-auto px-6 py-12 text-center">
+                <div class="flex justify-center space-x-8 text-gray-400 mb-6">
+                    <a href="index.html" class="hover:text-cyan-400">Home</a>
+                    <a href="business-strategy.html" class="hover:text-cyan-400">Business Strategy</a>
+                    <a href="market-analysis.html" class="hover:text-cyan-400">Market Analysis</a>
+                </div>
+                <p class="text-sm text-gray-500">&copy; 2025 AstraPath AI Investment Relations. All projections and materials confidential.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modal Structure -->
+    <div id="modal-backdrop" class="modal-backdrop"></div>
+    <div id="modal-container" class="modal-container w-11/12 max-w-4xl">
+        <div class="glass-card rounded-2xl shadow-2xl">
+            <div id="modal-content" class="p-8 max-h-[90vh] overflow-y-auto"></div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize AOS and Lucide
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50,
+        });
+        lucide.createIcons();
+
+        // Modal functionality
+        const modalBackdrop = document.getElementById('modal-backdrop');
+        const modalContainer = document.getElementById('modal-container');
+        const modalContent = document.getElementById('modal-content');
+        
+        function openModal(content) {
+            modalContent.innerHTML = content;
+            modalBackdrop.classList.add('active');
+            modalContainer.classList.add('active');
+            lucide.createIcons();
+        }
+        
+        function closeModal() {
+            modalBackdrop.classList.remove('active');
+            modalContainer.classList.remove('active');
+        }
+        
+        modalBackdrop.addEventListener('click', closeModal);
+
+        // Navigation scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('nav-scrolled');
+            } else {
+                navbar.classList.remove('nav-scrolled');
+            }
+        });
+
+        // Growth Forecast Chart
+        const forecastCtx = document.getElementById('forecastChart');
+        if (forecastCtx) {
+            new Chart(forecastCtx.getContext('2d'), {
+                type: 'line',
+                data: {
+                    labels: ['Month 1', 'Month 2', 'Month 3', 'Month 6', 'Month 9', 'Month 12'],
+                    datasets: [
+                        {
+                            label: 'Total Users',
+                            data: [1250, 2800, 8250, 25000, 62000, 125000],
+                            borderColor: 'rgb(0, 245, 212)',
+                            backgroundColor: 'rgba(0, 245, 212, 0.1)',
+                            tension: 0.4,
+                            fill: true,
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: 'Paid Users',
+                            data: [125, 336, 1049, 3247, 7891, 15234],
+                            borderColor: 'rgb(124, 121, 198)',
+                            backgroundColor: 'rgba(124, 121, 198, 0.1)',
+                            tension: 0.4,
+                            fill: true,
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: 'MRR ($K)',
+                            data: [3.6, 9.7, 30.4, 94.2, 228.8, 441.8],
+                            borderColor: 'rgb(255, 61, 127)',
+                            backgroundColor: 'rgba(255, 61, 127, 0.1)',
+                            tension: 0.4,
+                            fill: false,
+                            yAxisID: 'y1'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: 'rgba(255,255,255,0.1)' },
+                            ticks: { color: '#fff' }
+                        },
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            grid: { color: 'rgba(255,255,255,0.1)' },
+                            ticks: { color: '#fff' },
+                            title: {
+                                display: true,
+                                text: 'Users',
+                                color: '#fff'
+                            }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            ticks: { color: '#ff3d7f' },
+                            title: {
+                                display: true,
+                                text: 'MRR ($K)',
+                                color: '#ff3d7f'
+                            },
+                            grid: {
+                                drawOnChartArea: false,
+                            },
+                        },
+                    },
+                    plugins: {
+                        legend: {
+                            labels: { color: '#fff' }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0,0,0,0.8)',
+                            titleColor: '#fff',
+                            bodyColor: '#fff'
+                        }
+                    }
+                }
+            });
+        }
+
+        // Event Listeners
+        document.getElementById('view-pitch-deck')?.addEventListener('click', () => {
+            openModal(`
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold">AstraPath AI - Investment Pitch Deck</h2>
+                    <button onclick="closeModal()" class="text-2xl">&times;</button>
+                </div>
+                <div class="space-y-6">
+                    <div class="bg-gradient-to-r from-cyan-500/10 to-purple-500/10 p-6 rounded-lg border border-cyan-500/20">
+                        <h3 class="text-xl font-bold mb-4 text-cyan-400">Executive Summary</h3>
+                        <p class="text-gray-300">AstraPath AI is revolutionizing professional development by combining AI-powered career tools, personalized learning paths, and business intelligence in one integrated platform. We're addressing a $142B market opportunity with a unique solution that saves professionals 70% of their development time while providing measurable career outcomes.</p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="p-4 bg-purple-500/10 rounded-lg">
+                            <h4 class="font-bold text-purple-400">Market Size</h4>
+                            <p class="text-2xl font-bold">$142B</p>
+                            <p class="text-sm text-gray-400">Total Addressable Market</p>
+                        </div>
+                        <div class="p-4 bg-pink-500/10 rounded-lg">
+                            <h4 class="font-bold text-pink-400">Growth Rate</h4>
+                            <p class="text-2xl font-bold">16.3%</p>
+                            <p class="text-sm text-gray-400">Annual Market CAGR</p>
+                        </div>
+                    </div>
+                    <div class="text-center pt-4">
+                        <button class="bg-gradient-to-r from-cyan-500 to-purple-500 text-white font-bold py-3 px-8 rounded-full">
+                            Download Full Deck (PDF)
+                        </button>
+                    </div>
+                </div>
+            `);
+        });
+
+        document.getElementById('contact-investors')?.addEventListener('click', () => {
+            openModal(`
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold">Contact Investment Team</h2>
+                    <button onclick="closeModal()" class="text-2xl">&times;</button>
+                </div>
+                <div class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <input type="text" placeholder="Your Name" class="w-full p-3 bg-white/10 border border-white/20 rounded-lg">
+                        <input type="email" placeholder="Email Address" class="w-full p-3 bg-white/10 border border-white/20 rounded-lg">
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <input type="text" placeholder="Company/Fund" class="w-full p-3 bg-white/10 border border-white/20 rounded-lg">
+                        <select class="w-full p-3 bg-white/10 border border-white/20 rounded-lg">
+                            <option>Investment Interest Level</option>
+                            <option>Angel Investor</option>
+                            <option>VC Fund</option>
+                            <option>Strategic Partner</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <textarea placeholder="Message (optional)" class="w-full p-3 bg-white/10 border border-white/20 rounded-lg h-24"></textarea>
+                    <div class="text-center">
+                        <button class="bg-gradient-to-r from-cyan-500 to-purple-500 text-white font-bold py-3 px-8 rounded-full">
+                            Send Message
+                        </button>
+                    </div>
+                </div>
+            `);
+        });
+
+        // Global function access
+        window.openModal = openModal;
+        window.closeModal = closeModal;
+    </script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+import Link from 'next/link';
+
+export default function Footer() {
+  return (
+    <footer className="mt-24 md:mt-32 border-t border-white/10">
+      <div className="container mx-auto px-6 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+          <div>
+            <h3 className="text-2xl font-bold gradient-text mb-4">AstraPath AI</h3>
+            <p className="text-gray-400">
+              The most advanced AI-powered platform for career development, learning, and business strategy.
+            </p>
+          </div>
+          <div>
+            <h4 className="font-semibold mb-4">Product</h4>
+            <ul className="space-y-2 text-gray-400">
+              <li>
+                <Link href="/#features" className="hover:text-cyan-400">
+                  Features
+                </Link>
+              </li>
+              <li>
+                <Link href="/#pricing" className="hover:text-cyan-400">
+                  Pricing
+                </Link>
+              </li>
+              <li>
+                <Link href="/business-strategy" className="hover:text-cyan-400">
+                  Business Strategy
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="font-semibold mb-4">Resources</h4>
+            <ul className="space-y-2 text-gray-400">
+              <li>
+                <Link href="/market-analysis" className="hover:text-cyan-400">
+                  Market Analysis
+                </Link>
+              </li>
+              <li>
+                <Link href="/investor-deck" className="hover:text-cyan-400">
+                  Investor Resources
+                </Link>
+              </li>
+              <li>
+                <Link href="/technical-architecture" className="hover:text-cyan-400">
+                  Tech Architecture
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="font-semibold mb-4">Company</h4>
+            <ul className="space-y-2 text-gray-400">
+              <li>
+                <Link href="/#about" className="hover:text-cyan-400">
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link href="/#careers" className="hover:text-cyan-400">
+                  Careers
+                </Link>
+              </li>
+              <li>
+                <Link href="/#contact" className="hover:text-cyan-400">
+                  Contact
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div className="border-t border-gray-800 pt-8 text-center text-gray-400">
+          <p>&copy; 2025 AstraPath AI. All rights reserved. Made with ❤️ for the future of work.</p>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
