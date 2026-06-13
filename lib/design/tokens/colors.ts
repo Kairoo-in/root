@@ -51,7 +51,7 @@ export const info = ramp(
   [0.97,0.94,0.88,0.80,0.70,0.60,0.52,0.45,0.38,0.32,0.25],
   [0.02,0.05,0.09,0.13,0.16,0.18,0.17,0.15,0.12,0.10,0.08], 260);
 
-export const ramps = { teal, navy, amber, gold, neutral, success, warning, info } as const;
+export const ramps = { teal, navy, amber, gold, neutral, success, warning, error, info } as const;
 export type RampName = keyof typeof ramps;
 
 export type SemanticMap = Record<string, { light: string; dark: string }>;
