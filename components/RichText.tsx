@@ -13,8 +13,9 @@ export default function RichText({ children }: { children: string }) {
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
-          h1: (p: ComponentPropsWithoutRef<"h1">) => (
-            <h1 className="mt-6 mb-3 text-2xl font-extrabold tracking-tight text-brand-ink" {...p} />
+          // Content is rendered inside a page that already has an <h1>; map markdown "#" to <h2>.
+          h1: (p: ComponentPropsWithoutRef<"h2">) => (
+            <h2 className="mt-6 mb-3 text-2xl font-extrabold tracking-tight text-brand-ink" {...p} />
           ),
           h2: (p: ComponentPropsWithoutRef<"h2">) => (
             <h2 className="mt-6 mb-3 text-xl font-bold tracking-tight text-brand-ink" {...p} />
@@ -48,6 +49,13 @@ export default function RichText({ children }: { children: string }) {
           hr: (p: ComponentPropsWithoutRef<"hr">) => (
             <hr className="my-6 border-brand-teal/20" {...p} />
           ),
+          table: (p: ComponentPropsWithoutRef<"table">) => (
+            <div className="my-4 overflow-x-auto"><table className="w-full border-collapse text-sm" {...p} /></div>
+          ),
+          thead: (p: ComponentPropsWithoutRef<"thead">) => <thead className="border-b border-border" {...p} />,
+          tr: (p: ComponentPropsWithoutRef<"tr">) => <tr className="border-b border-border/60" {...p} />,
+          th: (p: ComponentPropsWithoutRef<"th">) => <th className="px-3 py-2 text-left font-semibold text-brand-ink" {...p} />,
+          td: (p: ComponentPropsWithoutRef<"td">) => <td className="px-3 py-2 align-top text-foreground/90" {...p} />,
         }}
       >
         {children}
