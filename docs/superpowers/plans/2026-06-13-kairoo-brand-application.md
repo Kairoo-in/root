@@ -887,6 +887,40 @@ git commit -m "feat(brand): replace generic prose with branded RichText renderer
 
 ---
 
+## Task 11.6: Rebrand leftover old-brand fallback colors in globals.css
+
+**Why:** Batch 1 review found page-specific CSS vars still default to the old purple/pink/cyan (`#7c79c6`, `#ff3d7f`, `#00f5d4`) in `--accent-color`/`--layer-color`/`--node-color`/`--metric-color`/`--tech-color` fallbacks (used by the technical-architecture and analysis pages).
+
+**Files:**
+- Modify: `app/globals.css` (various selectors, ~lines 160–322)
+
+- [ ] **Step 1: Replace the legacy hex fallbacks**
+
+Run a scoped replacement in `app/globals.css` only (NOT other files):
+- `#00f5d4` → `#2DD4BF` (bright teal)
+- `#7c79c6` → `#0D9488` (teal)
+- `#ff3d7f` → `#F59E0B` (amber)
+
+These appear inside `var(--accent-color, …)` style fallbacks and gradient stops in the section/node/metric/tech rules. Replace every remaining occurrence in this file.
+
+- [ ] **Step 2: Verify none remain**
+
+Run: `grep -n "7c79c6\|ff3d7f\|00f5d4" app/globals.css`
+Expected: no matches.
+
+- [ ] **Step 3: Verify build**
+
+Run: `export PATH="/opt/homebrew/bin:$PATH" && npm run build` → success.
+
+- [ ] **Step 4: Commit**
+
+```bash
+git add app/globals.css
+git commit -m "fix(brand): replace leftover legacy accent colors in globals.css"
+```
+
+---
+
 ## Task 12: Final full-app verification
 
 **Files:** none (verification only)
