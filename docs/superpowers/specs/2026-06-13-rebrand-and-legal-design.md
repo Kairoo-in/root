@@ -123,9 +123,58 @@ understand the rebrand. Scope to define in implementation:
 
 ---
 
-## 3. Brand Identity — ⏳ PENDING
+## 3. Brand Identity — 🟡 IN PROGRESS
 
-_Logo concept, color palette, typography, voice/tone, tagline. To be filled in._
+Overall direction: **blend of "Trusted Premium" (B) + "Warm Human" (C)** — navy anchor for
+trust/enterprise, teal as the signature, amber for warmth. Personality: credible +
+aspirational, professional yet personal. The palette itself signals tier ("grows with you").
+
+### 3.1 Color system — ✅ LOCKED
+| Token | Hex | Role |
+|-------|-----|------|
+| Navy | `#0B1F3A` | Brand anchor — text, enterprise tier, trust |
+| Teal | `#0D9488` | Primary action color (signature), light mode |
+| Teal-Bright | `#2DD4BF` | Primary action color, dark mode (contrast) |
+| Amber | `#F59E0B` | Warmth + Free tier accent |
+| Gold | `#CBA34A` | Enterprise-premium accent (used sparingly; optional) |
+| Mist | `#F8FAFC` | Light background / surfaces |
+
+**Tier accents (palette signals where you are):**
+- **Free** → Amber (`#F59E0B`; badge bg `#FEF3C7`, text `#92400E`)
+- **Pro** → Teal (`#0D9488`; badge bg `#CCFBF1`, text `#0F766E`)
+- **Enterprise** → Navy + Gold (`#0B1F3A` / `#CBA34A`)
+
+### 3.2 Themes — ✅ LOCKED
+- **Light:** mostly white (`#FFFFFF`), mist surfaces (`#F8FAFC`), navy text, teal actions,
+  hairline borders `#E2E8F0`.
+- **Dark:** **navy-derived, NOT pure black** — bg `#071426`, surfaces `#0F2740`, borders
+  `#16314F`, text `#F8FAFC` / muted `#94A3B8`, actions teal-bright `#2DD4BF`. Rationale:
+  pure black reads generic; deep navy keeps the dark theme unmistakably Kairoo.
+
+### 3.3 Typography — ⏳ PENDING
+
+### 3.4 Logo / glyph — ✅ LOCKED (variant "B3")
+The owner's original arc sweep with a small curved stem (reads as **K** on a second look)
+and **two teal dots**: a small "waypoint" on the journey at the elbow, and the larger
+"o" / *kairos* **moment** dot at the top of the arc. **All curves — no straight or edgy
+lines** (hard requirement from owner). Origin: owner's own sketch, chosen over ~64 candidates.
+
+SVG (viewBox `0 0 92 92`, stroke `#0B1F3A` light / `#F8FAFC` dark, width `8.05`, round caps;
+dots `#0D9488` light / `#2DD4BF` dark):
+```svg
+<svg viewBox="0 0 92 92" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M16.1016 71.2999C28.3682 68.2332 39.8682 59.0332 50.6016 43.6999C61.3349 28.3666 69.7682 19.9332 75.9016 18.3999" stroke="#0B1F3A" stroke-width="8.05" stroke-linecap="round"/>
+  <path d="M32.0476 21C32.0476 39.55 30.9762 39.2 39 42" stroke="#0B1F3A" stroke-width="8.05" stroke-linecap="round"/>
+  <circle cx="58" cy="51" r="5" fill="#0D9488"/>
+  <circle cx="75.9016" cy="18.4" r="9.2" fill="#0D9488"/>
+</svg>
+```
+- **Lockup:** glyph + "Kairoo" wordmark (bold, ~ -1.5px letter-spacing). Glyph also works standalone.
+- **Favicon:** thicken stroke as size drops (8.05 → ~11 at 16px) so the mark survives; verified at 48/32/24/16.
+- **App icon:** white/teal mark on navy tile, or white/amber on a navy→teal gradient tile.
+- Asset work for implementation: export `public/` SVGs (light, dark, mono), favicon set, OG image, app-icon PNGs.
+### 3.5 Voice & tone — ⏳ PENDING
+### 3.6 Tagline — ⏳ PENDING (candidates: "The right moment to grow." / "AI career development that grows with you.")
 
 ---
 

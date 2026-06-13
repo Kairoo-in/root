@@ -104,7 +104,7 @@ export default function FeatureModal({ tool, isOpen, onClose }: FeatureModalProp
 
       {result && (
         <div className="mt-8 p-6 bg-gray-800/50 rounded-lg border border-white/10 min-h-[150px]">
-          <div className="prose prose-invert max-w-none">
+          <div className="prose prose-invert max-w-none prose-lg prose-p:my-4 prose-headings:my-6 prose-ul:my-4 prose-li:my-2 prose-blockquote:my-4 prose-strong:text-white">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>{result}</ReactMarkdown>
           </div>
         </div>

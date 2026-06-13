@@ -1,0 +1,40 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls docs/superpowers/specs/)",
+      "Bash(ls docs/)",
+      "Bash(git add *)",
+      "Bash(git commit -q -m 'docs: lock audience & monetization strategy for rebrand *)",
+      "WebSearch",
+      "WebFetch(domain:ui.aceternity.com)",
+      "WebFetch(domain:www.npmjs.com)",
+      "WebFetch(domain:animate-ui.com)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:headlessui.com)",
+      "WebFetch(domain:floatui.com)",
+      "WebFetch(domain:motion.dev)",
+      "WebFetch(domain:beta.heroui.com)",
+      "WebFetch(domain:heroui.com)",
+      "WebFetch(domain:ui.shadcn.com)",
+      "WebFetch(domain:registry.npmjs.org)",
+      "Bash(curl -s \"https://registry.npmjs.org/shadcn\")",
+      "Bash(python3 -c 'import sys,json; d=json.load\\(sys.stdin\\); lt=d.get\\('\\\\''dist-tags'\\\\'',{}\\); t=d.get\\('\\\\''time'\\\\'',{}\\); *)",
+      "Bash(gh release *)",
+      "Bash(curl -s \"https://api.github.com/repos/MarsX-dev/floatui\")",
+      "Bash(python3 -c ' *)",
+      "Bash(curl -s \"https://api.github.com/repos/MarsX-dev/floatui/commits?per_page=5\")",
+      "Bash(curl -s \"https://registry.npmjs.org/@headlessui/tailwindcss\")",
+      "Bash(curl -s \"https://registry.npmjs.org/@heroui/react/2.8.5\")",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\('version',d.get\\('version'\\)\\); print\\('peerDependencies:',json.dumps\\(d.get\\('peerDependencies',{}\\),indent=1\\)\\); print\\('dependencies keys \\(sample\\):', list\\(d.get\\('dependencies',{}\\).keys\\(\\)\\)[:8]\\)\")",
+      "Bash(curl -s \"https://registry.npmjs.org/@heroui/react/3.1.0\")",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); deps=d.get\\('dependencies',{}\\); print\\('has framer-motion dep:', 'framer-motion' in deps\\); print\\('has motion dep:', 'motion' in deps\\); ra=[k for k in deps if 'aria' in k or 'react-aria' in k]; print\\('react-aria deps:', ra[:10]\\); print\\('all dep keys:', list\\(deps.keys\\(\\)\\)[:20]\\)\")",
+      "WebFetch(domain:animejs.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:v3.heroui.com)",
+      "WebFetch(domain:www.shadcn.io)",
+      "Bash(bash \"/Users/mreshank/.claude/plugins/cache/claude-plugins-official/superpowers/5.1.0/skills/brainstorming/scripts/start-server.sh\" --project-dir \"/Users/mreshank/Dev/AstraPath AI\")",
+      "Read(//Users/mreshank/.claude/plugins/cache/claude-plugins-official/superpowers/5.1.0/skills/brainstorming/scripts/**)",
+      "Bash(bash \"/Users/mreshank/.claude/plugins/cache/claude-plugins-official/superpowers/5.1.0/skills/brainstorming/scripts/stop-server.sh\" \"/Users/mreshank/Dev/AstraPath AI/.superpowers/brainstorm/43161-1781358670\")"
+    ]
+  }
+}
