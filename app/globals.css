@@ -141,8 +141,8 @@ body {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 10% 20%, rgba(124, 121, 198, 0.25), transparent 45%),
-    radial-gradient(circle at 80% 0%, rgba(0, 245, 212, 0.15), transparent 35%);
+  background: radial-gradient(circle at 10% 20%, rgba(13, 148, 136, 0.25), transparent 45%),
+    radial-gradient(circle at 80% 0%, rgba(45, 212, 191, 0.15), transparent 35%);
   opacity: 0.65;
   pointer-events: none;
   animation: shellGlow 16s ease-in-out infinite alternate;
@@ -174,11 +174,11 @@ body {
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, var(--accent-color, #7c79c6), transparent);
+  background: linear-gradient(90deg, var(--accent-color, #0D9488), transparent);
 }
 
 .validation-score {
-  background: linear-gradient(135deg, #00f5d4, #7c79c6);
+  background: linear-gradient(135deg, #2DD4BF, #0D9488);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -187,7 +187,7 @@ body {
 .market-size-visual {
   position: relative;
   height: 200px;
-  background: linear-gradient(135deg, rgba(124, 121, 198, 0.1), rgba(0, 245, 212, 0.1));
+  background: linear-gradient(135deg, rgba(13, 148, 136, 0.1), rgba(45, 212, 191, 0.1));
   border-radius: 1rem;
   display: flex;
   align-items: center;
@@ -201,7 +201,7 @@ body {
 }
 
 .competitor-card:hover {
-  border-color: var(--accent-color, #00f5d4);
+  border-color: var(--accent-color, #2DD4BF);
   transform: scale(1.02);
 }
 
@@ -217,7 +217,7 @@ body {
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(90deg, var(--accent-color, #00f5d4), transparent);
+  background: linear-gradient(90deg, var(--accent-color, #2DD4BF), transparent);
 }
 
 .slide-card {
@@ -228,7 +228,7 @@ body {
 }
 
 .timeline-item {
-  border-left: 3px solid var(--accent-color, #00f5d4);
+  border-left: 3px solid var(--accent-color, #2DD4BF);
   position: relative;
 }
 
@@ -239,7 +239,7 @@ body {
   top: 1rem;
   width: 13px;
   height: 13px;
-  background: var(--accent-color, #00f5d4);
+  background: var(--accent-color, #2DD4BF);
   border-radius: 50%;
 }
 
@@ -255,7 +255,7 @@ body {
 
 .diagram-node {
   position: relative;
-  background: var(--node-color, #00f5d4);
+  background: var(--node-color, #2DD4BF);
   border-radius: 0.5rem;
   padding: 1rem;
   color: white;
@@ -282,7 +282,7 @@ body {
 }
 
 .architecture-layer:hover {
-  border-color: var(--layer-color, #00f5d4);
+  border-color: var(--layer-color, #2DD4BF);
   transform: scale(1.02);
 }
 
@@ -293,7 +293,7 @@ body {
   margin: 0.5rem 0;
   background: rgba(255, 255, 255, 0.05);
   border-radius: 0.5rem;
-  border-left: 4px solid var(--tech-color, #00f5d4);
+  border-left: 4px solid var(--tech-color, #2DD4BF);
   transition: all 0.3s ease;
 }
 
@@ -320,7 +320,7 @@ body {
   background: rgba(255, 255, 255, 0.05);
   border-radius: 0.5rem;
   margin: 0.5rem 0;
-  border-left: 4px solid var(--metric-color, #00f5d4);
+  border-left: 4px solid var(--metric-color, #2DD4BF);
 }
 
 :root {
@@ -470,19 +470,19 @@ body {
 .blob-0 {
   top: -20%;
   left: -10%;
-  background: radial-gradient(circle, rgba(0, 245, 212, 0.4), transparent 60%);
+  background: radial-gradient(circle, rgba(45, 212, 191, 0.4), transparent 60%);
 }
 
 .blob-1 {
   bottom: -25%;
   right: -5%;
-  background: radial-gradient(circle, rgba(255, 61, 127, 0.35), transparent 60%);
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.35), transparent 60%);
 }
 
 .blob-2 {
   top: 30%;
   right: 10%;
-  background: radial-gradient(circle, rgba(124, 121, 198, 0.35), transparent 60%);
+  background: radial-gradient(circle, rgba(13, 148, 136, 0.35), transparent 60%);
 }
 
 .blob-3 {
