@@ -133,3 +133,10 @@ INVESTORS (gated shell — requiresAuth)
 - **Placeholder contact** in deck (`+1 (555) 123-FUND`) → replace before launch.
 - **Where validation 94/100 + TAM $142B live** on home (public hype vs gated investor framing).
 - **`/features/[tool]` per-tool pages** — build now or later.
+
+---
+
+## 6. Decisions (locked 2026-06-14)
+- **Truthfulness — "honest public, aspirational gated":** public marketing pages (`/`, `/features/*`, `/pricing`, `/how-it-works`, `/customers`, `/about`, `/security`) use ONLY real/defensible claims. Bold projections + currently-fictional stats (home hero cards 180+/11hrs/48K; validation 94/100; architecture 35k/min, 12 regions, 2.4M/day, multi-region latencies; "exits/unicorn" team claim) live ONLY behind the gated `/investors/*` section (framed as projections/targets). `/investors/architecture` is presented as a **blueprint/roadmap**, labeling not-yet-built parts as vision; the public `/security`/`/how-it-works` reflect the REAL Next.js + `engines/ai` (Gemini) stack. Replace placeholder investor contact (`+1 (555) 123-FUND`). Content is still preserved — it just lives in the gated/labeled location.
+- **Scope — full proper-product IA now:** rewrite home (conversion-first) + build all new public pages (`/features` hub + `/features/{career,learning,teams}`, `/how-it-works`, `/customers`, `/about`, `/contact`, `/security`) + reorganize the 4 investor pages — relocating every content unit to its destination above. `/features/[tool]` per-tool pages: include if cheap (registry-driven), else defer.
+- Investor section: open now, gate later (per [[astrapath-ux-architecture]]) — keep content accessible during this phase.
