@@ -8,6 +8,19 @@ import type { GenerationRequest, GenerationResult } from "./types";
 const TIMEOUT_MS = 30_000;
 const RETRIES = 1;
 
+// Round-robin counter per tier — spreads load evenly across free-tier providers
+// so no single provider absorbs all traffic. Skipped when AI_PROVIDER_PRIORITY
+// is set, so explicit operator ordering is always respected.
+const rrCounter: Record<string, number> = {};
+function rotate<T>(arr: T[], tier: string): T[] {
+  if (arr.length <= 1) return arr;
+  // If the user pinned an explicit priority, don't rotate — respect their order.
+  if (process.env.AI_PROVIDER_PRIORITY) return arr;
+  const n = (rrCounter[tier] = (rrCounter[tier] ?? 0) + 1);
+  const start = n % arr.length;
+  return [...arr.slice(start), ...arr.slice(0, start)];
+}
+
 function withTimeout<T>(p: Promise<T>, ms: number): Promise<T> {
   return Promise.race([
     p,
@@ -21,8 +34,9 @@ export async function generate(req: GenerationRequest): Promise<Result<Generatio
   const usable = candidates.filter((c) => enabled.has(c.provider));
   if (!usable.length) return err(new UpstreamError("No AI provider configured.", "ai_no_provider", 503));
 
+  const ordered = rotate(usable, req.tier);
   let lastErr: unknown;
-  for (const cand of usable) {
+  for (const cand of ordered) {
     const adapter = getProvider(cand.provider);
     if (!adapter) continue;
     for (let attempt = 0; attempt <= RETRIES; attempt++) {
