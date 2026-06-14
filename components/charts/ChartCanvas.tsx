@@ -42,7 +42,7 @@ export interface ChartCanvasProps<
 }
 
 /** Theme-default options derived from design tokens, for a given chart type. */
-function buildThemeDefaults<TType extends ChartType>(): ChartOptions<TType> {
+function buildThemeDefaults<TType extends ChartType>(type: TType): ChartOptions<TType> {
   const c = getChartColors();
   const reduce = prefersReducedMotion();
 
@@ -54,17 +54,22 @@ function buildThemeDefaults<TType extends ChartType>(): ChartOptions<TType> {
     pointLabels: { color: c.text },
   };
 
+  const isRadial = type === "radar" || type === "polarArea";
+
   const defaults = {
     responsive: true,
     maintainAspectRatio: false,
     // Reduced motion: kill chart animations entirely.
     animation: reduce ? (false as const) : undefined,
-    scales: {
-      x: { ...axisCommon },
-      y: { ...axisCommon },
-      // Radar / polar charts use the radial `r` scale.
-      r: { ...axisCommon },
-    },
+    scales: isRadial
+      ? {
+          // Radar / polar charts use the radial `r` scale.
+          r: { ...axisCommon },
+        }
+      : {
+          x: { ...axisCommon },
+          y: { ...axisCommon },
+        },
     plugins: {
       legend: { labels: { color: c.text } },
       tooltip: {
@@ -111,7 +116,7 @@ export default function ChartCanvas<
   const merged = (() => {
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     themeTick; // referenced so the memo recomputes on theme change
-    const base = buildThemeDefaults<TType>();
+    const base = buildThemeDefaults<TType>(type);
     return merge({}, [base, options ?? {}]) as ChartOptions<TType>;
   })();
 
