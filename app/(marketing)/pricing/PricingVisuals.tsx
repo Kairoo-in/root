@@ -9,6 +9,8 @@ import { cn } from "@/lib/utils";
 import type { Tier } from "@/types";
 import type { FAQItem } from "@/types";
 
+import { LampEffect, GlowingEffect, BackgroundRipple, SpotlightNew } from "@/components/aceternity";
+
 import { Section } from "@/components/layout/Section";
 import { Container } from "@/components/layout/Container";
 import { Grid } from "@/components/layout/Grid";
@@ -130,28 +132,30 @@ function PricingHero() {
       <Spotlight className="-top-40 left-0 md:-top-24 md:left-52" fill="var(--primary)" />
 
       <Stack gap={8} align="center" className="mx-auto max-w-4xl py-10 text-center sm:py-16">
-        <h1
-          ref={headlineRef}
-          className="text-display text-balance text-foreground"
-          aria-label="Pricing that grows with your career"
-        >
-          {headline.map((word, i) => {
-            const isHighlight = word === "grows" || word === "career";
-            return (
-              <span
-                key={`${word}-${i}`}
-                data-word
-                className={cn(
-                  "mr-[0.25em] inline-block",
-                  isHighlight &&
-                    "bg-linear-to-r from-primary to-accent bg-clip-text text-transparent",
-                )}
-              >
-                {word}
-              </span>
-            );
-          })}
-        </h1>
+        <LampEffect className="py-8 w-full">
+          <h1
+            ref={headlineRef}
+            className="text-display text-balance text-foreground"
+            aria-label="Pricing that grows with your career"
+          >
+            {headline.map((word, i) => {
+              const isHighlight = word === "grows" || word === "career";
+              return (
+                <span
+                  key={`${word}-${i}`}
+                  data-word
+                  className={cn(
+                    "mr-[0.25em] inline-block",
+                    isHighlight &&
+                      "bg-linear-to-r from-primary to-accent bg-clip-text text-transparent",
+                  )}
+                >
+                  {word}
+                </span>
+              );
+            })}
+          </h1>
+        </LampEffect>
 
         <motion.p
           {...reveal(0.7)}
@@ -317,24 +321,28 @@ function PricingPlans({ tiers }: { tiers: Tier[] }) {
               className={cn("h-full", isPopular && "md:-translate-y-2")}
             >
               {isPopular ? (
-                <div className="relative h-full">
-                  {/* Glow halo behind the popular tier — token color-mix only. */}
-                  <div
-                    aria-hidden
-                    className="pointer-events-none absolute -inset-1 rounded-[1.4rem] opacity-70 blur-xl"
-                    style={{
-                      background:
-                        "linear-gradient(135deg, color-mix(in oklab, var(--primary) 45%, transparent), color-mix(in oklab, var(--accent) 40%, transparent))",
-                    }}
-                  />
-                  <CardSpotlight className="relative flex h-full flex-col rounded-2xl border-primary/40 bg-card/80 p-6 shadow-elevation-4 ring-2 ring-primary backdrop-blur-[var(--blur-glass)]">
-                    <span className="absolute -top-3 left-1/2 inline-flex -translate-x-1/2 items-center gap-1.5 rounded-full bg-primary px-3 py-1 text-overline text-primary-foreground shadow-elevation-2">
-                      <IconRenderer name="crown" size={12} />
-                      Most popular
-                    </span>
-                    {inner}
-                  </CardSpotlight>
-                </div>
+                <GlowingEffect className="relative h-full rounded-2xl" color="var(--primary)">
+                  <div className="relative h-full">
+                    {/* Glow halo behind the popular tier — token color-mix only. */}
+                    <div
+                      aria-hidden
+                      className="pointer-events-none absolute -inset-1 rounded-[1.4rem] opacity-70 blur-xl"
+                      style={{
+                        background:
+                          "linear-gradient(135deg, color-mix(in oklab, var(--primary) 45%, transparent), color-mix(in oklab, var(--accent) 40%, transparent))",
+                      }}
+                    />
+                    <SpotlightNew className="relative h-full rounded-2xl">
+                      <CardSpotlight className="relative flex h-full flex-col rounded-2xl border-primary/40 bg-card/80 p-6 shadow-elevation-4 ring-2 ring-primary backdrop-blur-[var(--blur-glass)]">
+                        <span className="absolute -top-3 left-1/2 inline-flex -translate-x-1/2 items-center gap-1.5 rounded-full bg-primary px-3 py-1 text-overline text-primary-foreground shadow-elevation-2">
+                          <IconRenderer name="crown" size={12} />
+                          Most popular
+                        </span>
+                        {inner}
+                      </CardSpotlight>
+                    </SpotlightNew>
+                  </div>
+                </GlowingEffect>
               ) : (
                 <Card
                   variant="glass"
@@ -498,6 +506,7 @@ function GlowingCTA() {
 
   return (
     <Section>
+      <BackgroundRipple className="py-0">
       <motion.div
         initial={reduce ? false : { opacity: 0, y: 24 }}
         whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
@@ -553,6 +562,7 @@ function GlowingCTA() {
           </div>
         </div>
       </motion.div>
+      </BackgroundRipple>
 
       {/* Reassurance footer line */}
       <Container className="mt-10">

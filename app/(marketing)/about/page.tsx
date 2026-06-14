@@ -5,6 +5,7 @@ import {
   MissionStatement,
   PillarBento,
   MilestoneStats,
+  MilestonesTimeline,
   ValueGrid,
   TeamSection,
   AboutCta,
@@ -179,6 +180,11 @@ export default function AboutPage() {
         description="Not vanity metrics — the structural facts that make growth feel guided instead of chaotic."
         stats={STATS}
       />
+
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <h2 className="text-h2 text-foreground mb-2">Our journey</h2>
+        <MilestonesTimeline />
+      </section>
 
       <ValueGrid
         heading="What we value"

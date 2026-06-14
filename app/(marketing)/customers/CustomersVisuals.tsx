@@ -13,6 +13,8 @@ import { StatGrid, type StatCounterProps } from "@/components/blocks/StatCounter
 import { CardSpotlight } from "@/components/blocks/CardSpotlight";
 import { BentoGrid, type BentoItem } from "@/components/blocks/BentoGrid";
 import { LogoMarquee, type LogoMarqueeItem } from "@/components/blocks/LogoMarquee";
+import { InfiniteMovingCards, Marquee3D } from "@/components/aceternity";
+import type { MovingCard } from "@/components/aceternity";
 import { Spotlight } from "@/components/motion/Spotlight";
 import {
   CardContainer,
@@ -205,6 +207,7 @@ export function CustomersLogoMarquee({
         <div className="relative w-full rounded-2xl border border-border/60 bg-card/60 py-8 backdrop-blur-[var(--blur-glass)]">
           <LogoMarquee items={logos} speed={32} gap={20} />
         </div>
+        <Marquee3D items={logos.map((l) => l.name)} className="mt-4 opacity-60" />
       </Stack>
     </Section>
   );
@@ -325,6 +328,13 @@ export function CustomersTestimonials({
           </motion.div>
         ))}
       </Grid>
+
+      <div className="mt-12">
+        <InfiniteMovingCards
+          items={items.slice(0, 6).map((t) => ({ quote: t.quote, name: t.name, title: t.role }))}
+          className="my-4"
+        />
+      </div>
     </Section>
   );
 }
