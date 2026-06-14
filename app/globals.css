@@ -373,18 +373,18 @@ body {
   --surface-shell: color-mix(in srgb, #ffffff 82%, rgba(147, 197, 253, 0.2));
   --surface-border: rgba(15, 23, 42, 0.08);
   --surface-border-strong: rgba(15, 23, 42, 0.15);
-  --surface-glow: rgba(99, 102, 241, 0.25);
+  --surface-glow: rgba(13, 148, 136, 0.22);
 }
 
 .dark {
-  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-1: oklch(0.58 0.12 185);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
+  --chart-4: oklch(0.70 0.14 90);
+  --chart-5: oklch(0.72 0.16 72);
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary: oklch(0.74 0.11 185);
   --sidebar-primary-foreground: oklch(0.985 0 0);
   --sidebar-accent: oklch(0.269 0 0);
   --sidebar-accent-foreground: oklch(0.985 0 0);
@@ -394,7 +394,7 @@ body {
   --surface-shell: rgba(7, 10, 22, 0.93);
   --surface-border: rgba(148, 163, 184, 0.18);
   --surface-border-strong: rgba(148, 163, 184, 0.35);
-  --surface-glow: rgba(59, 130, 246, 0.35);
+  --surface-glow: rgba(13, 148, 136, 0.30);
 }
 
 @layer base {
@@ -467,13 +467,13 @@ body {
 .blob-3 {
   bottom: 10%;
   left: 15%;
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.3), transparent 65%);
+  background: radial-gradient(circle, rgba(13, 148, 136, 0.25), transparent 65%);
 }
 
 .blob-4 {
   top: 55%;
   right: 35%;
-  background: radial-gradient(circle, rgba(236, 72, 153, 0.28), transparent 60%);
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.16), transparent 60%);
 }
 
 @keyframes blobPulse {
@@ -495,8 +495,8 @@ body {
 .liquid-gradient {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 30% 30%, rgba(99, 102, 241, 0.4), transparent 60%),
-    radial-gradient(circle at 70% 20%, rgba(236, 72, 153, 0.3), transparent 65%);
+  background: radial-gradient(circle at 30% 30%, rgba(13, 148, 136, 0.32), transparent 60%),
+    radial-gradient(circle at 70% 20%, rgba(45, 212, 191, 0.20), transparent 65%);
   filter: blur(120px);
 }
 
