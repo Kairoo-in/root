@@ -1,6 +1,6 @@
 'use client'
-import { motion } from 'framer-motion'
-import { Sparkles, Zap, Brain, Target } from 'lucide-react'
+import { Zap, Brain, Target } from 'lucide-react'
+import { TypewriterEffect, StatefulButton } from '@/components/aceternity'
 
 export function StepWelcome({ userName, onNext }: { userName: string; onNext: () => void }) {
   return (
@@ -8,7 +8,10 @@ export function StepWelcome({ userName, onNext }: { userName: string; onNext: ()
       <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-teal-400 to-cyan-500 flex items-center justify-center mx-auto mb-5 text-2xl font-black text-black shadow-lg shadow-teal-500/20">
         K
       </div>
-      <h1 className="text-2xl font-black text-foreground mb-2">Welcome to Kairoo, {userName}! 🎉</h1>
+      <TypewriterEffect
+        words={`Welcome to Kairoo, ${userName}`.split(' ').map(w => ({ text: w }))}
+        className="text-2xl font-black justify-center mb-2"
+      />
       <p className="text-sm text-muted-foreground mb-6 max-w-sm mx-auto leading-relaxed">
         Takes 2 minutes. After this, <strong className="text-foreground">all 38 AI tools</strong> will know everything about you — and you'll never have to type your job title or goals again.
       </p>
@@ -24,12 +27,9 @@ export function StepWelcome({ userName, onNext }: { userName: string; onNext: ()
           </div>
         ))}
       </div>
-      <button
-        onClick={onNext}
-        className="w-full bg-teal-500 text-black font-bold py-3 rounded-xl hover:bg-teal-400 transition-colors cursor-pointer text-sm"
-      >
-        Let's set up your profile →
-      </button>
+      <StatefulButton onClick={onNext} size="lg" className="w-full">
+        Let&apos;s set up your profile →
+      </StatefulButton>
       <p className="text-[11px] text-muted-foreground mt-3">You can update this anytime in Settings → Profile</p>
     </div>
   )

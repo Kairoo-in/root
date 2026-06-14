@@ -2,9 +2,10 @@
 import { useState, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useRouter } from 'next/navigation'
-import { Search, Filter } from 'lucide-react'
+import { Filter } from 'lucide-react'
 import { features } from '@/engines/ai/features/registry'
 import { CardSpotlight } from '@/components/aceternity/CardSpotlight'
+import { GooeyInput } from '@/components/aceternity'
 import { cn } from '@/lib/utils'
 
 const CATEGORY_COLORS: Record<string, { text: string; bg: string; border: string }> = {
@@ -33,15 +34,12 @@ export default function ToolsPage() {
 
       {/* Filters */}
       <div className="flex flex-wrap gap-3 mb-6">
-        <div className="flex items-center gap-2 flex-1 min-w-0 max-w-sm bg-card border border-border rounded-xl px-3 py-2.5">
-          <Search className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
-          <input
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-            placeholder="Search tools..."
-            className="bg-transparent text-sm text-foreground placeholder:text-muted-foreground/60 outline-none flex-1 min-w-0"
-          />
-        </div>
+        <GooeyInput
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+          placeholder="Search tools or describe your goal…"
+          containerClassName="flex-1 min-w-0 max-w-sm"
+        />
         <div className="flex gap-2">
           {(['all', 'career', 'learning'] as const).map(cat => (
             <button
