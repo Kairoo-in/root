@@ -96,8 +96,8 @@ body {
   width: 120%;
   height: 100vh;
   background-image:
-    radial-gradient(ellipse at 20% 20%, rgba(13, 148, 136, 0.18), transparent 50%),
-    radial-gradient(ellipse at 80% 40%, rgba(245, 158, 11, 0.12), transparent 50%),
+    radial-gradient(ellipse at 20% 20%, rgba(13, 148, 136, 0.12), transparent 50%),
+    radial-gradient(ellipse at 80% 40%, rgba(245, 158, 11, 0.08), transparent 50%),
     radial-gradient(ellipse at 40% 80%, rgba(11, 31, 58, 0.18), transparent 50%);
   z-index: 0;
   pointer-events: none;
@@ -439,7 +439,7 @@ body {
   width: clamp(420px, 35vw, 620px);
   height: clamp(420px, 35vw, 620px);
   filter: blur(60px);
-  opacity: 0.4;
+  opacity: 0.10;
   border-radius: 40% 60% 65% 35% / 40% 45% 55% 60%;
   mix-blend-mode: screen;
   transition: opacity 0.4s ease;
@@ -449,31 +449,31 @@ body {
 .blob-0 {
   top: -20%;
   left: -10%;
-  background: radial-gradient(circle, rgba(45, 212, 191, 0.4), transparent 60%);
+  background: radial-gradient(circle, rgba(45, 212, 191, 0.10), transparent 60%);
 }
 
 .blob-1 {
   bottom: -25%;
   right: -5%;
-  background: radial-gradient(circle, rgba(245, 158, 11, 0.35), transparent 60%);
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.07), transparent 60%);
 }
 
 .blob-2 {
   top: 30%;
   right: 10%;
-  background: radial-gradient(circle, rgba(13, 148, 136, 0.35), transparent 60%);
+  background: radial-gradient(circle, rgba(13, 148, 136, 0.09), transparent 60%);
 }
 
 .blob-3 {
   bottom: 10%;
   left: 15%;
-  background: radial-gradient(circle, rgba(13, 148, 136, 0.25), transparent 65%);
+  background: radial-gradient(circle, rgba(13, 148, 136, 0.06), transparent 65%);
 }
 
 .blob-4 {
   top: 55%;
   right: 35%;
-  background: radial-gradient(circle, rgba(245, 158, 11, 0.16), transparent 60%);
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.04), transparent 60%);
 }
 
 @keyframes blobPulse {
@@ -495,8 +495,8 @@ body {
 .liquid-gradient {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 30% 30%, rgba(13, 148, 136, 0.32), transparent 60%),
-    radial-gradient(circle at 70% 20%, rgba(45, 212, 191, 0.20), transparent 65%);
+  background: radial-gradient(circle at 30% 30%, rgba(13, 148, 136, 0.08), transparent 60%),
+    radial-gradient(circle at 70% 20%, rgba(45, 212, 191, 0.06), transparent 65%);
   filter: blur(120px);
 }
 
@@ -513,7 +513,7 @@ body {
   height: 12px;
   border-radius: 999px;
   background: radial-gradient(circle, rgba(248, 250, 252, 0.7), transparent 65%);
-  opacity: 0.3;
+  opacity: 0.12;
   filter: blur(1px);
   mix-blend-mode: screen;
 }

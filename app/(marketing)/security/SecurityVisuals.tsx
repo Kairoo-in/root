@@ -116,7 +116,6 @@ const itemVariants: Variants = {
 /* =========================================================================== */
 
 export function SecurityHero({
-  eyebrow,
   titleLead,
   titleHighlight,
   titleTail,
@@ -125,7 +124,6 @@ export function SecurityHero({
   secondaryCta,
   badges,
 }: {
-  eyebrow: string;
   titleLead: string;
   titleHighlight: string;
   titleTail: string;
@@ -197,17 +195,6 @@ export function SecurityHero({
       <div className="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
         {/* ---- copy column ---- */}
         <Stack gap={8} align="start" className="max-w-2xl py-6 text-left sm:py-10">
-          <motion.div
-            initial={reduce ? false : { opacity: 0, y: 16 }}
-            animate={reduce ? undefined : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: EASE }}
-          >
-            <Badge variant="info" size="md" className="gap-1.5">
-              <IconRenderer name="shield-check" size={13} />
-              {eyebrow}
-            </Badge>
-          </motion.div>
-
           <h1 ref={headlineRef} className="text-display text-balance">
             {words.map((w, i) => {
               const isHighlight = i >= highlightStart && i < highlightEnd;
@@ -401,13 +388,11 @@ function ShieldMotif() {
 /* =========================================================================== */
 
 export function SecurityStats({
-  eyebrow,
   heading,
   subtitle,
   stats,
   note,
 }: {
-  eyebrow: string;
   heading: string;
   subtitle: string;
   stats: StatCounterProps[];
@@ -425,7 +410,6 @@ export function SecurityStats({
           transition={{ duration: 0.5, ease: EASE }}
           className="max-w-2xl"
         >
-          <p className="text-overline text-primary">{eyebrow}</p>
           <h2 className="text-h2 text-foreground">{heading}</h2>
           <p className="mt-3 text-body-lg text-muted-foreground">{subtitle}</p>
         </motion.header>
@@ -494,12 +478,10 @@ const layerSpan: Record<LayerVM["span"], string> = {
 };
 
 export function SecurityLayers({
-  eyebrow,
   heading,
   subtitle,
   layers,
 }: {
-  eyebrow: string;
   heading: string;
   subtitle: string;
   layers: LayerVM[];
@@ -515,7 +497,6 @@ export function SecurityLayers({
           transition={{ duration: 0.5, ease: EASE }}
           className="max-w-2xl"
         >
-          <p className="text-overline text-primary">{eyebrow}</p>
           <h2 id="layers-heading" className="text-h2 text-foreground">
             {heading}
           </h2>
@@ -625,12 +606,10 @@ export function SecurityLayers({
 /* =========================================================================== */
 
 export function SecurityPractices({
-  eyebrow,
   heading,
   subtitle,
   practices,
 }: {
-  eyebrow: string;
   heading: string;
   subtitle: string;
   practices: PracticeVM[];
@@ -657,7 +636,6 @@ export function SecurityPractices({
           transition={{ duration: 0.5, ease: EASE }}
           className="max-w-2xl"
         >
-          <p className="text-overline text-primary">{eyebrow}</p>
           <h2 id="practices-heading" className="text-h2 text-foreground">
             {heading}
           </h2>
@@ -713,13 +691,11 @@ export function SecurityPractices({
 /* =========================================================================== */
 
 export function SecurityCompliance({
-  eyebrow,
   heading,
   subtitle,
   items,
   callout,
 }: {
-  eyebrow: string;
   heading: string;
   subtitle: string;
   items: ComplianceVM[];
@@ -736,7 +712,6 @@ export function SecurityCompliance({
           transition={{ duration: 0.5, ease: EASE }}
           className="max-w-2xl"
         >
-          <p className="text-overline text-primary">{eyebrow}</p>
           <h2 id="compliance-heading" className="text-h2 text-foreground">
             {heading}
           </h2>
@@ -844,13 +819,11 @@ export function SecurityCompliance({
 /* =========================================================================== */
 
 export function SecurityPerformance({
-  eyebrow,
   heading,
   subtitle,
   targets,
   monitoring,
 }: {
-  eyebrow: string;
   heading: string;
   subtitle: string;
   targets: TargetVM[];
@@ -867,7 +840,6 @@ export function SecurityPerformance({
           transition={{ duration: 0.5, ease: EASE }}
           className="max-w-2xl"
         >
-          <p className="text-overline text-primary">{eyebrow}</p>
           <h2 id="perf-heading" className="text-h2 text-foreground">
             {heading}
           </h2>
@@ -984,12 +956,10 @@ export function SecurityPerformance({
 /* =========================================================================== */
 
 export function SecurityDeepDive({
-  eyebrow,
   heading,
   subtitle,
   tabs,
 }: {
-  eyebrow: string;
   heading: string;
   subtitle: string;
   tabs: DeepDiveTab[];
@@ -1005,7 +975,6 @@ export function SecurityDeepDive({
           transition={{ duration: 0.5, ease: EASE }}
           className="max-w-2xl"
         >
-          <p className="text-overline text-primary">{eyebrow}</p>
           <h2 id="deepdive-heading" className="text-h2 text-foreground">
             {heading}
           </h2>
@@ -1102,12 +1071,10 @@ export function SecurityDeepDive({
 /* =========================================================================== */
 
 export function SecurityLifecycle({
-  eyebrow,
   heading,
   subtitle,
   steps,
 }: {
-  eyebrow: string;
   heading: string;
   subtitle: string;
   steps: LifecycleStep[];
@@ -1134,7 +1101,6 @@ export function SecurityLifecycle({
           transition={{ duration: 0.5, ease: EASE }}
           className="max-w-2xl"
         >
-          <p className="text-overline text-primary">{eyebrow}</p>
           <h2 id="lifecycle-heading" className="text-h2 text-foreground">
             {heading}
           </h2>
@@ -1204,12 +1170,10 @@ export function SecurityLifecycle({
 /* =========================================================================== */
 
 export function SecurityFAQ({
-  eyebrow,
   heading,
   subtitle,
   items,
 }: {
-  eyebrow: string;
   heading: string;
   subtitle: string;
   items: FAQItem[];
@@ -1225,7 +1189,6 @@ export function SecurityFAQ({
           transition={{ duration: 0.5, ease: EASE }}
           className="lg:sticky lg:top-28"
         >
-          <p className="text-overline text-primary">{eyebrow}</p>
           <h2 id="faq-heading" className="text-h2 text-foreground">
             {heading}
           </h2>

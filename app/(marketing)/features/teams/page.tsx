@@ -61,7 +61,6 @@ export default function TeamsFeaturePage() {
   return (
     <>
       <TeamsHero
-        eyebrow="Teams & Enterprise"
         title="Enterprise-Grade Team Analytics"
         subtitle="Transform your organization with AI-powered team skill tracking, development planning, and performance analytics — built for the way real teams grow."
       />

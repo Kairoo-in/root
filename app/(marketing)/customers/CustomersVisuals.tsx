@@ -7,7 +7,6 @@ import { motion, useReducedMotion } from "motion/react";
 import { Section } from "@/components/layout/Section";
 import { Stack } from "@/components/layout/Stack";
 import { Grid } from "@/components/layout/Grid";
-import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
 import { Avatar } from "@/components/ui/Avatar";
 import { StatGrid, type StatCounterProps } from "@/components/blocks/StatCounter";
@@ -41,14 +40,10 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 /* HERO — anime.js headline sequence + Spotlight + token aurora        */
 /* ================================================================== */
 export function CustomersHero({
-  badge,
-  eyebrow,
   titleLead,
   titleHighlight,
   subtitle,
 }: {
-  badge: string;
-  eyebrow: string;
   titleLead: string;
   titleHighlight: string;
   subtitle: string;
@@ -110,30 +105,6 @@ export function CustomersHero({
         align="center"
         className="mx-auto max-w-3xl py-10 text-center sm:py-16"
       >
-        <motion.div
-          initial={reduce ? false : { opacity: 0, y: 16 }}
-          animate={reduce ? undefined : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: EASE }}
-        >
-          <Badge
-            variant="info"
-            className="gap-1.5 px-3 py-1 ring-1 ring-inset ring-[color-mix(in_oklab,var(--accent)_30%,transparent)]"
-          >
-            <IconRenderer name="sparkles" className="size-3.5" size={14} />
-            {badge}
-          </Badge>
-        </motion.div>
-
-{/* EYEBROS LOOKS LIKE AI SLOP */}
-        <motion.span
-          className="text-overline text-accent"
-          initial={reduce ? false : { opacity: 0, y: 12 }}
-          animate={reduce ? undefined : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1, ease: EASE }}
-        >
-          {eyebrow}
-        </motion.span>
-
         <h1
           ref={headlineRef}
           className="text-display text-balance text-foreground"
@@ -245,12 +216,10 @@ export function CustomersLogoMarquee({
 /* TESTIMONIALS — CardSpotlight + ThreeDCard tilt                      */
 /* ================================================================== */
 export function CustomersTestimonials({
-  eyebrow,
   heading,
   description,
   items,
 }: {
-  eyebrow: string;
   heading: string;
   description: string;
   items: TestimonialType[];
@@ -260,15 +229,6 @@ export function CustomersTestimonials({
   return (
     <Section>
       <Stack gap={3} className="mb-12 max-w-2xl">
-        <motion.span
-          className="text-overline text-accent"
-          initial={reduce ? false : { opacity: 0, y: 12 }}
-          whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.6 }}
-          transition={{ duration: 0.4 }}
-        >
-          {eyebrow}
-        </motion.span>
         <motion.h2
           className="text-h2 text-foreground"
           initial={reduce ? false : { opacity: 0, y: 16 }}
@@ -375,12 +335,10 @@ export function CustomersTestimonials({
 /* IMPACT STATS — animated StatGrid inside a glass spotlight panel     */
 /* ================================================================== */
 export function CustomersImpact({
-  eyebrow,
   heading,
   description,
   metrics,
 }: {
-  eyebrow: string;
   heading: string;
   description: string;
   metrics: (StatCounterProps & { icon: string })[];
@@ -412,14 +370,6 @@ export function CustomersImpact({
           />
           <div className="relative">
             <Stack gap={3} className="mb-10 max-w-2xl">
-              <span className="text-overline inline-flex items-center gap-2 text-accent">
-                <IconRenderer
-                  name="trending-up"
-                  className="size-4"
-                  size={16}
-                />
-                {eyebrow}
-              </span>
               <h2 className="text-h2 text-foreground">{heading}</h2>
               <p className="text-body text-muted-foreground">{description}</p>
             </Stack>
@@ -459,12 +409,10 @@ export function CustomersImpact({
 /* OUTCOME BENTO — why customers win, BentoGrid                        */
 /* ================================================================== */
 export function CustomersBento({
-  eyebrow,
   heading,
   description,
   items,
 }: {
-  eyebrow: string;
   heading: string;
   description: string;
   items: (Omit<BentoItem, "icon"> & { icon: string })[];
@@ -478,7 +426,6 @@ export function CustomersBento({
 
   return (
     <BentoGrid
-      eyebrow={eyebrow}
       heading={heading}
       description={description}
       items={bentoItems}

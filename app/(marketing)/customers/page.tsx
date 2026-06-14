@@ -107,8 +107,6 @@ export default function CustomersPage() {
   return (
     <>
       <CustomersHero
-        badge="Customer Stories"
-        eyebrow="Proof, not promises"
         titleLead="Trusted by professionals and teams who are"
         titleHighlight="leveling up"
         subtitle="See how individuals and organizations are transforming their careers and skill development with Kairoo — from career switches and promotions to enterprise-wide productivity gains."
@@ -120,21 +118,18 @@ export default function CustomersPage() {
       />
 
       <CustomersTestimonials
-        eyebrow="In their words"
         heading="Success stories from across the industry"
         description="Real outcomes from professionals who used Kairoo's AI-powered learning paths, coaching, and analytics to move their careers forward."
         items={testimonials}
       />
 
       <CustomersImpact
-        eyebrow="Measurable Impact"
         heading="Measurable impact across industries"
         description="The outcomes our customers report — faster upskilling, stronger compensation, quicker transitions, and high satisfaction."
         metrics={impactMetrics}
       />
 
       <CustomersBento
-        eyebrow="Why customers win"
         heading="The system behind every success story"
         description="The same engine — personalized paths, AI coaching, and analytics — powers every outcome above."
         items={outcomeHighlights}

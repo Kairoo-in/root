@@ -193,7 +193,6 @@ export default function CareerFeaturesPage() {
   return (
     <>
       <CareerHero
-        eyebrow="Features · Career"
         title="Your complete"
         highlight="career toolkit"
         subtitle={subtitle}
@@ -204,14 +203,12 @@ export default function CareerFeaturesPage() {
       />
 
       <CareerBento
-        eyebrow="Why Kairoo"
         heading="A toolkit that turns intent into action"
         description="Everything you need to move your career forward, drawn from one honest, live catalog."
         items={bentoItems}
       />
 
       <CareerSteps
-        eyebrow="How it works"
         heading="Three steps from goal to plan"
         steps={steps}
       />
@@ -220,7 +217,6 @@ export default function CareerFeaturesPage() {
         <CareerToolGrid
           tools={cards}
           themes={themeTabs}
-          eyebrow="The catalog"
           heading="Every career & coaching tool"
         />
       </Section>

@@ -39,7 +39,6 @@ const learningFeatures = featureRegistry.filter(
 const pillars: PillarData[] = [
   {
     id: "career",
-    eyebrow: "Pillar 01",
     title: "Career Development Suite",
     short: "Career",
     description:
@@ -57,7 +56,6 @@ const pillars: PillarData[] = [
   },
   {
     id: "learning",
-    eyebrow: "Pillar 02",
     title: "Intelligent Learning Paths",
     short: "Learning",
     description:
@@ -75,7 +73,6 @@ const pillars: PillarData[] = [
   },
   {
     id: "teams",
-    eyebrow: "Pillar 03",
     title: "Strategic Business Intelligence",
     short: "Teams",
     description:
@@ -181,8 +178,6 @@ export default function FeaturesHubPage() {
   return (
     <>
       <FeaturesHero
-        badgeLabel={`${totalFeatures} AI features across 3 pillars`}
-        eyebrow="Platform overview"
         titleLead="The most complete"
         titleHighlight="professional toolkit"
         titleTail="in three pillars"
@@ -194,7 +189,6 @@ export default function FeaturesHubPage() {
       <FeatureStats stats={stats} />
 
       <BenefitTabs
-        eyebrow="Capabilities"
         heading="What each pillar unlocks"
         description="A representative slice of what's shipping today — switch pillars to see the tools that move your work forward."
         tabs={benefitTabs}

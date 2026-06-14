@@ -48,13 +48,12 @@ function useReveal() {
 
 /* Shared section-heading block with eyebrow + gradient-able title */
 function SectionHeading({
-  eyebrow,
   title,
   highlight,
   description,
   className,
 }: {
-  eyebrow: string;
+  eyebrow?: string; // retained for call-site compat, not rendered
   title: string;
   highlight?: string;
   description?: string;
@@ -67,15 +66,7 @@ function SectionHeading({
       align="center"
       className={cn("mx-auto mb-12 max-w-2xl text-center", className)}
     >
-      {/* EYEBROS LOOKS LIKE AI SLOP */}
-      <motion.span
-        {...reveal(0)}
-        className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/60 px-3 py-1 text-overline text-accent backdrop-blur-glass"
-      >
-        <span className="inline-block size-1.5 animate-pulse rounded-full bg-accent" />
-        {eyebrow}
-      </motion.span>
-      <motion.h2 {...reveal(0.06)} className="text-h1 text-balance text-foreground">
+      <motion.h2 {...reveal(0)} className="text-h1 text-balance text-foreground">
         {title}{" "}
         {highlight ? (
           <span className="bg-linear-to-r from-primary to-accent bg-clip-text text-transparent">

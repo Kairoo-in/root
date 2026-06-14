@@ -51,7 +51,7 @@ function useReveal() {
 /* HERO                                                                */
 /* ================================================================== */
 export interface TeamsHeroProps {
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
   subtitle: string;
 }
@@ -191,7 +191,6 @@ export function AnalyticsPillars({ items }: { items: PillarCard[] }) {
   return (
     <Section className="pt-0">
       <motion.header {...reveal(0)} className="mx-auto mb-12 max-w-2xl text-center">
-        <p className="text-overline mb-3 text-accent">Three pillars</p>
         <h2 className="text-h2 text-balance text-foreground">
           One engine, total team{" "}
           <span className="bg-linear-to-r from-primary to-accent bg-clip-text text-transparent">
@@ -423,7 +422,6 @@ export function TeamsStatBand() {
           />
           <div className="relative">
             <header className="mx-auto mb-10 max-w-xl text-center">
-              <p className="text-overline mb-3 text-accent">By the numbers</p>
               <h2 className="text-h2 text-balance text-foreground">
                 Built to scale with{" "}
                 <span className="bg-linear-to-r from-primary to-accent bg-clip-text text-transparent">

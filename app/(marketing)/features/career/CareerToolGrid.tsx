@@ -39,7 +39,7 @@ export interface ThemeTab {
 export interface CareerToolGridProps {
   tools: CareerToolCard[];
   themes: ThemeTab[];
-  eyebrow: string;
+  eyebrow?: string;
   heading: string;
 }
 
@@ -74,7 +74,6 @@ export function CareerToolGrid({
   return (
     <div ref={ref}>
       <header className="mx-auto mb-8 max-w-2xl text-center">
-        <p className="text-overline mb-3 text-accent">{eyebrow}</p>
         <h2 className="text-h2 text-balance text-foreground">{heading}</h2>
         <p className="mt-3 text-body-sm text-muted-foreground">
           Showing{" "}
@@ -173,11 +172,6 @@ export function CareerToolGrid({
                     {tool.description}
                   </p>
                 </Stack>
-                <div className="mt-auto flex items-center gap-2 pt-2">
-                  <span className="text-overline text-muted-foreground/70">
-                    {tool.theme}
-                  </span>
-                </div>
               </Stack>
             </CardSpotlight>
           </motion.div>

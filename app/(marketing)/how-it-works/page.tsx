@@ -196,7 +196,6 @@ export default function HowItWorksPage() {
 
       {/* The three steps — the core narrative, as an animated stepped timeline. */}
       <StepsTimeline
-        eyebrow="The loop"
         heading="Three steps, every single tool"
         subtitle="From a résumé to a negotiation script to a team's skill matrix — every Kairoo feature follows the same path. Once you know the loop, you know the whole product."
         steps={STEPS}
@@ -204,7 +203,6 @@ export default function HowItWorksPage() {
 
       {/* The loop, expanded — Bento layout describing how the product behaves. */}
       <BentoGrid
-        eyebrow="One loop, many tools"
         heading="Why the same flow works for everything"
         description="The loop is deliberately simple so the toolkit can grow without getting more complicated to use."
         items={LOOP_ITEMS}
@@ -212,7 +210,6 @@ export default function HowItWorksPage() {
 
       {/* The real stack — honest, public-safe; deeper detail is linked, not claimed. */}
       <StackShowcase
-        eyebrow="Under the hood"
         heading="The real stack behind the loop"
         subtitle="No mystery. Kairoo runs on a modern web foundation with a single AI gateway — here's the honest version."
         facts={STACK_FACTS}
@@ -224,7 +221,6 @@ export default function HowItWorksPage() {
       />
 
       <FAQ
-        eyebrow="Questions"
         title="How the loop works in practice"
         items={FAQ_ITEMS}
       />

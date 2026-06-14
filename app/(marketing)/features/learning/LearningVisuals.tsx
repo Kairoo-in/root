@@ -191,10 +191,6 @@ function AvailableNow({ ready }: { ready: ToolCard[] }) {
   return (
     <Section className="pt-0">
       <Stack gap={3} align="center" className="mx-auto mb-12 max-w-2xl text-center">
-        <span className="inline-flex items-center gap-2 self-center text-overline text-accent">
-          <IconRenderer name="zap" size={16} />
-          Available now
-        </span>
         <h2 className="text-h1 text-balance text-foreground">
           Three AI learning tools you can use today
         </h2>
@@ -316,10 +312,6 @@ function Roadmap({ comingSoon }: { comingSoon: ComingSoonCard[] }) {
   return (
     <Section className="pt-0">
       <Stack gap={3} align="center" className="mx-auto mb-12 max-w-2xl text-center">
-        <span className="inline-flex items-center gap-2 self-center text-overline text-accent">
-          <IconRenderer name="rocket" size={16} />
-          On the roadmap
-        </span>
         <h2 className="text-h2 text-balance text-foreground">
           The next wave of learning intelligence
         </h2>
@@ -402,10 +394,6 @@ function LearningFAQ() {
   return (
     <Section className="pt-0">
       <Stack gap={3} align="center" className="mx-auto mb-12 max-w-2xl text-center">
-        <span className="inline-flex items-center gap-2 self-center text-overline text-accent">
-          <IconRenderer name="book-open" size={16} />
-          Questions
-        </span>
         <h2 className="text-h2 text-balance text-foreground">
           Everything you need to start learning
         </h2>

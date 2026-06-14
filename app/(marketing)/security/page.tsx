@@ -272,7 +272,6 @@ export default function SecurityPage() {
   return (
     <>
       <SecurityHero
-        eyebrow="Security & Trust"
         titleLead="Security built in,"
         titleHighlight="claims kept"
         titleTail="honest"
@@ -289,7 +288,6 @@ export default function SecurityPage() {
 
       {/* Performance targets as an animated count-up band. */}
       <SecurityStats
-        eyebrow="Performance targets"
         heading="Fast is a feature — and a target"
         subtitle="A secure product still has to feel instant. These are figures we design and monitor against — targets, not guarantees."
         stats={PERF_STATS}
@@ -298,7 +296,6 @@ export default function SecurityPage() {
 
       {/* Defense-in-depth layers as an asymmetric Bento of spotlight cards. */}
       <SecurityLayers
-        eyebrow="Defense in depth"
         heading="A layered security model"
         subtitle="Security is enforced at every layer — from the edge of the network, through the application, down to the data itself."
         layers={LAYERS}
@@ -306,7 +303,6 @@ export default function SecurityPage() {
 
       {/* Dense, tabbed control deep-dive (HeroUI Tabs). */}
       <SecurityDeepDive
-        eyebrow="Controls, in detail"
         heading="Every layer, control by control"
         subtitle="Switch between the network, application, and data layers to see the concrete controls behind each one."
         tabs={DEEP_DIVE}
@@ -314,7 +310,6 @@ export default function SecurityPage() {
 
       {/* Data lifecycle / threat-response timeline. */}
       <SecurityLifecycle
-        eyebrow="Data lifecycle"
         heading="What happens to a request, end to end"
         subtitle="From the moment data leaves your device to the moment we respond to an anomaly — every stage is accounted for."
         steps={LIFECYCLE}
@@ -322,7 +317,6 @@ export default function SecurityPage() {
 
       {/* Security practices as a 3D-tilt grid. */}
       <SecurityPractices
-        eyebrow="Practices"
         heading="How we operate, day to day"
         subtitle="The principles that shape every feature we ship."
         practices={PRACTICES}
@@ -330,7 +324,6 @@ export default function SecurityPage() {
 
       {/* Compliance posture cards + procurement callout. */}
       <SecurityCompliance
-        eyebrow="Compliance posture"
         heading="Where we stand on the frameworks"
         subtitle="Each framework below shows what it covers and exactly where Kairoo sits today — stated plainly."
         items={COMPLIANCE}
@@ -343,7 +336,6 @@ export default function SecurityPage() {
 
       {/* Detailed speed targets + monitoring split panel. */}
       <SecurityPerformance
-        eyebrow="Speed & observability"
         heading="The thresholds we hold ourselves to"
         subtitle="A secure product still has to feel instant. These are the thresholds we design and monitor against. They are targets, not guarantees."
         targets={PERF_TARGETS}
@@ -351,7 +343,6 @@ export default function SecurityPage() {
       />
 
       <SecurityFAQ
-        eyebrow="Trust & transparency"
         heading="Security questions, answered straight"
         subtitle="No hedging, no overstated badges — here's exactly where we stand."
         items={FAQ_ITEMS}

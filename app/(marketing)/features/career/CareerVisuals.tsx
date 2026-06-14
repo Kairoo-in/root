@@ -30,7 +30,7 @@ export interface HeroStat {
 }
 
 export interface CareerHeroProps {
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
   highlight: string;
   subtitle: string;
@@ -281,7 +281,7 @@ export function CareerHero({
 /* WHY — BentoGrid of benefit cells (icons passed as name strings)     */
 /* ================================================================== */
 export interface CareerBentoProps {
-  eyebrow: string;
+  eyebrow?: string;
   heading: string;
   description: string;
   items: {
@@ -319,7 +319,7 @@ export function CareerBento({
 /* HOW — three-step CardSpotlight strip                                */
 /* ================================================================== */
 export interface CareerStepsProps {
-  eyebrow: string;
+  eyebrow?: string;
   heading: string;
   steps: { icon: string; title: string; description: string }[];
 }
@@ -330,7 +330,6 @@ export function CareerSteps({ eyebrow, heading, steps }: CareerStepsProps) {
   return (
     <Section>
       <header className="mx-auto mb-10 max-w-2xl text-center">
-        <p className="text-overline mb-3 text-accent">{eyebrow}</p>
         <h2 className="text-h2 text-balance text-foreground">{heading}</h2>
       </header>
 

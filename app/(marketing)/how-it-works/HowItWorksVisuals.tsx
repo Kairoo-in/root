@@ -253,7 +253,7 @@ export function StepsTimeline({
   subtitle,
   steps,
 }: {
-  eyebrow: string;
+  eyebrow?: string;
   heading: string;
   subtitle: string;
   steps: StepVM[];
@@ -270,7 +270,6 @@ export function StepsTimeline({
           transition={{ duration: 0.5, ease: EASE }}
           className="flex flex-col"
         >
-          <p className="text-overline text-primary">{eyebrow}</p>
           <h2 id="steps-heading" className="text-h1">
             {heading}
           </h2>
@@ -383,7 +382,7 @@ export function StackShowcase({
   facts,
   blueprint,
 }: {
-  eyebrow: string;
+  eyebrow?: string;
   heading: string;
   subtitle: string;
   facts: StackFactVM[];
@@ -413,7 +412,6 @@ export function StackShowcase({
           transition={{ duration: 0.5, ease: EASE }}
           className="flex flex-col"
         >
-          <p className="text-overline text-primary">{eyebrow}</p>
           <h2 id="stack-heading" className="text-h1">
             {heading}
           </h2>

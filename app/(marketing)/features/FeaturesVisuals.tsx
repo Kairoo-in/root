@@ -43,7 +43,6 @@ export interface PillarHighlightData {
 
 export interface PillarData {
   id: string;
-  eyebrow: string;
   title: string;
   /** First word of the title, used in the "Explore X" affordance. */
   short: string;
@@ -96,15 +95,11 @@ const cardReveal: Variants = {
  * ------------------------------------------------------------------ */
 
 export function FeaturesHero({
-  badgeLabel,
-  eyebrow,
   titleLead,
   titleHighlight,
   titleTail,
   subtitle,
 }: {
-  badgeLabel: string;
-  eyebrow: string;
   titleLead: string;
   titleHighlight: string;
   titleTail: string;
@@ -167,64 +162,38 @@ export function FeaturesHero({
       />
 
       <Stack gap={6} align="center" className="mx-auto max-w-3xl text-center">
-        <motion.span
-          initial={reduce ? false : { opacity: 0, y: -8 }}
-          animate={reduce ? undefined : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
+        <h1
+          ref={headlineRef}
+          className="text-display text-balance text-foreground"
         >
-          <Badge
-            variant="info"
-            size="md"
-            className="inline-flex items-center gap-1.5"
-          >
-            <IconRenderer name="sparkles" size={14} />
-            {badgeLabel}
-          </Badge>
-        </motion.span>
+          {words.map((word, i) => {
+            const isHi = highlightSet.has(word.toLowerCase());
+            return (
+              <span
+                key={`${word}-${i}`}
+                data-word
+                className={
+                  isHi
+                    ? "bg-linear-to-r from-primary via-accent to-primary bg-clip-text text-transparent"
+                    : undefined
+                }
+                style={reduce ? undefined : { display: "inline-block" }}
+              >
+                {word}
+                {i < words.length - 1 ? " " : ""}
+              </span>
+            );
+          })}
+        </h1>
 
-        <Stack gap={3} align="center">
-          <motion.p
-            initial={reduce ? false : { opacity: 0 }}
-            animate={reduce ? undefined : { opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-overline text-accent"
-          >
-            {eyebrow}
-          </motion.p>
-
-          <h1
-            ref={headlineRef}
-            className="text-display text-balance text-foreground"
-          >
-            {words.map((word, i) => {
-              const isHi = highlightSet.has(word.toLowerCase());
-              return (
-                <span
-                  key={`${word}-${i}`}
-                  data-word
-                  className={
-                    isHi
-                      ? "bg-linear-to-r from-primary via-accent to-primary bg-clip-text text-transparent"
-                      : undefined
-                  }
-                  style={reduce ? undefined : { display: "inline-block" }}
-                >
-                  {word}
-                  {i < words.length - 1 ? " " : ""}
-                </span>
-              );
-            })}
-          </h1>
-
-          <motion.p
-            initial={reduce ? false : { opacity: 0, y: 12 }}
-            animate={reduce ? undefined : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-body-lg mx-auto max-w-2xl text-pretty text-muted-foreground"
-          >
-            {subtitle}
-          </motion.p>
-        </Stack>
+        <motion.p
+          initial={reduce ? false : { opacity: 0, y: 12 }}
+          animate={reduce ? undefined : { opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="text-body-lg mx-auto max-w-2xl text-pretty text-muted-foreground"
+        >
+          {subtitle}
+        </motion.p>
 
         <motion.div
           initial={reduce ? false : { opacity: 0, y: 12 }}
@@ -379,7 +348,6 @@ function LeadPillarCard({ pillar }: { pillar: PillarData }) {
           </div>
 
           <Stack gap={3}>
-            <p className="text-overline text-accent">{pillar.eyebrow}</p>
             <h2 className="text-h2 text-balance text-foreground">
               <span className="bg-linear-to-r from-primary to-accent bg-clip-text text-transparent">
                 {pillar.title}
@@ -450,7 +418,6 @@ function PillarCell({ pillar }: { pillar: PillarData }) {
               </Badge>
             </div>
             <Stack gap={2}>
-              <p className="text-overline text-accent">{pillar.eyebrow}</p>
               <h2 className="text-h4 text-balance text-foreground">
                 {pillar.title}
               </h2>
@@ -529,12 +496,10 @@ export interface BenefitTab {
 }
 
 export function BenefitTabs({
-  eyebrow,
   heading,
   description,
   tabs,
 }: {
-  eyebrow: string;
   heading: string;
   description: string;
   tabs: BenefitTab[];
@@ -546,7 +511,6 @@ export function BenefitTabs({
   return (
     <Section className="pt-2">
       <header className="mx-auto mb-10 max-w-2xl text-center">
-        <p className="text-overline mb-3 text-accent">{eyebrow}</p>
         <h2 className="text-h2 text-balance text-foreground">{heading}</h2>
         <p className="text-body-lg mt-4 text-pretty text-muted-foreground">
           {description}

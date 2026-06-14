@@ -120,8 +120,6 @@ function HeroCta({
  * ------------------------------------------------------------------ */
 
 export function AboutHero({
-  badgeLabel,
-  eyebrow,
   titleLead,
   titleHighlight,
   titleTail,
@@ -129,8 +127,6 @@ export function AboutHero({
   primaryCta,
   secondaryCta,
 }: {
-  badgeLabel: string;
-  eyebrow: string;
   titleLead: string;
   titleHighlight: string;
   titleTail: string;
@@ -193,32 +189,7 @@ export function AboutHero({
       />
 
       <Stack gap={6} align="center" className="mx-auto max-w-3xl text-center">
-        <motion.span
-          initial={reduce ? false : { opacity: 0, y: -8 }}
-          animate={reduce ? undefined : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-        >
-          <Badge
-            variant="info"
-            size="md"
-            className="inline-flex items-center gap-1.5"
-          >
-            <IconRenderer name="compass" size={14} />
-            {badgeLabel}
-          </Badge>
-        </motion.span>
-
         <Stack gap={3} align="center">
-          {/* EYEBROS LOOKS LIKE AI SLOP */}
-          <motion.p
-            initial={reduce ? false : { opacity: 0 }}
-            animate={reduce ? undefined : { opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-overline text-accent"
-          >
-            {eyebrow}
-          </motion.p>
-
           <h1
             ref={headlineRef}
             className="text-display text-balance text-foreground"
@@ -278,11 +249,9 @@ export function AboutHero({
  * ------------------------------------------------------------------ */
 
 export function MissionStatement({
-  eyebrow,
   heading,
   paragraphs,
 }: {
-  eyebrow: string;
   heading: string;
   /** Plain-text paragraphs; the lead paragraph supports a highlighted word run is handled by caller. */
   paragraphs: string[];
@@ -310,8 +279,6 @@ export function MissionStatement({
           >
             <IconRenderer name="target" size={28} />
           </span>
-          {/* EYEBROS LOOKS LIKE AI SLOP */}
-          <p className="text-overline text-accent">{eyebrow}</p>
           <h2 className="text-h2 text-balance text-foreground">
             <span className="bg-gradient-to-r from-[var(--primary)] via-[var(--accent)] to-[var(--primary)] bg-clip-text text-transparent">
               {heading}
@@ -383,12 +350,10 @@ export function MissionStatement({
  * ------------------------------------------------------------------ */
 
 export function PillarBento({
-  eyebrow,
   heading,
   description,
   pillars,
 }: {
-  eyebrow: string;
   heading: string;
   description: string;
   pillars: PillarData[];
@@ -399,8 +364,6 @@ export function PillarBento({
   return (
     <Section className="pt-2">
       <header className="mx-auto mb-10 max-w-2xl text-center">
-        {/* EYEBROS LOOKS LIKE AI SLOP */}
-        <p className="text-overline mb-3 text-accent">{eyebrow}</p>
         <h2 className="text-h2 text-balance text-foreground">{heading}</h2>
         <p className="text-body-lg mt-4 text-pretty text-muted-foreground">
           {description}
@@ -537,12 +500,10 @@ function PillarCell({ pillar }: { pillar: PillarData }) {
  * ------------------------------------------------------------------ */
 
 export function MilestoneStats({
-  eyebrow,
   heading,
   description,
   stats,
 }: {
-  eyebrow: string;
   heading: string;
   description: string;
   stats: StatData[];
@@ -551,8 +512,6 @@ export function MilestoneStats({
   return (
     <Section className="pt-2">
       <header className="mx-auto mb-10 max-w-2xl text-center">
-        {/* EYEBROS LOOKS LIKE AI SLOP */}
-        <p className="text-overline mb-3 text-accent">{eyebrow}</p>
         <h2 className="text-h2 text-balance text-foreground">{heading}</h2>
         <p className="text-body-lg mt-4 text-pretty text-muted-foreground">
           {description}
@@ -600,12 +559,10 @@ export function MilestoneStats({
  * ------------------------------------------------------------------ */
 
 export function ValueGrid({
-  eyebrow,
   heading,
   description,
   values,
 }: {
-  eyebrow: string;
   heading: string;
   description: string;
   values: ValueData[];
@@ -617,8 +574,6 @@ export function ValueGrid({
   return (
     <Section className="pt-2">
       <header className="mx-auto mb-10 max-w-2xl text-center">
-        {/* EYEBROS LOOKS LIKE AI SLOP */}
-        <p className="text-overline mb-3 text-accent">{eyebrow}</p>
         <h2 className="text-h2 text-balance text-foreground">{heading}</h2>
         <p className="text-body-lg mt-4 text-pretty text-muted-foreground">
           {description}
@@ -666,13 +621,11 @@ export function ValueGrid({
  * ------------------------------------------------------------------ */
 
 export function TeamSection({
-  eyebrow,
   heading,
   description,
   members,
   note,
 }: {
-  eyebrow: string;
   heading: string;
   description: string;
   members: TeamData[];
@@ -685,8 +638,6 @@ export function TeamSection({
   return (
     <Section className="pt-2">
       <header className="mx-auto mb-10 max-w-3xl text-center">
-        {/* EYEBROS LOOKS LIKE AI SLOP */}
-        <p className="text-overline mb-3 text-accent">{eyebrow}</p>
         <h2 className="text-h2 text-balance text-foreground">{heading}</h2>
         <p className="text-body-lg mt-4 text-pretty text-muted-foreground">
           {description}

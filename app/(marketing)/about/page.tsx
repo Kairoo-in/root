@@ -155,8 +155,6 @@ export default function AboutPage() {
   return (
     <>
       <AboutHero
-        badgeLabel="The right moment to grow"
-        eyebrow="About Kairoo"
         titleLead="The right"
         titleHighlight="moment"
         titleTail="to grow"
@@ -166,34 +164,29 @@ export default function AboutPage() {
       />
 
       <MissionStatement
-        eyebrow="Our mission"
         heading="Make career growth a strategy, not a scramble"
         paragraphs={MISSION_PARAGRAPHS}
       />
 
       <PillarBento
-        eyebrow="What we build"
         heading="Three capabilities, one platform"
         description="The product is organized around three connected pillars. Each is useful on its own — together they turn growth into a continuous, guided loop."
         pillars={PILLARS}
       />
 
       <MilestoneStats
-        eyebrow="The shape of Kairoo"
         heading="How the platform adds up"
         description="Not vanity metrics — the structural facts that make growth feel guided instead of chaotic."
         stats={STATS}
       />
 
       <ValueGrid
-        eyebrow="What we value"
         heading="What we value"
         description="The principles that shape every decision we make — from the roadmap we build to the way we talk about it."
         values={VALUES}
       />
 
       <TeamSection
-        eyebrow="Our team"
         heading="Builders, learners, and career-changers"
         description="Kairoo is built by a small, focused team that has lived the problem we’re solving — navigating career pivots, skill gaps, and the overwhelm of doing it alone. Detailed team profiles are on the way."
         members={TEAM}
