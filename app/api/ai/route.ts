@@ -7,6 +7,7 @@ import { noopRetriever } from '@/engines/ai/retrieval/noop';
 import { sanitizeOutput } from '@/engines/ai/guardrails/output';
 import { getRemainingCredits, recordUsage } from '@/data/repositories/usage.repo';
 import { rateLimit } from '@/services/ai';
+import { buildUserContext } from '@/engines/user-context';
 
 export async function POST(req: NextRequest) {
   try {
@@ -58,7 +59,9 @@ export async function POST(req: NextRequest) {
     // 6. Build prompt using the same compose() + retrieval path as generate()
     const userPrompt = feature.buildUserPrompt(inputs);
     const context = await noopRetriever.retrieve(userPrompt);
-    const messages = compose({ systemAddendum: feature.systemAddendum, userPrompt, context });
+    const userContext = await buildUserContext(userId).catch(() => '');
+    const systemAddendum = [feature.systemAddendum, userContext].filter(Boolean).join('\n\n');
+    const messages = compose({ systemAddendum, userPrompt, context });
 
     // 7. Stream tokens back — gateway handles provider fallback & retries
     const tokenStream = generateStream({

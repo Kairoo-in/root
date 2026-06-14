@@ -152,7 +152,7 @@ export default function CustomersPage() {
       <CTA
         headline="Write your own success story"
         body="Start building your AI-powered career and learning command center today."
-        primary={{ label: "Launch Your Journey", href: "/pricing" }}
+        primary={{ label: "Launch Your Journey", href: "/sign-up" }}
         secondary={{ label: "Explore Features", href: "/features" }}
       />
     </>

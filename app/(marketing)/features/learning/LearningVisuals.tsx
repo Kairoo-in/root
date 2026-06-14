@@ -165,7 +165,7 @@ function LearningHero() {
           className="flex flex-col items-center gap-3 sm:flex-row"
         >
           <Button asChild size="lg">
-            <Link href="/pricing">Get started free</Link>
+            <Link href="/sign-up">Get started free</Link>
           </Button>
           <Button asChild size="lg" variant="outline">
             <Link href="/features">Explore all features</Link>
@@ -230,7 +230,7 @@ function AvailableNow({ ready }: { ready: ToolCard[] }) {
                   <CardItem
                     translateZ={30}
                     as={Link}
-                    href="/pricing"
+                    href="/sign-up"
                     className="mt-auto inline-flex items-center gap-1 text-body-sm font-semibold text-primary hover:underline"
                   >
                     Try it free

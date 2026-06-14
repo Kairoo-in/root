@@ -46,7 +46,7 @@ export default function LearningFeaturesPage() {
       <CTA
         headline="Pick a skill. Get a path."
         body="Start free with the Explorer plan and generate your first AI learning path in minutes — no credit card required."
-        primary={{ label: "Get started free", href: "/pricing" }}
+        primary={{ label: "Get started free", href: "/sign-up" }}
         secondary={{ label: "Explore all features", href: "/features" }}
       />
     </>

@@ -53,6 +53,40 @@ export const activityLog = pgTable('activity_log', {
   createdAt: timestamp('created_at').defaultNow().notNull(),
 })
 
+export const userProfiles = pgTable('user_profiles', {
+  userId: text('user_id').primaryKey().references(() => users.id, { onDelete: 'cascade' }),
+  // Current situation
+  currentRole: text('current_role'),
+  currentCompany: text('current_company'),
+  yearsExperience: integer('years_experience'),
+  industry: text('industry'),
+  location: text('location'),
+  // Where they're going
+  targetRole: text('target_role'),
+  targetTimeline: text('target_timeline'), // e.g. "12 months", "2 years"
+  careerGoalShort: text('career_goal_short'), // 1-sentence
+  careerGoalLong: text('career_goal_long'),   // full paragraph
+  // Background
+  skills: jsonb('skills').$type<string[]>().default([]),
+  education: jsonb('education').$type<{ degree: string; field: string; institution: string; year?: number }[]>().default([]),
+  certifications: jsonb('certifications').$type<string[]>().default([]),
+  languages: jsonb('languages').$type<string[]>().default([]), // spoken + programming
+  resumeText: text('resume_text'), // full resume paste
+  // Links
+  linkedinUrl: text('linkedin_url'),
+  githubUrl: text('github_url'),
+  portfolioUrl: text('portfolio_url'),
+  // Preferences
+  workStyle: text('work_style'), // 'remote' | 'hybrid' | 'onsite'
+  learningStyle: text('learning_style'), // 'visual' | 'reading' | 'hands-on'
+  // AI-generated context summary (refreshed on profile save)
+  contextSummary: text('context_summary'),
+  // Onboarding state
+  onboardingCompleted: boolean('onboarding_completed').default(false),
+  onboardingStep: integer('onboarding_step').default(0),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+})
+
 export const goals = pgTable('goals', {
   id: text('id').primaryKey(),
   userId: text('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),

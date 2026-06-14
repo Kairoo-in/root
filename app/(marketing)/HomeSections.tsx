@@ -205,7 +205,7 @@ export function HomeHero() {
             whileTap={reduce ? undefined : { scale: 0.97 }}
           >
             <Button asChild size="lg" className="group gap-2">
-              <Link href="/pricing">
+              <Link href="/sign-up">
                 Launch your journey
                 <IconRenderer
                   name="arrow-right"
@@ -1002,11 +1002,11 @@ export function HomePricingTeaser() {
                     variant={plan.popular ? "primary" : "secondary"}
                     className="w-full"
                   >
-                    <Link href="/pricing">
+                    <Link href={plan.price === "$0" ? "/sign-up" : plan.price === "Custom" ? "/contact" : "/pricing"}>
                       {plan.price === "Custom"
                         ? "Contact sales"
                         : plan.price === "$0"
-                          ? "Get started"
+                          ? "Get started free"
                           : "Start free trial"}
                     </Link>
                   </Button>
@@ -1060,7 +1060,7 @@ export function HomeClosingCTA() {
           tone="gradient"
           headline="Ready to transform your professional journey?"
           body="Join thousands of professionals and organizations already accelerating their growth with Kairoo. 14-day free trial, set up in under 5 minutes, with 24/7 AI plus human support."
-          primary={{ label: "Start free trial", href: "/pricing" }}
+          primary={{ label: "Start free trial", href: "/sign-up" }}
           secondary={{ label: "Schedule a demo", href: "/contact" }}
         />
       </div>

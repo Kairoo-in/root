@@ -139,7 +139,7 @@ export function CustomersHero({
           transition={{ duration: 0.6, delay: 0.65, ease: EASE }}
         >
           <motion.a
-            href="/pricing"
+            href="/sign-up"
             whileHover={reduce ? undefined : { scale: 1.03 }}
             whileTap={reduce ? undefined : { scale: 0.97 }}
             className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-primary px-6 text-base font-semibold text-primary-foreground shadow-elevation-2 transition-colors hover:bg-teal-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"

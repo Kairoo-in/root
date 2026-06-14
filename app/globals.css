@@ -412,6 +412,14 @@ body {
   }
 }
 
+/* Auth page aurora — adapts to light/dark via CSS vars */
+.auth-aurora {
+  background:
+    radial-gradient(55% 50% at 20% 10%, color-mix(in oklab, var(--primary) 8%, transparent) 0%, transparent 60%),
+    radial-gradient(45% 45% at 85% 15%, color-mix(in oklab, var(--accent) 6%, transparent) 0%, transparent 55%),
+    radial-gradient(60% 60% at 50% 110%, color-mix(in oklab, var(--primary) 5%, transparent) 0%, transparent 60%);
+}
+
 html {
   background-color: var(--background);
 }

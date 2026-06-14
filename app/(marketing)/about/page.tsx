@@ -160,7 +160,7 @@ export default function AboutPage() {
         titleTail="to grow"
         subtitle="Kairoo turns chaotic career development into strategic growth — combining AI-powered learning paths, a complete career toolkit, and business intelligence in one integrated platform that helps professionals and teams accelerate skill acquisition and reach measurable outcomes."
         primaryCta={{ label: "Explore the platform", href: "/features" }}
-        secondaryCta={{ label: "See pricing", href: "/pricing" }}
+        secondaryCta={{ label: "See pricing", href: "/sign-up" }}
       />
 
       <MissionStatement
@@ -196,7 +196,7 @@ export default function AboutPage() {
       <AboutCta
         headline="There's a right moment to grow. Make it now."
         body="Start with a personalized roadmap, or talk to us about rolling Kairoo out across your team."
-        primary={{ label: "Get started", href: "/pricing" }}
+        primary={{ label: "Get started", href: "/sign-up" }}
         secondary={{ label: "Talk to us", href: "/contact" }}
       />
     </>

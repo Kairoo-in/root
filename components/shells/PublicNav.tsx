@@ -3,7 +3,8 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, LayoutDashboard } from 'lucide-react';
+import { useAuth, UserButton } from '@clerk/nextjs';
 
 import { cn } from '@/lib/utils';
 import Logo from '@/components/Logo';
@@ -43,6 +44,7 @@ function useIsActive() {
  */
 export default function PublicNav() {
   const isActive = useIsActive();
+  const { isSignedIn } = useAuth();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -56,7 +58,7 @@ export default function PublicNav() {
   return (
     <header
       className={cn(
-        'fixed inset-x-0 top-0 z-[var(--z-sticky)] w-full transition-colors duration-200',
+        'fixed inset-x-0 top-0 z-(--z-sticky) w-full transition-colors duration-200',
         scrolled
           ? 'border-b border-border bg-card/80 backdrop-blur'
           : 'border-b border-transparent bg-transparent',
@@ -93,18 +95,33 @@ export default function PublicNav() {
           {/* Desktop CTA cluster */}
           <div className="hidden items-center gap-2 md:flex">
             <ThemeToggle />
-            <Link
-              href="/investors/deck"
-              className={cn(ctaBase, ctaSize.sm, ctaVariant.outline)}
-            >
-              Book Demo
-            </Link>
-            <Link
-              href="/pricing"
-              className={cn(ctaBase, ctaSize.sm, ctaVariant.primary)}
-            >
-              Get Started
-            </Link>
+            {isSignedIn ? (
+              <>
+                <Link
+                  href="/dashboard"
+                  className={cn(ctaBase, ctaSize.sm, ctaVariant.outline)}
+                >
+                  <LayoutDashboard className="h-4 w-4" />
+                  Dashboard
+                </Link>
+                <UserButton />
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/sign-in"
+                  className={cn(ctaBase, ctaSize.sm, ctaVariant.outline)}
+                >
+                  Log in
+                </Link>
+                <Link
+                  href="/sign-up"
+                  className={cn(ctaBase, ctaSize.sm, ctaVariant.primary)}
+                >
+                  Get started free
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile cluster */}
@@ -156,20 +173,33 @@ export default function PublicNav() {
                       </ul>
                     </Drawer.Body>
                     <Drawer.Footer className="flex flex-col gap-2 border-t border-border">
-                      <Link
-                        href="/investors/deck"
-                        onClick={() => setOpen(false)}
-                        className={cn(ctaBase, ctaSize.md, ctaVariant.outline, 'w-full')}
-                      >
-                        Book Demo
-                      </Link>
-                      <Link
-                        href="/pricing"
-                        onClick={() => setOpen(false)}
-                        className={cn(ctaBase, ctaSize.md, ctaVariant.primary, 'w-full')}
-                      >
-                        Get Started
-                      </Link>
+                      {isSignedIn ? (
+                        <Link
+                          href="/dashboard"
+                          onClick={() => setOpen(false)}
+                          className={cn(ctaBase, ctaSize.md, ctaVariant.primary, 'w-full')}
+                        >
+                          <LayoutDashboard className="h-4 w-4" />
+                          Go to Dashboard
+                        </Link>
+                      ) : (
+                        <>
+                          <Link
+                            href="/sign-in"
+                            onClick={() => setOpen(false)}
+                            className={cn(ctaBase, ctaSize.md, ctaVariant.outline, 'w-full')}
+                          >
+                            Log in
+                          </Link>
+                          <Link
+                            href="/sign-up"
+                            onClick={() => setOpen(false)}
+                            className={cn(ctaBase, ctaSize.md, ctaVariant.primary, 'w-full')}
+                          >
+                            Get started free
+                          </Link>
+                        </>
+                      )}
                     </Drawer.Footer>
                   </Drawer.Dialog>
                 </Drawer.Content>

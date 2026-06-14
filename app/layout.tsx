@@ -3,6 +3,7 @@ import { DM_Sans, Space_Grotesk, Mona_Sans, Geist_Mono } from "next/font/google"
 import "./globals.css";
 import { ClerkProvider } from '@clerk/nextjs';
 import { Providers } from "./providers";
+import { clerkAppearance } from "@/lib/clerk-appearance";
 // import RebrandBanner from "@/components/RebrandBanner";
 import CookieConsent from "@/components/CookieConsent";
 
@@ -42,7 +43,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider appearance={clerkAppearance}>
       <html lang="en" className="scroll-smooth" suppressHydrationWarning>
         <body
           className={`${dmSans.variable} ${spaceGrotesk.variable} ${monaSans.variable} ${geistMono.variable} antialiased transition-colors duration-500`}
