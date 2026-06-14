@@ -23,6 +23,7 @@ import { Stack } from "@/components/layout/Stack";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Prose } from "@/components/layout/Prose";
 import { PaginationDemo } from "./PaginationDemo";
+import { InteractiveDemos } from "./InteractiveDemos";
 
 export const metadata: Metadata = { title: "Kairoo — Style reference", robots: { index: false } };
 
@@ -191,6 +192,16 @@ export default function StylePage() {
             </Stack>
           </Container>
         </Section>
+      </section>
+
+      <section className="space-y-6">
+        <h2 className="text-h3 text-foreground">Interactive (HeroUI v3)</h2>
+        <p className="text-body text-muted-foreground">
+          Live wrappers from <code>@/components/ui</code>, rendered on HeroUI&apos;s
+          themed defaults (token-only). All requested primitives resolved during
+          stabilization — none were skipped.
+        </p>
+        <InteractiveDemos />
       </section>
     </main>
   );
