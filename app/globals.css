@@ -362,6 +362,10 @@ body {
 
 :root {
   --radius: 0.625rem;
+  --aceternity-glow: var(--primary);
+  --aceternity-beam: var(--accent);
+  --aceternity-noise-opacity: 0.035;
+  --aceternity-spotlight-color: color-mix(in oklch, var(--primary) 15%, transparent);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -498,6 +502,17 @@ body {
     opacity: 1;
     transform: translate(-50%, -40%) scale(1);
   }
+}
+
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes scroll {
+  to { transform: translateX(-50%); }
 }
 
 @media (prefers-reduced-motion: reduce) {

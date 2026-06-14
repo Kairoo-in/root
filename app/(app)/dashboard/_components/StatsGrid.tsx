@@ -1,25 +1,62 @@
 'use client'
 import { motion } from 'framer-motion'
-import { Zap, Map, BookOpen, Trophy } from 'lucide-react'
+import { Zap, Map, BookOpen, Flame } from 'lucide-react'
 import { CardSpotlight } from '@/components/aceternity/CardSpotlight'
 import { cn } from '@/lib/utils'
+import type { DerivedStats } from '@/data/repositories/stats.repo'
 
 interface StatsGridProps {
+  stats: DerivedStats | null
   usedCredits: number
-  total: number
 }
 
-export function StatsGrid({ usedCredits, total }: StatsGridProps) {
-  const stats = [
-    { label: 'AI Runs', value: total.toString(), sub: 'this month', icon: Zap, color: 'text-teal-400', bg: 'bg-teal-500/10', delta: '+18%', positive: true },
-    { label: 'Roadmaps', value: '3', sub: 'active plans', icon: Map, color: 'text-indigo-400', bg: 'bg-indigo-500/10', delta: '1 done ✓', positive: true },
-    { label: 'Credits Used', value: usedCredits.toString(), sub: 'this month', icon: BookOpen, color: 'text-amber-400', bg: 'bg-amber-500/10', delta: `${usedCredits} spent`, positive: true },
-    { label: 'XP Streak', value: '12', sub: 'days 🔥', icon: Trophy, color: 'text-emerald-400', bg: 'bg-emerald-500/10', delta: 'Level 8', positive: true },
+export function StatsGrid({ stats, usedCredits }: StatsGridProps) {
+  const items = [
+    {
+      label: 'AI Runs',
+      value: stats?.totalRuns?.toString() ?? '0',
+      sub: 'total sessions',
+      icon: Zap,
+      color: 'text-teal-400',
+      bg: 'bg-teal-500/10',
+      delta: 'all time',
+      positive: true,
+    },
+    {
+      label: 'Roadmaps',
+      value: stats?.roadmapCount?.toString() ?? '0',
+      sub: 'career plans',
+      icon: Map,
+      color: 'text-indigo-400',
+      bg: 'bg-indigo-500/10',
+      delta: stats?.roadmapCount === 0 ? 'none yet' : `${stats?.roadmapCount} active`,
+      positive: true,
+    },
+    {
+      label: 'Credits Used',
+      value: usedCredits.toString(),
+      sub: 'this month',
+      icon: BookOpen,
+      color: 'text-amber-400',
+      bg: 'bg-amber-500/10',
+      delta: `${usedCredits} spent`,
+      positive: true,
+    },
+    {
+      label: 'Day Streak',
+      value: stats?.streak?.toString() ?? '0',
+      sub: stats?.streak === 1 ? 'day 🔥' : 'days 🔥',
+      icon: Flame,
+      color: 'text-emerald-400',
+      bg: 'bg-emerald-500/10',
+      delta: stats ? `Level ${stats.level}` : 'Level 1',
+      positive: true,
+    },
   ]
 
   return (
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-5">
-      {stats.map((stat, i) => (
+      {items.map((stat, i) => (
         <motion.div
           key={stat.label}
           initial={{ opacity: 0, y: 12 }}

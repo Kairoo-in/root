@@ -6,6 +6,7 @@ import { compose } from '@/engines/ai/prompts/compose';
 import { noopRetriever } from '@/engines/ai/retrieval/noop';
 import { sanitizeOutput } from '@/engines/ai/guardrails/output';
 import { getRemainingCredits, recordUsage } from '@/data/repositories/usage.repo';
+import { logActivity } from '@/data/repositories/activityLog.repo';
 import { rateLimit } from '@/services/ai';
 import { buildUserContext } from '@/engines/user-context';
 
@@ -84,9 +85,12 @@ export async function POST(req: NextRequest) {
             }
           }
           controller.close();
-          // Fire-and-forget usage recording after stream completes
+          // Fire-and-forget: record usage + activity after stream completes
           recordUsage(userId, featureId, totalChars).catch((e) =>
             console.error('[ai/route] recordUsage failed:', e)
+          );
+          logActivity(userId, 'ai_run', feature.name, featureId).catch((e) =>
+            console.error('[ai/route] logActivity failed:', e)
           );
         } catch (err) {
           console.error('[ai/route] stream error:', err);

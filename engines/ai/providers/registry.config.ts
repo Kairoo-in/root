@@ -12,4 +12,7 @@ export const OPENAI_COMPAT_PROVIDERS: OpenAICompatProviderConfig[] = [
   { name: "openrouter", baseURL: "https://openrouter.ai/api/v1", apiKeyEnv: "OPENROUTER_API_KEY" },
   { name: "huggingface", baseURL: "https://router.huggingface.co/v1", apiKeyEnv: "HUGGINGFACE_WRITE_TOKEN" },
   { name: "ollama", baseURL: "https://ollama.com/v1", apiKeyEnv: "OLLAMA_API_KEY" },
+  { name: "clod", baseURL: "https://api.clod.io/v1", apiKeyEnv: "CLOD_API_KEY"},
+  {name: "ainative", baseURL: "https://api.ainative.studio/api/v1", apiKeyEnv: "AI_NATIVE_API_KEY"},
+  {name: "runway", baseURL: "https://api.runwayml.com/v1", apiKeyEnv: "RUNWAY_API_KEY"}
 ];

@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 1254",
+    "app": "export $(grep -v '^#' .env.prod | xargs) && next dev -p 1254",
     "build": "next build",
     "start": "next start -p 1254",
     "kill": "kill $(lsof -t -i:1254) 2>/dev/null || echo 'No process running on port 1254'",
