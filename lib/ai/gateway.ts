@@ -29,7 +29,14 @@ export async function generate(req: GenerationRequest): Promise<Result<Generatio
       const started = Date.now();
       try {
         const res = await withTimeout(adapter.generate(req, cand.model), TIMEOUT_MS);
-        logger.info("ai.generate.ok", { provider: cand.provider, model: cand.model, ms: Date.now() - started });
+        logger.info("ai.generate.ok", {
+          provider: cand.provider,
+          model: cand.model,
+          tier: req.tier,
+          ms: Date.now() - started,
+          inputTokens: res.usage?.inputTokens,
+          outputTokens: res.usage?.outputTokens,
+        });
         return ok(res);
       } catch (e) {
         lastErr = e;
