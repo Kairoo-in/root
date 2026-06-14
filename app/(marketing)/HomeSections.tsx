@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/Button";
 import { Tabs } from "@/components/ui/Tabs";
 import { Tooltip } from "@/components/ui/Tooltip";
 import { Spotlight } from "@/components/motion/Spotlight";
+import { GeminiEffect, SpotlightNew, GridDotBackground, BackgroundRipple, Marquee3D } from "@/components/aceternity";
 import {
   CardContainer,
   CardBody,
@@ -120,6 +121,7 @@ export function HomeHero() {
   const line1 = ["Your", "AI-Powered", "Career", "&", "Learning"];
 
   return (
+    <GeminiEffect>
     <Section className="relative isolate overflow-hidden">
       {/* Layered token-driven spotlights for depth */}
       <Spotlight
@@ -157,6 +159,7 @@ export function HomeHero() {
         </>
       )}
 
+      <SpotlightNew size={700}>
       <Stack
         gap={8}
         align="center"
@@ -270,7 +273,9 @@ export function HomeHero() {
           />
         </motion.div>
       </Stack>
+      </SpotlightNew>
     </Section>
+    </GeminiEffect>
   );
 }
 
@@ -344,6 +349,7 @@ export function HomePillars() {
   const reveal = useReveal();
 
   return (
+    <GridDotBackground variant="dots" className="relative">
     <Section className="relative">
       <SectionHeading
         title="Everything you need to plan, learn, and"
@@ -427,6 +433,7 @@ export function HomePillars() {
         ))}
       </div>
     </Section>
+    </GridDotBackground>
   );
 }
 
@@ -790,11 +797,14 @@ const IMPACT_STATS = [
   { value: 95, suffix: "%", label: "User satisfaction rate", icon: "star" },
 ];
 
+const logoItems = ['Google', 'Meta', 'Amazon', 'Microsoft', 'Stripe', 'Vercel', 'OpenAI', 'Anthropic', 'Linear'];
+
 export function HomeSocialProof() {
   const reveal = useReveal();
 
   return (
     <Section>
+      <Marquee3D items={logoItems} className="my-8 opacity-60" />
       <TestimonialGrid
         withSection={false}
         heading="Careers transformed with Kairoo"
@@ -1038,6 +1048,7 @@ export function HomePricingTeaser() {
 export function HomeClosingCTA() {
   const reduce = useReducedMotion();
   return (
+    <BackgroundRipple className="relative overflow-hidden">
     <Section className="relative isolate overflow-hidden">
       <Spotlight
         className="-top-20 left-1/2 -translate-x-1/2"
@@ -1055,7 +1066,7 @@ export function HomeClosingCTA() {
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         />
       )}
-      <div className="relative">
+      <div className="relative z-10">
         <CTA
           tone="gradient"
           headline="Ready to transform your professional journey?"
@@ -1065,5 +1076,6 @@ export function HomeClosingCTA() {
         />
       </div>
     </Section>
+    </BackgroundRipple>
   );
 }
