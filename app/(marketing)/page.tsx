@@ -4,6 +4,7 @@ import {
   HomeHero,
   HomePillars,
   HomeFeaturedTools,
+  HomeWorkflow,
   HomeSocialProof,
   HomePricingTeaser,
   HomeClosingCTA,
@@ -28,6 +29,7 @@ export default function HomePage() {
       <HomeHero />
       <HomePillars />
       <HomeFeaturedTools />
+      <HomeWorkflow />
       <HomeSocialProof />
       <HomePricingTeaser />
       <HomeClosingCTA />

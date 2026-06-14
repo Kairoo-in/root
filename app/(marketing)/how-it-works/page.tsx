@@ -1,31 +1,25 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import {
-  SatelliteDish,
-  Brain,
-  Workflow,
-  Sparkles,
-  ShieldCheck,
-  GitBranch,
   Repeat,
   FileText,
-  Plug,
+  GitBranch,
   UserCheck,
   Gauge,
-  ArrowRight,
 } from "lucide-react";
 
-import { Section } from "@/components/layout/Section";
-import { Stack } from "@/components/layout/Stack";
-import { Grid } from "@/components/layout/Grid";
-import { PageHeader, type PageHeaderProps } from "@/components/layout/PageHeader";
-import { Card } from "@/components/ui/Card";
-import { Badge } from "@/components/ui/Badge";
-import { Button } from "@/components/ui/Button";
-import { Hero } from "@/components/blocks/Hero";
 import { BentoGrid, type BentoItem } from "@/components/blocks/BentoGrid";
 import { FAQ } from "@/components/blocks/FAQ";
 import { CTA } from "@/components/blocks/CTA";
+import type { StatCounterProps } from "@/components/blocks/StatCounter";
+
+import {
+  HowItWorksHero,
+  HowItWorksStats,
+  StepsTimeline,
+  StackShowcase,
+  type StepVM,
+  type StackFactVM,
+} from "./HowItWorksVisuals";
 
 export const metadata: Metadata = {
   title: "How It Works — Sense, Think, Act | Kairoo",
@@ -36,19 +30,11 @@ export const metadata: Metadata = {
 /* -------------------------------------------------------------------------- */
 /*  Data — public-safe. Reflects the REAL stack (Next.js + engines/ai Gemini   */
 /*  gateway). Deeper architecture is linked, not claimed, on this page.         */
+/*  NOTE: icons cross into client components as NAME strings (IconRenderer      */
+/*  keys), never as lucide component references — keeps prerender RSC-safe.     */
 /* -------------------------------------------------------------------------- */
 
-type Step = {
-  id: string;
-  index: string;
-  title: string;
-  tagline: string;
-  description: string;
-  icon: typeof SatelliteDish;
-  points: string[];
-};
-
-const STEPS: Step[] = [
+const STEPS: StepVM[] = [
   {
     id: "sense",
     index: "01",
@@ -56,7 +42,7 @@ const STEPS: Step[] = [
     tagline: "We start with your context",
     description:
       "Every tool begins by reading where you actually are — your goal, your role, your inputs. You paste a resume, describe a target role, or outline a team's skills, and Kairoo structures that into clean context the model can reason over.",
-    icon: SatelliteDish,
+    icon: "satellite-dish",
     points: [
       "Typed inputs per tool — no blank-page guesswork",
       "Inputs stay scoped to the task you're running",
@@ -70,7 +56,7 @@ const STEPS: Step[] = [
     tagline: "Our AI gateway does the reasoning",
     description:
       "Your context flows through the Kairoo AI engine — a server-side gateway built on Google's Gemini models. Each feature carries its own purpose-built prompt, so the model reasons against a clear objective instead of an open chat.",
-    icon: Brain,
+    icon: "brain",
     points: [
       "Gemini-backed reasoning via the engines/ai gateway",
       "A dedicated, tuned prompt for every feature",
@@ -84,13 +70,21 @@ const STEPS: Step[] = [
     tagline: "You get something you can use",
     description:
       "The result comes back as a concrete artifact — a roadmap, a negotiation script, a tailored learning path, a review draft. Keep it, refine it, or feed it into the next tool. The output is the starting point, not the finish line.",
-    icon: Workflow,
+    icon: "workflow",
     points: [
       "Structured, usable outputs — not just an answer",
       "Iterate: refine inputs and re-run in seconds",
       "Chain tools together as your goals evolve",
     ],
   },
+];
+
+// Headline metrics for the count-up band — sourced from public-safe FAQ copy.
+const STATS: StatCounterProps[] = [
+  { value: 3, label: "Steps in every loop" },
+  { value: 35, suffix: "+", label: "AI tools live today" },
+  { value: 1, label: "Unified AI gateway" },
+  { value: 100, suffix: "%", label: "You stay in control" },
 ];
 
 // The "see who's involved" loop — framed honestly as how the product behaves,
@@ -129,24 +123,24 @@ const LOOP_ITEMS: BentoItem[] = [
   },
 ];
 
-const STACK_FACTS = [
+const STACK_FACTS: StackFactVM[] = [
   {
     title: "Next.js application layer",
     description:
       "The experience you interact with — pages, forms, and results — is a modern Next.js app, server-rendered for speed and reliability.",
-    icon: Plug,
+    icon: "plug",
   },
   {
     title: "engines/ai gateway",
     description:
       "A single server-side gateway brokers every AI request through Google's Gemini models, keeping prompts, inputs, and behavior consistent across tools.",
-    icon: Brain,
+    icon: "brain",
   },
   {
     title: "Privacy-minded by design",
     description:
       "Reasoning happens server-side and is scoped to the task you run. We frame our compliance posture as compliance-ready — building toward recognized standards, not over-claiming certification.",
-    icon: ShieldCheck,
+    icon: "shield-check",
   },
 ];
 
@@ -184,79 +178,29 @@ const FAQ_ITEMS = [
 ];
 
 /* -------------------------------------------------------------------------- */
-/*  Page                                                                       */
+/*  Page (server component — keeps `export const metadata`)                    */
 /* -------------------------------------------------------------------------- */
 
 export default function HowItWorksPage() {
   return (
     <>
-      <Hero
+      <HowItWorksHero
         eyebrow="How it works"
-        title="Sense. Think. Act."
+        words={["Sense", "Think", "Act"]}
         subtitle="Kairoo turns where you are into your next move through one simple loop — and a Gemini-backed AI engine does the heavy thinking, with you in control at every step."
         primaryCta={{ label: "Explore the tools", href: "/features" }}
         secondaryCta={{ label: "See pricing", href: "/pricing" }}
       />
 
-      {/* The three steps — the core narrative, laid out as a responsive Grid. */}
-      <Section aria-labelledby="steps-heading">
-        <Stack gap={12}>
-          <PageHeader
-            size="sm"
-            eyebrow="The loop"
-            title={(<span id="steps-heading">Three steps, every single tool</span>) as PageHeaderProps["title"]}
-            subtitle="From a résumé to a negotiation script to a team's skill matrix — every Kairoo feature follows the same path. Once you know the loop, you know the whole product."
-          />
+      <HowItWorksStats stats={STATS} />
 
-          <Grid cols={3} gap="lg">
-            {STEPS.map((step) => {
-              const Icon = step.icon;
-              return (
-                <Card
-                  key={step.id}
-                  variant="interactive"
-                  className="flex h-full flex-col gap-5 p-7"
-                >
-                  <div className="flex items-center justify-between">
-                    <span
-                      aria-hidden="true"
-                      className="inline-flex size-12 items-center justify-center rounded-xl bg-accent-subtle text-accent [&_svg]:size-6"
-                    >
-                      <Icon />
-                    </span>
-                    <span className="text-data tabular-nums text-muted-foreground/50">
-                      {step.index}
-                    </span>
-                  </div>
-
-                  <Stack gap={2}>
-                    <Badge variant="info" size="sm" className="w-fit">
-                      {step.tagline}
-                    </Badge>
-                    <h3 className="text-h3 text-foreground">{step.title}</h3>
-                    <p className="text-body-sm text-muted-foreground">{step.description}</p>
-                  </Stack>
-
-                  <ul className="mt-auto flex flex-col gap-2 border-t border-border pt-4">
-                    {step.points.map((point) => (
-                      <li
-                        key={point}
-                        className="flex items-start gap-2 text-body-sm text-foreground"
-                      >
-                        <ArrowRight
-                          aria-hidden="true"
-                          className="mt-0.5 size-4 shrink-0 text-accent"
-                        />
-                        <span>{point}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </Card>
-              );
-            })}
-          </Grid>
-        </Stack>
-      </Section>
+      {/* The three steps — the core narrative, as an animated stepped timeline. */}
+      <StepsTimeline
+        eyebrow="The loop"
+        heading="Three steps, every single tool"
+        subtitle="From a résumé to a negotiation script to a team's skill matrix — every Kairoo feature follows the same path. Once you know the loop, you know the whole product."
+        steps={STEPS}
+      />
 
       {/* The loop, expanded — Bento layout describing how the product behaves. */}
       <BentoGrid
@@ -267,59 +211,17 @@ export default function HowItWorksPage() {
       />
 
       {/* The real stack — honest, public-safe; deeper detail is linked, not claimed. */}
-      <Section aria-labelledby="stack-heading" className="bg-muted-surface">
-        <Stack gap={12}>
-          <PageHeader
-            size="sm"
-            eyebrow="Under the hood"
-            title={(<span id="stack-heading">The real stack behind the loop</span>) as PageHeaderProps["title"]}
-            subtitle="No mystery. Kairoo runs on a modern web foundation with a single AI gateway — here's the honest version."
-          />
-
-          <Grid cols={3} gap="lg">
-            {STACK_FACTS.map((fact) => {
-              const Icon = fact.icon;
-              return (
-                <Card key={fact.title} className="flex h-full flex-col gap-4 p-6">
-                  <span
-                    aria-hidden="true"
-                    className="inline-flex size-11 items-center justify-center rounded-lg bg-accent-subtle text-accent [&_svg]:size-5"
-                  >
-                    <Icon />
-                  </span>
-                  <h3 className="text-h5 text-foreground">{fact.title}</h3>
-                  <p className="text-body-sm text-muted-foreground">{fact.description}</p>
-                </Card>
-              );
-            })}
-          </Grid>
-
-          {/* Link to the deeper blueprint rather than re-claiming infra here. */}
-          <Card variant="elevated" className="flex flex-col gap-5 p-7 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex items-start gap-4">
-              <span
-                aria-hidden="true"
-                className="inline-flex size-11 shrink-0 items-center justify-center rounded-lg bg-accent-subtle text-accent [&_svg]:size-5"
-              >
-                <Sparkles />
-              </span>
-              <Stack gap={1}>
-                <h3 className="text-h5 text-foreground">Want the full engineering picture?</h3>
-                <p className="text-body-sm text-muted-foreground">
-                  Signal ingestion, the reasoning fabric, the action layer, scaling and roadmap —
-                  the complete system blueprint lives with our technical deep-dive.
-                </p>
-              </Stack>
-            </div>
-            <Button asChild variant="outline" className="shrink-0">
-              <Link href="/investors/architecture">
-                See technical blueprint
-                <ArrowRight aria-hidden="true" className="size-4" />
-              </Link>
-            </Button>
-          </Card>
-        </Stack>
-      </Section>
+      <StackShowcase
+        eyebrow="Under the hood"
+        heading="The real stack behind the loop"
+        subtitle="No mystery. Kairoo runs on a modern web foundation with a single AI gateway — here's the honest version."
+        facts={STACK_FACTS}
+        blueprint={{
+          heading: "Want the full engineering picture?",
+          body: "Signal ingestion, the reasoning fabric, the action layer, scaling and roadmap — the complete system blueprint lives with our technical deep-dive.",
+          cta: { label: "See technical blueprint", href: "/investors/architecture" },
+        }}
+      />
 
       <FAQ
         eyebrow="Questions"

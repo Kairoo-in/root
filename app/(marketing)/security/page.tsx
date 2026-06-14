@@ -1,32 +1,24 @@
 import type { Metadata } from "next";
-import {
-  ShieldCheck,
-  Lock,
-  Network,
-  AppWindow,
-  Database,
-  KeyRound,
-  EyeOff,
-  Gauge,
-  Activity,
-  FileCheck2,
-  ScrollText,
-  CheckCircle2,
-  Clock3,
-  ArrowRight,
-} from "lucide-react";
 
 import { Section } from "@/components/layout/Section";
-import { Stack } from "@/components/layout/Stack";
-import { Grid } from "@/components/layout/Grid";
-import { Card } from "@/components/ui/Card";
-import { Badge } from "@/components/ui/Badge";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/Alert";
-import { Separator } from "@/components/ui/Separator";
-import { Hero } from "@/components/blocks/Hero";
 import { FAQ } from "@/components/blocks/FAQ";
 import { CTA } from "@/components/blocks/CTA";
 import type { FAQItem } from "@/types";
+import type { StatCounterProps } from "@/components/blocks/StatCounter";
+
+import {
+  SecurityHero,
+  SecurityStats,
+  SecurityLayers,
+  SecurityPractices,
+  SecurityCompliance,
+  SecurityPerformance,
+  type LayerVM,
+  type ComplianceVM,
+  type PracticeVM,
+  type TargetVM,
+} from "./SecurityVisuals";
 
 export const metadata: Metadata = {
   title: "Security & Trust | Kairoo",
@@ -39,26 +31,25 @@ export const metadata: Metadata = {
 /*  Compliance is framed as "compliance-ready / in progress", NOT certified.  */
 /*  Performance figures are stated as TARGETS, not measured guarantees.       */
 /*  Stack references reflect the REAL app (Next.js + engines/ai Gemini).      */
+/*                                                                            */
+/*  RSC-SAFE: this file stays a server component (keeps `export const         */
+/*  metadata`). All animation/interactivity lives in ./SecurityVisuals, and   */
+/*  icons cross the boundary as NAME strings (IconRenderer keys), never as     */
+/*  lucide component references.                                               */
 /* -------------------------------------------------------------------------- */
-
-type ComplianceStatus = "in-progress" | "aligned";
-
-type Compliance = {
-  name: string;
-  scope: string;
-  posture: string;
-  status: ComplianceStatus;
-};
 
 // Honest reframing of the architecture badges: nothing is claimed as
 // "certified" — each entry is described as ready / in progress / aligned.
-const COMPLIANCE: Compliance[] = [
+const COMPLIANCE: ComplianceVM[] = [
   {
     name: "SOC 2",
     scope: "Security, availability & confidentiality controls",
     posture:
       "Targeting SOC 2 Type II. Controls are being implemented and documented ahead of a formal third-party audit.",
     status: "in-progress",
+    statusLabel: "In progress",
+    statusIcon: "clock-3",
+    statusVariant: "info",
   },
   {
     name: "GDPR",
@@ -66,6 +57,9 @@ const COMPLIANCE: Compliance[] = [
     posture:
       "Built to be GDPR-ready: data-subject access and deletion, lawful-basis handling, and EU data-processing practices.",
     status: "aligned",
+    statusLabel: "Aligned",
+    statusIcon: "check-circle",
+    statusVariant: "success",
   },
   {
     name: "HIPAA",
@@ -73,6 +67,9 @@ const COMPLIANCE: Compliance[] = [
     posture:
       "HIPAA-ready architecture for healthcare use cases. A signed BAA and full safeguards are part of our enterprise roadmap.",
     status: "in-progress",
+    statusLabel: "In progress",
+    statusIcon: "clock-3",
+    statusVariant: "info",
   },
   {
     name: "ISO 27001",
@@ -80,105 +77,95 @@ const COMPLIANCE: Compliance[] = [
     posture:
       "Designing our information-security management system against ISO/IEC 27001 controls as we scale toward certification.",
     status: "in-progress",
+    statusLabel: "In progress",
+    statusIcon: "clock-3",
+    statusVariant: "info",
   },
 ];
 
-const STATUS_META: Record<
-  ComplianceStatus,
-  { label: string; variant: "info" | "success"; icon: typeof Clock3 }
-> = {
-  "in-progress": { label: "In progress", variant: "info", icon: Clock3 },
-  aligned: { label: "Aligned", variant: "success", icon: CheckCircle2 },
-};
-
-type SecurityLayer = {
-  title: string;
-  icon: typeof Network;
-  summary: string;
-  controls: string[];
-};
-
 // Three defense layers — verbatim controls preserved from the source
-// architecture page (network / application / data).
-const LAYERS: SecurityLayer[] = [
+// architecture page (network / application / data). Laid out as a Bento.
+const LAYERS: LayerVM[] = [
   {
     title: "Network security",
-    icon: Network,
-    summary: "Traffic is filtered, encrypted, and rate-shaped before it ever reaches the app.",
+    icon: "network",
+    summary:
+      "Traffic is filtered, encrypted, and rate-shaped before it ever reaches the app.",
     controls: [
       "Web application firewall with DDoS protection",
       "SSL / TLS 1.3 encryption in transit",
       "IP allow-listing for administrative access",
     ],
+    span: "wide",
   },
   {
     title: "Application security",
-    icon: AppWindow,
-    summary: "Every request is authenticated, authorized, and scoped to least privilege.",
+    icon: "app-window",
+    summary:
+      "Every request is authenticated, authorized, and scoped to least privilege.",
     controls: [
       "OAuth 2.0 + JWT authentication",
       "Role-based access control (RBAC)",
       "API rate limiting and abuse protection",
     ],
+    span: "cell",
   },
   {
     title: "Data security",
-    icon: Database,
+    icon: "database",
     summary: "Your data is encrypted at rest, minimized, and isolated by design.",
     controls: [
       "AES-256 encryption at rest",
       "PII anonymization and data minimization",
       "Secure key management (HSM-backed)",
     ],
+    span: "cell",
   },
 ];
 
-type Practice = {
-  title: string;
-  icon: typeof Lock;
-  description: string;
-};
-
-const PRACTICES: Practice[] = [
+const PRACTICES: PracticeVM[] = [
   {
     title: "Encryption everywhere",
-    icon: Lock,
+    icon: "lock",
     description:
       "TLS 1.3 in transit and AES-256 at rest, so your data is protected on the wire and on disk.",
   },
   {
     title: "Least-privilege access",
-    icon: KeyRound,
+    icon: "key-round",
     description:
       "Role-based access control and HSM-backed key management keep credentials and secrets tightly scoped.",
   },
   {
     title: "Data minimization",
-    icon: EyeOff,
+    icon: "eye-off",
     description:
       "We collect only what a feature needs and anonymize PII wherever the product allows.",
   },
   {
     title: "Continuous monitoring",
-    icon: Activity,
+    icon: "activity",
     description:
       "Application performance monitoring, metrics, log aggregation, and error tracking give us real-time visibility into the platform.",
   },
 ];
 
-type Target = {
-  metric: string;
-  target: string;
-  note: string;
-};
-
 // Performance figures from the architecture page, restated as TARGETS.
-const PERF_TARGETS: Target[] = [
+const PERF_TARGETS: TargetVM[] = [
   { metric: "First Contentful Paint (FCP)", target: "< 1.2s", note: "First content visible" },
   { metric: "Largest Contentful Paint (LCP)", target: "< 2.5s", note: "Main content loaded" },
   { metric: "Time to Interactive (TTI)", target: "< 3.8s", note: "Page fully responsive" },
   { metric: "API response time", target: "< 200ms", note: "Typical request latency" },
   { metric: "AI processing time", target: "< 5s", note: "Per AI-assisted action" },
+];
+
+// Headline metrics for the animated count-up band — derived from the
+// performance targets and the layered model, stated as targets/figures.
+const PERF_STATS: StatCounterProps[] = [
+  { value: 1.2, prefix: "<", suffix: "s", label: "First Contentful Paint target" },
+  { value: 200, prefix: "<", suffix: "ms", label: "API response time target" },
+  { value: 256, label: "AES-bit encryption at rest" },
+  { value: 3, label: "Defense-in-depth layers" },
 ];
 
 const MONITORING = [
@@ -220,12 +207,20 @@ const FAQ_ITEMS: FAQItem[] = [
 export default function SecurityPage() {
   return (
     <>
-      <Hero
+      <SecurityHero
         eyebrow="Security & Trust"
-        title="Security built in, claims kept honest"
+        titleLead="Security built in,"
+        titleHighlight="claims kept"
+        titleTail="honest"
         subtitle="Kairoo protects your career and learning data with a layered security model, a transparent compliance posture, and performance targets we measure ourselves against — no overstated badges, just the practices behind them."
         primaryCta={{ label: "Talk to us about security", href: "/contact" }}
         secondaryCta={{ label: "See how it works", href: "/how-it-works" }}
+        badges={[
+          { icon: "lock", label: "TLS 1.3 + AES-256" },
+          { icon: "shield-check", label: "Defense in depth" },
+          { icon: "eye-off", label: "Data minimization" },
+          { icon: "activity", label: "Continuous monitoring" },
+        ]}
       />
 
       {/* Honesty note — sets expectations up front. */}
@@ -241,217 +236,51 @@ export default function SecurityPage() {
         </Alert>
       </Section>
 
-      {/* Defense-in-depth layers */}
-      <Section className="pt-0">
-        <Stack gap={3} className="mb-10 max-w-2xl">
-          <p className="text-overline text-primary">Defense in depth</p>
-          <h2 className="text-h2 text-foreground">A layered security model</h2>
-          <p className="text-body-lg text-muted-foreground">
-            Security is enforced at every layer — from the edge of the network, through the
-            application, down to the data itself.
-          </p>
-        </Stack>
+      {/* Performance targets as an animated count-up band. */}
+      <SecurityStats
+        eyebrow="Performance targets"
+        heading="Fast is a feature — and a target"
+        subtitle="A secure product still has to feel instant. These are figures we design and monitor against — targets, not guarantees."
+        stats={PERF_STATS}
+      />
 
-        <Grid cols={3} gap="lg">
-          {LAYERS.map((layer) => {
-            const Icon = layer.icon;
-            return (
-              <Card key={layer.title} variant="default" className="h-full p-6">
-                <Stack gap={4}>
-                  <span
-                    aria-hidden="true"
-                    className="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-accent-subtle text-accent"
-                  >
-                    <Icon size={22} />
-                  </span>
-                  <Stack gap={2}>
-                    <h3 className="text-h4 text-foreground">{layer.title}</h3>
-                    <p className="text-body-sm text-muted-foreground">{layer.summary}</p>
-                  </Stack>
-                  <Separator />
-                  <ul className="flex flex-col gap-2">
-                    {layer.controls.map((control) => (
-                      <li
-                        key={control}
-                        className="flex items-start gap-2 text-body-sm text-foreground"
-                      >
-                        <CheckCircle2
-                          aria-hidden="true"
-                          size={16}
-                          className="mt-0.5 shrink-0 text-success"
-                        />
-                        <span>{control}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </Stack>
-              </Card>
-            );
-          })}
-        </Grid>
-      </Section>
+      {/* Defense-in-depth layers as an asymmetric Bento of spotlight cards. */}
+      <SecurityLayers
+        eyebrow="Defense in depth"
+        heading="A layered security model"
+        subtitle="Security is enforced at every layer — from the edge of the network, through the application, down to the data itself."
+        layers={LAYERS}
+      />
 
-      {/* Security practices */}
-      <Section className="pt-0">
-        <Stack gap={3} className="mb-10 max-w-2xl">
-          <p className="text-overline text-primary">Practices</p>
-          <h2 className="text-h2 text-foreground">How we operate, day to day</h2>
-          <p className="text-body-lg text-muted-foreground">
-            The principles that shape every feature we ship.
-          </p>
-        </Stack>
+      {/* Security practices as a 3D-tilt grid. */}
+      <SecurityPractices
+        eyebrow="Practices"
+        heading="How we operate, day to day"
+        subtitle="The principles that shape every feature we ship."
+        practices={PRACTICES}
+      />
 
-        <Grid cols={2} gap="lg">
-          {PRACTICES.map((practice) => {
-            const Icon = practice.icon;
-            return (
-              <Card key={practice.title} variant="default" className="h-full p-6">
-                <Stack direction="row" gap={4} align="start">
-                  <span
-                    aria-hidden="true"
-                    className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-accent-subtle text-accent"
-                  >
-                    <Icon size={22} />
-                  </span>
-                  <Stack gap={2}>
-                    <h3 className="text-h4 text-foreground">{practice.title}</h3>
-                    <p className="text-body-sm text-muted-foreground">{practice.description}</p>
-                  </Stack>
-                </Stack>
-              </Card>
-            );
-          })}
-        </Grid>
-      </Section>
+      {/* Compliance posture cards + procurement callout. */}
+      <SecurityCompliance
+        eyebrow="Compliance posture"
+        heading="Where we stand on the frameworks"
+        subtitle="Each framework below shows what it covers and exactly where Kairoo sits today — stated plainly."
+        items={COMPLIANCE}
+        callout={{
+          body:
+            "Working through a procurement or vendor-security review? Reach out and we'll share our current documentation and walk you through the controls behind each framework.",
+          cta: { label: "Request security docs", href: "/contact" },
+        }}
+      />
 
-      {/* Compliance posture */}
-      <Section className="pt-0">
-        <Stack gap={3} className="mb-10 max-w-2xl">
-          <p className="text-overline text-primary">Compliance posture</p>
-          <h2 className="text-h2 text-foreground">Where we stand on the frameworks</h2>
-          <p className="text-body-lg text-muted-foreground">
-            Each framework below shows what it covers and exactly where Kairoo sits today —
-            stated plainly.
-          </p>
-        </Stack>
-
-        <Grid cols={2} gap="lg">
-          {COMPLIANCE.map((item) => {
-            const meta = STATUS_META[item.status];
-            const StatusIcon = meta.icon;
-            return (
-              <Card key={item.name} variant="default" className="h-full p-6">
-                <Stack gap={4}>
-                  <Stack direction="row" gap={3} align="center" justify="between">
-                    <Stack direction="row" gap={3} align="center">
-                      <span
-                        aria-hidden="true"
-                        className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-accent-subtle text-accent"
-                      >
-                        <FileCheck2 size={20} />
-                      </span>
-                      <h3 className="text-h4 text-foreground">{item.name}</h3>
-                    </Stack>
-                    <Badge variant={meta.variant} className="gap-1">
-                      <StatusIcon aria-hidden="true" size={12} />
-                      {meta.label}
-                    </Badge>
-                  </Stack>
-                  <p className="text-body-sm font-medium text-foreground">{item.scope}</p>
-                  <p className="text-body-sm text-muted-foreground">{item.posture}</p>
-                </Stack>
-              </Card>
-            );
-          })}
-        </Grid>
-
-        <Alert variant="neutral" className="mt-8">
-          <Stack direction="row" gap={3} align="start">
-            <ShieldCheck aria-hidden="true" size={20} className="mt-0.5 shrink-0 text-primary" />
-            <AlertDescription>
-              Working through a procurement or vendor-security review? Reach out and we&apos;ll
-              share our current documentation and walk you through the controls behind each
-              framework.
-            </AlertDescription>
-          </Stack>
-        </Alert>
-      </Section>
-
-      {/* Performance targets */}
-      <Section className="pt-0">
-        <Stack gap={3} className="mb-10 max-w-2xl">
-          <p className="text-overline text-primary">Performance targets</p>
-          <h2 className="text-h2 text-foreground">Fast is a feature — and a target</h2>
-          <p className="text-body-lg text-muted-foreground">
-            A secure product still has to feel instant. These are the thresholds we design and
-            monitor against. They are targets, not guarantees.
-          </p>
-        </Stack>
-
-        <Grid cols={2} gap="lg" className="items-start">
-          <Card variant="default" className="h-full p-6">
-            <Stack gap={4}>
-              <Stack direction="row" gap={3} align="center">
-                <span
-                  aria-hidden="true"
-                  className="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-accent-subtle text-accent"
-                >
-                  <Gauge size={22} />
-                </span>
-                <h3 className="text-h4 text-foreground">Speed targets</h3>
-              </Stack>
-              <ul className="flex flex-col">
-                {PERF_TARGETS.map((t, i) => (
-                  <li key={t.metric}>
-                    {i > 0 ? <Separator /> : null}
-                    <div className="flex items-center justify-between gap-4 py-3">
-                      <div>
-                        <p className="text-body-sm font-medium text-foreground">{t.metric}</p>
-                        <p className="text-caption text-muted-foreground">{t.note}</p>
-                      </div>
-                      <span className="text-data tabular-nums text-primary">{t.target}</span>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </Stack>
-          </Card>
-
-          <Card variant="default" className="h-full p-6">
-            <Stack gap={4}>
-              <Stack direction="row" gap={3} align="center">
-                <span
-                  aria-hidden="true"
-                  className="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-accent-subtle text-accent"
-                >
-                  <Activity size={22} />
-                </span>
-                <h3 className="text-h4 text-foreground">Monitoring & observability</h3>
-              </Stack>
-              <p className="text-body-sm text-muted-foreground">
-                We watch these targets continuously so regressions surface fast and get fixed
-                before they affect you.
-              </p>
-              <Separator />
-              <ul className="flex flex-col gap-3">
-                {MONITORING.map((m) => (
-                  <li
-                    key={m}
-                    className="flex items-start gap-2 text-body-sm text-foreground"
-                  >
-                    <ScrollText
-                      aria-hidden="true"
-                      size={16}
-                      className="mt-0.5 shrink-0 text-accent"
-                    />
-                    <span>{m}</span>
-                  </li>
-                ))}
-              </ul>
-            </Stack>
-          </Card>
-        </Grid>
-      </Section>
+      {/* Detailed speed targets + monitoring split panel. */}
+      <SecurityPerformance
+        eyebrow="Speed & observability"
+        heading="The thresholds we hold ourselves to"
+        subtitle="A secure product still has to feel instant. These are the thresholds we design and monitor against. They are targets, not guarantees."
+        targets={PERF_TARGETS}
+        monitoring={MONITORING}
+      />
 
       <FAQ
         eyebrow="Trust & transparency"

@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
 
-import { Section } from "@/components/layout/Section";
-import { PageHeader } from "@/components/layout/PageHeader";
-import { Stack } from "@/components/layout/Stack";
-import { Card } from "@/components/ui/Card";
-import { Badge } from "@/components/ui/Badge";
-import { FeatureGrid } from "@/components/blocks/FeatureGrid";
 import { CTA } from "@/components/blocks/CTA";
-import TeamSkillChart from "@/components/TeamSkillChart";
 import type { Feature } from "@/types";
+
+import {
+  TeamsHero,
+  AnalyticsPillars,
+  SkillMatrix,
+  CapabilitiesBento,
+  TeamsStatBand,
+  type PillarCard,
+} from "./TeamsVisuals";
 
 export const metadata: Metadata = {
   title: "Team & Enterprise Analytics — Kairoo",
@@ -21,7 +23,7 @@ export const metadata: Metadata = {
  * (rephrased, no facts dropped) from the home "Enterprise-Grade Team
  * Analytics" section. Icon names resolve through IconRenderer's map.
  */
-const ANALYTICS_PILLARS: Feature[] = [
+const ANALYTICS_PILLARS: PillarCard[] = [
   {
     id: "real-time-insights",
     icon: "users",
@@ -45,68 +47,32 @@ const ANALYTICS_PILLARS: Feature[] = [
   },
 ];
 
+// Keep the Feature type referenced so the registry shape stays in sync.
+const _pillarsAsFeatures: Feature[] = ANALYTICS_PILLARS;
+void _pillarsAsFeatures;
+
+const SKILL_MATRIX_BULLETS = [
+  { icon: "gauge", text: "Compare against an industry benchmark on every axis." },
+  { icon: "line-chart", text: "Surface skill gaps to prioritize development planning." },
+  { icon: "target", text: "Tie individual growth to organization-wide objectives." },
+];
+
 export default function TeamsFeaturePage() {
   return (
     <>
-      <Section>
-        <PageHeader
-          eyebrow="Teams & Enterprise"
-          title="Enterprise-Grade Team Analytics"
-          subtitle="Transform your organization with AI-powered team skill tracking, development planning, and performance analytics — built for the way real teams grow."
-        />
-      </Section>
+      <TeamsHero
+        eyebrow="Teams & Enterprise"
+        title="Enterprise-Grade Team Analytics"
+        subtitle="Transform your organization with AI-powered team skill tracking, development planning, and performance analytics — built for the way real teams grow."
+      />
 
-      <Section className="pt-0">
-        <FeatureGrid items={ANALYTICS_PILLARS} columns={3} />
-      </Section>
+      <AnalyticsPillars items={ANALYTICS_PILLARS} />
 
-      <Section className="pt-0">
-        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
-          <Stack gap={4}>
-            <Badge variant="info" className="w-fit">
-              Sample team snapshot
-            </Badge>
-            <h2 className="text-h2 text-foreground">Team Skill Matrix</h2>
-            <p className="text-body-lg text-muted-foreground">
-              See team strengths at a glance. The Skill Matrix maps your team&apos;s
-              average proficiency against an industry benchmark across six
-              dimensions — AI/ML, leadership, technical skills, communication,
-              strategy, and innovation — so you can target development where it
-              moves the needle.
-            </p>
-            <ul className="flex flex-col gap-2 text-body-sm text-muted-foreground">
-              <li className="flex items-start gap-2">
-                <span
-                  aria-hidden
-                  className="mt-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
-                />
-                Compare against an industry benchmark on every axis.
-              </li>
-              <li className="flex items-start gap-2">
-                <span
-                  aria-hidden
-                  className="mt-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
-                />
-                Surface skill gaps to prioritize development planning.
-              </li>
-              <li className="flex items-start gap-2">
-                <span
-                  aria-hidden
-                  className="mt-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
-                />
-                Tie individual growth to organization-wide objectives.
-              </li>
-            </ul>
-          </Stack>
+      <SkillMatrix bullets={SKILL_MATRIX_BULLETS} />
 
-          <Card variant="elevated" className="p-6 sm:p-8">
-            <h3 className="mb-6 text-center text-h4 text-foreground">
-              Team Skill Matrix
-            </h3>
-            <TeamSkillChart />
-          </Card>
-        </div>
-      </Section>
+      <CapabilitiesBento />
+
+      <TeamsStatBand />
 
       <CTA
         headline="Bring analytics to your whole team"

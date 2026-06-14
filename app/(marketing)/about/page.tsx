@@ -1,24 +1,18 @@
 import type { Metadata } from "next";
 
-import { Hero } from "@/components/blocks/Hero";
-import { BentoGrid, type BentoItem } from "@/components/blocks/BentoGrid";
-import { FeatureGrid } from "@/components/blocks/FeatureGrid";
-import { CTA } from "@/components/blocks/CTA";
-import { Section } from "@/components/layout/Section";
-import { Stack } from "@/components/layout/Stack";
-import { Prose } from "@/components/layout/Prose";
-import { Card } from "@/components/ui/Card";
-import { Badge } from "@/components/ui/Badge";
-import type { Feature } from "@/types";
 import {
-  Compass,
-  GraduationCap,
-  BarChart3,
-  Target,
-  ShieldCheck,
-  Sparkles,
-  Heart,
-} from "lucide-react";
+  AboutHero,
+  MissionStatement,
+  PillarBento,
+  MilestoneStats,
+  ValueGrid,
+  TeamSection,
+  AboutCta,
+  type PillarData,
+  type ValueData,
+  type StatData,
+  type TeamData,
+} from "./AboutVisuals";
 
 export const metadata: Metadata = {
   title: "About Kairoo — The right moment to grow",
@@ -30,34 +24,43 @@ export const metadata: Metadata = {
  * What makes Kairoo different — the three real product pillars, framed as
  * positioning (not fabricated metrics). Sourced from CONTENT-MAP §A Platform
  * Overview / §C primary value proposition (public-safe parts).
+ *
+ * Icons cross the server→client boundary as NAME strings only (resolved via
+ * IconRenderer) so no component reference is passed into the client visuals.
  */
-const PILLARS: BentoItem[] = [
+const PILLARS: PillarData[] = [
   {
     id: "career",
-    span: "2x1",
-    icon: <Compass />,
+    span: "sm:col-span-2 lg:col-span-2 lg:row-span-2",
+    icon: "compass",
+    tag: "The core",
     title: "A complete career toolkit",
     description:
       "Dynamic roadmaps, an interview coach, salary-negotiation prep, performance-review help, and a deep catalogue of AI-powered tools — so every stage of your career has a clear next step.",
   },
   {
     id: "learning",
-    icon: <GraduationCap />,
+    span: "lg:col-span-2 lg:row-span-1",
+    icon: "graduation-cap",
+    tag: "Learning",
     title: "Intelligent learning paths",
     description:
       "Personalized curricula, an AI tutor, progress tracking, and project-based practice that adapt as your goals and skills change.",
   },
   {
     id: "intelligence",
-    icon: <BarChart3 />,
+    span: "lg:col-span-2 lg:row-span-1",
+    icon: "bar-chart-3",
+    tag: "Intelligence",
     title: "Strategic business intelligence",
     description:
       "Market research, persona development, go-to-market planning, and team analytics that connect individual growth to organizational outcomes.",
   },
   {
     id: "integrated",
-    span: "2x1",
-    icon: <Sparkles />,
+    span: "sm:col-span-2 lg:col-span-4 lg:row-span-1",
+    icon: "sparkles",
+    tag: "One platform",
     title: "One integrated platform",
     description:
       "Career tools, learning, and intelligence share a single surface — no scattered tabs, no lost context. Growth becomes a strategy, not a scramble.",
@@ -65,10 +68,10 @@ const PILLARS: BentoItem[] = [
 ];
 
 /**
- * Company values — rendered through FeatureGrid (string icon names resolved by
- * IconRenderer). These are principles, not claims.
+ * Company values — rendered through the animated ValueGrid (string icon names
+ * resolved by IconRenderer). These are principles, not claims.
  */
-const VALUES: Feature[] = [
+const VALUES: ValueData[] = [
   {
     id: "timing",
     icon: "compass",
@@ -113,134 +116,91 @@ const VALUES: Feature[] = [
   },
 ];
 
+/**
+ * Milestone stats — positioning facts about the platform's shape (three
+ * connected pillars, one unified surface), not fabricated traction metrics.
+ */
+const STATS: StatData[] = [
+  { value: 3, label: "Connected product pillars" },
+  { value: 1, label: "Unified platform surface" },
+  { value: 100, suffix: "%", label: "AI-guided next steps" },
+  { value: 0, label: "Scattered tabs to juggle" },
+];
+
+const TEAM: TeamData[] = [
+  {
+    icon: "target",
+    title: "Product & design",
+    body: "Shaping a single, focused surface where growth feels obvious instead of overwhelming.",
+  },
+  {
+    icon: "sparkles",
+    title: "AI & engineering",
+    body: "Building the AI engine behind every roadmap, tutor, and tool — reliable, fast, and useful.",
+  },
+  {
+    icon: "heart-pulse",
+    title: "Learning & success",
+    body: "Translating real career and learning outcomes into the guidance the product delivers.",
+  },
+];
+
+const MISSION_PARAGRAPHS = [
+  "Careers used to follow a straight line. Today, the skills that define a role can shift in just a few years, and the resources meant to help — courses, coaches, communities, tools — are scattered across a dozen tabs. The result is a lot of effort spent on the wrong things at the wrong time.",
+  "Kairoo exists to fix that. We bring AI-powered learning paths, a full career toolkit, and business intelligence together in one place, so people and the teams they belong to can stop guessing and start moving with intent. Instead of asking “what should I learn next?” and hoping, you get a clear, personalized route from where you are to where you want to be — and the tools to walk it.",
+  "The name says it plainly: there is a right moment to grow. Our job is to help you find it, and then to make the next step obvious.",
+];
+
 export default function AboutPage() {
   return (
     <>
-      <Hero
+      <AboutHero
+        badgeLabel="The right moment to grow"
         eyebrow="About Kairoo"
-        title="The right moment to grow"
+        titleLead="The right"
+        titleHighlight="moment"
+        titleTail="to grow"
         subtitle="Kairoo turns chaotic career development into strategic growth — combining AI-powered learning paths, a complete career toolkit, and business intelligence in one integrated platform that helps professionals and teams accelerate skill acquisition and reach measurable outcomes."
         primaryCta={{ label: "Explore the platform", href: "/features" }}
         secondaryCta={{ label: "See pricing", href: "/pricing" }}
       />
 
-      {/* Mission narrative */}
-      <Section>
-        <Stack gap={4} className="mx-auto max-w-3xl text-center">
-          <p className="text-overline text-accent">Our mission</p>
-          <h2 className="text-h2 text-balance text-foreground">
-            Make career growth a strategy, not a scramble
-          </h2>
-        </Stack>
-        <Prose className="mx-auto mt-10 max-w-2xl">
-          <p>
-            Careers used to follow a straight line. Today, the skills that
-            define a role can shift in just a few years, and the resources meant
-            to help — courses, coaches, communities, tools — are scattered
-            across a dozen tabs. The result is a lot of effort spent on the
-            wrong things at the wrong time.
-          </p>
-          <p>
-            Kairoo exists to fix that. We bring AI-powered learning paths, a
-            full career toolkit, and business intelligence together in one
-            place, so people and the teams they belong to can stop guessing and
-            start moving with intent. Instead of asking{" "}
-            <em>&ldquo;what should I learn next?&rdquo;</em> and hoping, you get
-            a clear, personalized route from where you are to where you want to
-            be — and the tools to walk it.
-          </p>
-          <p>
-            The name says it plainly: there is a right moment to grow. Our job
-            is to help you find it, and then to make the next step obvious.
-          </p>
-        </Prose>
-      </Section>
+      <MissionStatement
+        eyebrow="Our mission"
+        heading="Make career growth a strategy, not a scramble"
+        paragraphs={MISSION_PARAGRAPHS}
+      />
 
-      {/* What makes Kairoo different — real product pillars */}
-      <BentoGrid
+      <PillarBento
         eyebrow="What we build"
         heading="Three capabilities, one platform"
         description="The product is organized around three connected pillars. Each is useful on its own — together they turn growth into a continuous, guided loop."
-        items={PILLARS}
+        pillars={PILLARS}
       />
 
-      {/* Values */}
-      <Section>
-        <FeatureGrid
-          columns={3}
-          heading="What we value"
-          description="The principles that shape every decision we make — from the roadmap we build to the way we talk about it."
-          items={VALUES}
-        />
-      </Section>
+      <MilestoneStats
+        eyebrow="The shape of Kairoo"
+        heading="How the platform adds up"
+        description="Not vanity metrics — the structural facts that make growth feel guided instead of chaotic."
+        stats={STATS}
+      />
 
-      {/* Team — tasteful placeholder, no fabricated claims */}
-      <Section>
-        <Stack gap={4} className="mx-auto max-w-3xl text-center">
-          <p className="text-overline text-accent">Our team</p>
-          <h2 className="text-h2 text-balance text-foreground">
-            Builders, learners, and career-changers
-          </h2>
-          <p className="mx-auto max-w-2xl text-body-lg text-muted-foreground">
-            Kairoo is built by a small, focused team that has lived the problem
-            we&rsquo;re solving — navigating career pivots, skill gaps, and the
-            overwhelm of doing it alone. Detailed team profiles are on the way.
-          </p>
-        </Stack>
+      <ValueGrid
+        eyebrow="What we value"
+        heading="What we value"
+        description="The principles that shape every decision we make — from the roadmap we build to the way we talk about it."
+        values={VALUES}
+      />
 
-        <div className="mx-auto mt-12 grid max-w-4xl grid-cols-1 gap-6 sm:grid-cols-3">
-          {[
-            {
-              icon: <Target aria-hidden className="h-5 w-5" />,
-              title: "Product & design",
-              body: "Shaping a single, focused surface where growth feels obvious instead of overwhelming.",
-            },
-            {
-              icon: <Sparkles aria-hidden className="h-5 w-5" />,
-              title: "AI & engineering",
-              body: "Building the AI engine behind every roadmap, tutor, and tool — reliable, fast, and useful.",
-            },
-            {
-              icon: <Heart aria-hidden className="h-5 w-5" />,
-              title: "Learning & success",
-              body: "Translating real career and learning outcomes into the guidance the product delivers.",
-            },
-          ].map((member) => (
-            <Card key={member.title} variant="default" className="h-full p-6">
-              <Stack gap={4}>
-                <span
-                  aria-hidden
-                  className="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-accent-subtle text-accent"
-                >
-                  {member.icon}
-                </span>
-                <Stack gap={2}>
-                  <div className="flex items-center gap-2">
-                    <h3 className="text-h5 text-foreground">{member.title}</h3>
-                    <Badge variant="neutral" size="sm">
-                      Hiring
-                    </Badge>
-                  </div>
-                  <p className="text-body-sm text-muted-foreground">
-                    {member.body}
-                  </p>
-                </Stack>
-              </Stack>
-            </Card>
-          ))}
-        </div>
+      <TeamSection
+        eyebrow="Our team"
+        heading="Builders, learners, and career-changers"
+        description="Kairoo is built by a small, focused team that has lived the problem we’re solving — navigating career pivots, skill gaps, and the overwhelm of doing it alone. Detailed team profiles are on the way."
+        members={TEAM}
+        note="We keep our story honest. As Kairoo grows, we’ll introduce the people behind it here — with real names, roles, and the work they’ve shipped."
+      />
 
-        <div className="mx-auto mt-8 flex max-w-3xl items-start justify-center gap-3 rounded-xl border border-border bg-muted-surface p-4 text-left">
-          <ShieldCheck aria-hidden className="mt-0.5 h-5 w-5 shrink-0 text-accent" />
-          <p className="text-body-sm text-muted-foreground">
-            We keep our story honest. As Kairoo grows, we&rsquo;ll introduce the
-            people behind it here — with real names, roles, and the work
-            they&rsquo;ve shipped.
-          </p>
-        </div>
-      </Section>
-
-      <CTA
+      <AboutCta
         headline="There's a right moment to grow. Make it now."
         body="Start with a personalized roadmap, or talk to us about rolling Kairoo out across your team."
         primary={{ label: "Get started", href: "/pricing" }}

@@ -1,15 +1,18 @@
 import type { Metadata } from "next";
-import { Award, Sparkles, TrendingUp } from "lucide-react";
+import { Award } from "lucide-react";
 
 import { Section } from "@/components/layout/Section";
 import { Stack } from "@/components/layout/Stack";
-import { PageHeader } from "@/components/layout/PageHeader";
-import { Badge } from "@/components/ui/Badge";
-import { StatGrid } from "@/components/blocks/StatCounter";
-import { TestimonialGrid } from "@/components/blocks/Testimonial";
 import { CTA } from "@/components/blocks/CTA";
 
 import { testimonials } from "@/content/testimonials";
+import {
+  CustomersHero,
+  CustomersLogoMarquee,
+  CustomersTestimonials,
+  CustomersImpact,
+  CustomersBento,
+} from "./CustomersVisuals";
 
 export const metadata: Metadata = {
   title: "Customers — Kairoo",
@@ -21,59 +24,121 @@ export const metadata: Metadata = {
  * Impact metrics — existing marketing claims preserved from the original
  * homepage (CONTENT-MAP §A "Impact metrics"). StatCounter takes a numeric
  * `value` with optional `prefix`/`suffix`, so each headline figure is split
- * accordingly (e.g. "$50K+" -> prefix "$", value 50, suffix "K+").
+ * accordingly (e.g. "$50K+" -> prefix "$", value 50, suffix "K+"). An `icon`
+ * NAME string is passed across the server→client boundary (rendered via
+ * IconRenderer) — never a lucide component reference.
  */
 const impactMetrics = [
-  { value: 75, suffix: "%", label: "Faster Skill Acquisition" },
-  { value: 50, prefix: "$", suffix: "K+", label: "Average Salary Increase" },
-  { value: 6, suffix: " mo", label: "Average Career Transition Time" },
-  { value: 95, suffix: "%", label: "User Satisfaction Rate" },
+  {
+    value: 75,
+    suffix: "%",
+    label: "Faster Skill Acquisition",
+    icon: "gauge",
+  },
+  {
+    value: 50,
+    prefix: "$",
+    suffix: "K+",
+    label: "Average Salary Increase",
+    icon: "dollar-sign",
+  },
+  {
+    value: 6,
+    suffix: " mo",
+    label: "Average Career Transition Time",
+    icon: "clock",
+  },
+  {
+    value: 95,
+    suffix: "%",
+    label: "User Satisfaction Rate",
+    icon: "star",
+  },
+];
+
+/** Trusted-by wordmarks (names only render as text in the marquee). */
+const logos = [
+  { name: "Google" },
+  { name: "Stripe" },
+  { name: "Salesforce" },
+  { name: "Microsoft" },
+  { name: "Airbnb" },
+  { name: "Shopify" },
+  { name: "Notion" },
+  { name: "Figma" },
+];
+
+/** Why customers win — outcome highlights for the BentoGrid. */
+const outcomeHighlights = [
+  {
+    title: "Personalized learning paths",
+    description:
+      "AI maps the shortest route from where you are to where you want to be — no generic curriculum, no wasted hours.",
+    icon: "route",
+    span: "2x2" as const,
+  },
+  {
+    title: "AI coaching on demand",
+    description:
+      "Interview prep, salary negotiation, and growth strategy — guidance the moment you need it.",
+    icon: "message-circle",
+    span: "2x1" as const,
+  },
+  {
+    title: "Measurable ROI",
+    description: "Skill-gap analytics that prove development impact.",
+    icon: "bar-chart-3",
+  },
+  {
+    title: "Team-wide insight",
+    description: "Dashboards that surface skill gaps across the org.",
+    icon: "users",
+  },
+  {
+    title: "Built for momentum",
+    description:
+      "Promotions, career switches, and enterprise productivity gains — outcomes customers report after going all-in with Kairoo.",
+    icon: "rocket",
+    span: "2x1" as const,
+  },
 ];
 
 export default function CustomersPage() {
   return (
     <>
-      <Section>
-        <Stack gap={6}>
-          <Badge variant="neutral" className="w-fit">
-            <Sparkles aria-hidden className="size-3.5" />
-            Customer Stories
-          </Badge>
-          <PageHeader
-            eyebrow="Proof, not promises"
-            title="Trusted by professionals and teams who are leveling up"
-            subtitle="See how individuals and organizations are transforming their careers and skill development with Kairoo — from career switches and promotions to enterprise-wide productivity gains."
-          />
-        </Stack>
-      </Section>
+      <CustomersHero
+        badge="Customer Stories"
+        eyebrow="Proof, not promises"
+        titleLead="Trusted by professionals and teams who are"
+        titleHighlight="leveling up"
+        subtitle="See how individuals and organizations are transforming their careers and skill development with Kairoo — from career switches and promotions to enterprise-wide productivity gains."
+      />
 
-      <TestimonialGrid
+      <CustomersLogoMarquee
+        label="Powering careers at teams of every size"
+        logos={logos}
+      />
+
+      <CustomersTestimonials
         eyebrow="In their words"
         heading="Success stories from across the industry"
         description="Real outcomes from professionals who used Kairoo's AI-powered learning paths, coaching, and analytics to move their careers forward."
         items={testimonials}
-        variant="elevated"
-        cols={3}
       />
 
-      <Section>
-        <Stack gap={10}>
-          <Stack gap={3} className="max-w-2xl">
-            <span className="inline-flex items-center gap-2 text-overline text-accent">
-              <TrendingUp aria-hidden className="size-4" />
-              Measurable Impact
-            </span>
-            <h2 className="text-h2 text-foreground">
-              Measurable impact across industries
-            </h2>
-            <p className="text-body text-muted-foreground">
-              The outcomes our customers report — faster upskilling, stronger
-              compensation, quicker transitions, and high satisfaction.
-            </p>
-          </Stack>
-          <StatGrid items={impactMetrics} cols={4} gap="lg" />
-        </Stack>
-      </Section>
+      <CustomersImpact
+        eyebrow="Measurable Impact"
+        heading="Measurable impact across industries"
+        description="The outcomes our customers report — faster upskilling, stronger compensation, quicker transitions, and high satisfaction."
+        metrics={impactMetrics}
+      />
+
+      <CustomersBento
+        eyebrow="Why customers win"
+        heading="The system behind every success story"
+        description="The same engine — personalized paths, AI coaching, and analytics — powers every outcome above."
+        items={outcomeHighlights}
+      />
 
       <Section>
         <Stack
@@ -82,7 +147,12 @@ export default function CustomersPage() {
           align="center"
           className="rounded-2xl border border-border bg-muted/40 p-6 text-body-sm text-muted-foreground"
         >
-          <Award aria-hidden className="size-5 shrink-0 text-accent" />
+          <span
+            aria-hidden
+            className="inline-flex size-9 shrink-0 items-center justify-center rounded-lg bg-accent-subtle text-accent"
+          >
+            <Award className="size-5" />
+          </span>
           <p>
             Outcomes vary by individual goals, effort, and starting point. The
             figures above reflect reported customer results.
