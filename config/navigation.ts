@@ -9,8 +9,18 @@ export type NavItem = {
 };
 
 export const primaryNav: NavItem[] = [
-  { label: "Features", href: routes.features },
+  {
+    label: "Features",
+    href: routes.features,
+    children: [
+      { label: "Career", href: routes.featuresCareer },
+      { label: "Learning", href: routes.featuresLearning },
+      { label: "Teams", href: routes.featuresTeams },
+    ],
+  },
+  { label: "How it works", href: routes.howItWorks },
   { label: "Pricing", href: routes.pricing },
+  { label: "Customers", href: routes.customers },
   { label: "About", href: routes.about },
   { label: "Contact", href: routes.contact },
 ];
@@ -20,7 +30,9 @@ export const footerNav: { heading: string; items: NavItem[] }[] = [
     heading: "Product",
     items: [
       { label: "Features", href: routes.features },
+      { label: "How it works", href: routes.howItWorks },
       { label: "Pricing", href: routes.pricing },
+      { label: "Customers", href: routes.customers },
       { label: "Style guide", href: routes.style },
     ],
   },
@@ -35,6 +47,7 @@ export const footerNav: { heading: string; items: NavItem[] }[] = [
   {
     heading: "Legal",
     items: [
+      { label: "Security", href: routes.security },
       { label: "Privacy", href: routes.privacy },
       { label: "Terms", href: routes.terms },
       { label: "Cookies", href: routes.cookies },
