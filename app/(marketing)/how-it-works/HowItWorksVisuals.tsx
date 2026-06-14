@@ -33,6 +33,13 @@ import {
   CardItem,
 } from "@/components/motion/ThreeDCard";
 import { StatGrid, type StatCounterProps } from "@/components/blocks/StatCounter";
+import {
+  TracingBeam,
+  Timeline,
+  AppleCardsCarousel,
+  BackgroundRipple,
+} from "@/components/aceternity";
+import type { TimelineItem, AppleCard } from "@/components/aceternity";
 
 /* ------------------------------- types ----------------------------------- */
 
@@ -260,8 +267,24 @@ export function StepsTimeline({
 }) {
   const reduce = useReducedMotion();
 
+  const carouselCards: AppleCard[] = steps.map((step, i) => ({
+    id: i,
+    title: step.title,
+    category: `Step ${step.index}`,
+    description: step.description,
+  }));
+
+  const timelineItems: TimelineItem[] = steps.map((step, i) => ({
+    title: step.title,
+    date: `Step ${step.index}`,
+    content: (
+      <p className="text-muted-foreground text-sm">{step.description}</p>
+    ),
+  }));
+
   return (
     <Section aria-labelledby="steps-heading">
+      <TracingBeam>
       <Stack gap={12}>
         <motion.header
           initial={reduce ? false : { opacity: 0, y: 20 }}
@@ -366,7 +389,15 @@ export function StepsTimeline({
             ))}
           </motion.ol>
         </div>
+
+        {/* Aceternity carousel — same steps, swipeable card format */}
+        <AppleCardsCarousel cards={carouselCards} className="mb-4" />
+
+        {/* Aceternity timeline — scroll-linked vertical spine */}
+        <Timeline items={timelineItems} className="mt-4" />
+
       </Stack>
+      </TracingBeam>
     </Section>
   );
 }
@@ -464,6 +495,7 @@ export function StackShowcase({
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.55, ease: EASE }}
         >
+          <BackgroundRipple className="py-0 rounded-xl">
           <Card
             variant="elevated"
             className="relative flex flex-col gap-5 overflow-hidden p-7 sm:flex-row sm:items-center sm:justify-between"
@@ -502,6 +534,7 @@ export function StackShowcase({
               </Tooltip.Content>
             </Tooltip>
           </Card>
+          </BackgroundRipple>
         </motion.div>
       </Stack>
     </Section>

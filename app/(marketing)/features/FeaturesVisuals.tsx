@@ -30,6 +30,11 @@ import {
 } from "@/components/motion/ThreeDCard";
 import { StatCounter } from "@/components/blocks/StatCounter";
 import IconRenderer from "@/components/IconRenderer";
+import {
+  FollowingPointer,
+  GlowingEffect,
+  NoiseBackground,
+} from "@/components/aceternity";
 
 /* ------------------------------------------------------------------ *
  * Serializable data shapes — every value crossing the server→client   *
@@ -248,6 +253,8 @@ export function PillarBento({ pillars }: { pillars: PillarData[] }) {
 
   return (
     <Section className="pt-2">
+      <FollowingPointer label="Explore">
+      <GlowingEffect>
       <motion.div
         variants={reduce ? undefined : staggerParent}
         initial={reduce ? false : "hidden"}
@@ -273,6 +280,8 @@ export function PillarBento({ pillars }: { pillars: PillarData[] }) {
           </motion.div>
         ))}
       </motion.div>
+      </GlowingEffect>
+      </FollowingPointer>
     </Section>
   );
 }
@@ -587,6 +596,7 @@ export function FeaturesCta({
         whileInView={reduce ? undefined : "show"}
         viewport={{ once: true, amount: 0.4 }}
       >
+        <NoiseBackground>
         <Card
           variant="glass"
           className="relative isolate overflow-hidden p-10 text-center shadow-elevation-4 sm:p-14"
@@ -625,6 +635,7 @@ export function FeaturesCta({
             </div>
           </Stack>
         </Card>
+        </NoiseBackground>
       </motion.div>
     </Section>
   );
