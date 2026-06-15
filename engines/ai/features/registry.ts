@@ -492,6 +492,37 @@ ${line('Project', i.project)}${line('Known stakeholders', i.stakeholders)}
 Return markdown with: a **stakeholder map** categorizing each by **influence vs. interest** (high/low), what each one **cares about**, an **engagement strategy per group**, and **who to win over first**.`,
   },
 
+  {
+    id: 'resumeSection',
+    name: 'Resume Section Optimizer',
+    icon: 'file-text',
+    color: 'violet-400',
+    description: 'AI-improves a single resume section using your target role and job description',
+    category: 'career',
+    status: 'ready',
+    tier: 'fast',
+    inputs: [
+      { id: 'section', label: 'Section name', type: 'text', placeholder: 'e.g. summary', required: true },
+      { id: 'currentContent', label: 'Current content', type: 'textarea', placeholder: 'Paste existing section text or JSON', required: true },
+      { id: 'targetRole', label: 'Target role', type: 'text', placeholder: 'e.g. Senior Software Engineer' },
+      { id: 'targetCompany', label: 'Target company (optional)', type: 'text', placeholder: 'e.g. Google' },
+      { id: 'jobDescription', label: 'Job description (optional)', type: 'textarea', placeholder: 'Paste JD for ATS alignment' },
+    ],
+    systemAddendum: `You are an expert resume writer and ATS optimization specialist. Always output:
+- Tight, metric-driven bullet points (use numbers wherever plausible: "Reduced latency by 40%")
+- No filler phrases ("responsible for", "worked on")
+- Active voice
+- For the summary section: 3-4 sentences, first person omitted, starts with job title or expertise
+- Return ONLY the improved content — no preamble, no explanation`,
+    buildUserPrompt: (i) =>
+      `Improve the "${i.section}" section of my resume.\n` +
+      line('Current content', i.currentContent) +
+      line('Target role', i.targetRole) +
+      line('Target company', i.targetCompany) +
+      line('Job description', i.jobDescription) +
+      `\nReturn the improved ${i.section} content only.`,
+  },
+
   // ---- Learning features ----
   {
     id: 'pathGeneration', name: 'AI Path Generation', icon: 'route', color: 'blue-400',
