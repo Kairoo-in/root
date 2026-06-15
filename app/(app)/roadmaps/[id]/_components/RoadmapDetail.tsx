@@ -12,6 +12,7 @@ import { RoadmapKanban } from './RoadmapKanban'
 import { RoadmapPhases } from './RoadmapPhases'
 import { StepDrawer } from './StepDrawer'
 import { AICoachPanel } from './AICoachPanel'
+import { PhaseCompleteModal } from './PhaseCompleteModal'
 
 interface Roadmap {
   id: string
@@ -40,6 +41,7 @@ export function RoadmapDetail({ roadmap }: { roadmap: Roadmap }) {
   const [activePhaseId, setActivePhaseId] = useState<string | null>(null)
   const [coachOpen, setCoachOpen] = useState(false)
   const [coachStep, setCoachStep] = useState<RoadmapStep | null>(null)
+  const [completedPhase, setCompletedPhase] = useState<string | null>(null)
 
   const openStep = useCallback((phaseId: string, step: RoadmapStep) => {
     setActivePhaseId(phaseId)
@@ -53,24 +55,33 @@ export function RoadmapDetail({ roadmap }: { roadmap: Roadmap }) {
 
   const handleStatusChange = useCallback(async (phaseId: string, stepId: string, status: RoadmapStep['status']) => {
     // Optimistic update
+    let phaseCompleteTitle: string | null = null
     setPlan((prev) => {
       if (!prev) return prev
-      return {
-        ...prev,
-        phases: prev.phases.map((p) =>
-          p.id !== phaseId ? p : {
-            ...p,
-            steps: p.steps.map((s) =>
-              s.id !== stepId ? s : {
-                ...s,
-                status,
-                completedAt: status === 'done' ? new Date().toISOString() : undefined,
-              }
-            ),
-          }
-        ),
+      const updatedPhases = prev.phases.map((p) =>
+        p.id !== phaseId ? p : {
+          ...p,
+          steps: p.steps.map((s) =>
+            s.id !== stepId ? s : {
+              ...s,
+              status,
+              completedAt: status === 'done' ? new Date().toISOString() : undefined,
+            }
+          ),
+        }
+      )
+      // Check if the phase just became fully complete
+      if (status === 'done') {
+        const updatedPhase = updatedPhases.find((p) => p.id === phaseId)
+        if (updatedPhase && updatedPhase.steps.every((s) => s.status === 'done')) {
+          phaseCompleteTitle = updatedPhase.title
+        }
       }
+      return { ...prev, phases: updatedPhases }
     })
+    if (phaseCompleteTitle) {
+      setCompletedPhase(phaseCompleteTitle)
+    }
     // Sync to server
     await fetch(`/api/roadmaps/${roadmap.id}/step`, {
       method: 'PATCH',
@@ -211,6 +222,13 @@ export function RoadmapDetail({ roadmap }: { roadmap: Roadmap }) {
         initialStep={coachStep}
         roadmapTitle={roadmap.title}
         onClose={() => setCoachOpen(false)}
+      />
+
+      {/* Phase completion celebration */}
+      <PhaseCompleteModal
+        phaseName={completedPhase ?? ''}
+        isOpen={!!completedPhase}
+        onClose={() => setCompletedPhase(null)}
       />
     </div>
   )
