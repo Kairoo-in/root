@@ -8,6 +8,7 @@ import { FeedbackPanel } from '../../_components/FeedbackPanel'
 import { STARHints } from '../../_components/STARHints'
 import { ProgressBar } from '../../_components/ProgressBar'
 import { STARCoach } from './_components/STARCoach'
+import { SpotlightNew, BackgroundRipple } from '@/components/aceternity'
 import type { SessionWithExchanges, InterviewExchange, FeedbackResult } from '@/types/interview'
 
 interface SessionClientProps {
@@ -65,9 +66,12 @@ export function SessionClient({ session: initialSession }: SessionClientProps) {
 
   if (phase === 'completing') {
     return (
-      <div className="flex h-screen items-center justify-center">
-        <p className="text-[var(--color-text-secondary)]">Generating your results…</p>
-      </div>
+      <BackgroundRipple className="flex h-screen items-center justify-center">
+        <div className="flex flex-col items-center gap-3 text-center">
+          <p className="text-2xl font-bold text-(--color-text-primary)">Great work!</p>
+          <p className="text-sm text-(--color-text-secondary)">Generating your results…</p>
+        </div>
+      </BackgroundRipple>
     )
   }
 
@@ -76,12 +80,14 @@ export function SessionClient({ session: initialSession }: SessionClientProps) {
       <ProgressBar current={answeredCount} total={session.questionCount} />
 
       <div className="flex flex-col gap-2">
-        <h1 className="text-lg font-semibold text-[var(--color-text-primary)]">{session.title}</h1>
-        <QuestionDisplay
-          questionText={currentExchange.questionText}
-          questionNumber={answeredCount + 1}
-          totalQuestions={session.questionCount}
-        />
+        <h1 className="text-lg font-semibold text-(--color-text-primary)">{session.title}</h1>
+        <SpotlightNew size={500}>
+          <QuestionDisplay
+            questionText={currentExchange.questionText}
+            questionNumber={answeredCount + 1}
+            totalQuestions={session.questionCount}
+          />
+        </SpotlightNew>
       </div>
 
       <STARHints />

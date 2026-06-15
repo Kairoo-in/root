@@ -3,6 +3,7 @@ import { notFound, redirect } from 'next/navigation'
 import Link from 'next/link'
 import { getSessionWithExchanges } from '@/data/repositories/interview.repo'
 import { SessionScoreCard } from '../../../_components/SessionScoreCard'
+import { LampEffect, BackgroundRipple, GlowingEffect } from '@/components/aceternity'
 import type { SessionAssessment } from '@/types/interview'
 
 export default async function ResultsPage({
@@ -26,65 +27,73 @@ export default async function ResultsPage({
   }
 
   return (
-    <div className="mx-auto flex max-w-3xl flex-col gap-8 px-4 py-8">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-xl font-bold text-[var(--color-text-primary)]">{session.title}</h1>
-          <p className="text-sm text-[var(--color-text-secondary)]">
-            {session.type} · {session.difficulty} · {new Date(session.createdAt).toLocaleDateString()}
-          </p>
-        </div>
-        <Link
-          href="/tools/interviewPrep"
-          className="rounded-xl border border-[var(--color-border)] px-4 py-2 text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-2)]"
-        >
-          ← Back
-        </Link>
-      </div>
-
-      <SessionScoreCard assessment={assessment} />
-
-      {/* Per-question breakdown */}
-      <div>
-        <h2 className="mb-3 text-sm font-semibold text-[var(--color-text-secondary)]">Question Breakdown</h2>
-        <div className="flex flex-col gap-3">
-          {session.exchanges.map((ex, i) => (
-            <div
-              key={ex.id}
-              className="flex flex-col gap-2 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-1)] p-4"
-            >
-              <div className="flex items-start justify-between gap-4">
-                <p className="text-sm font-medium text-[var(--color-text-primary)]">
-                  Q{i + 1}: {ex.questionText}
-                </p>
-                {ex.starScore !== null && (
-                  <span className="shrink-0 text-sm font-bold text-[var(--color-primary)]">
-                    {ex.starScore}/100
-                  </span>
-                )}
-              </div>
-              {ex.userAnswer && (
-                <p className="text-xs text-[var(--color-text-secondary)] line-clamp-3">{ex.userAnswer}</p>
-              )}
+    <div className="flex flex-col">
+      {/* Hero / score section with Lamp dramatic reveal */}
+      <LampEffect className="pb-0">
+        <div className="mx-auto flex w-full max-w-3xl flex-col gap-6 px-4 pt-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-xl font-bold text-(--color-text-primary)">{session.title}</h1>
+              <p className="text-sm text-(--color-text-secondary)">
+                {session.type} · {session.difficulty} · {new Date(session.createdAt).toLocaleDateString()}
+              </p>
             </div>
-          ))}
-        </div>
-      </div>
+            <Link
+              href="/tools/interviewPrep"
+              className="rounded-xl border border-(--color-border) px-4 py-2 text-sm text-(--color-text-secondary) hover:bg-(--color-surface-2)"
+            >
+              ← Back
+            </Link>
+          </div>
 
-      {/* CTA */}
-      <div className="flex gap-3">
-        <Link
-          href={`/tools/interviewPrep/setup?type=${session.type}&role=${encodeURIComponent(session.targetRole)}&prefillDifficulty=${session.difficulty}`}
-          className="flex-1 rounded-xl bg-[var(--color-primary)] py-3 text-center text-sm font-semibold text-white hover:bg-[var(--color-primary-hover)]"
-        >
-          Practice Again
-        </Link>
-        <Link
-          href="/tools/interviewPrep"
-          className="flex-1 rounded-xl border border-[var(--color-border)] py-3 text-center text-sm font-semibold text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-2)]"
-        >
-          All Sessions
-        </Link>
+          <SessionScoreCard assessment={assessment} />
+        </div>
+      </LampEffect>
+
+      <div className="mx-auto flex w-full max-w-3xl flex-col gap-8 px-4 pb-8">
+        {/* Per-question breakdown */}
+        <div>
+          <h2 className="mb-3 text-sm font-semibold text-(--color-text-secondary)">Question Breakdown</h2>
+          <div className="flex flex-col gap-3">
+            {session.exchanges.map((ex, i) => (
+              <GlowingEffect key={ex.id} className="rounded-2xl">
+                <div className="flex flex-col gap-2 rounded-2xl border border-(--color-border) bg-(--color-surface-1) p-4">
+                  <div className="flex items-start justify-between gap-4">
+                    <p className="text-sm font-medium text-(--color-text-primary)">
+                      Q{i + 1}: {ex.questionText}
+                    </p>
+                    {ex.starScore !== null && (
+                      <span className="shrink-0 text-sm font-bold text-(--color-primary)">
+                        {ex.starScore}/100
+                      </span>
+                    )}
+                  </div>
+                  {ex.userAnswer && (
+                    <p className="text-xs text-(--color-text-secondary) line-clamp-3">{ex.userAnswer}</p>
+                  )}
+                </div>
+              </GlowingEffect>
+            ))}
+          </div>
+        </div>
+
+        {/* CTA with ripple background */}
+        <BackgroundRipple className="rounded-2xl">
+          <div className="flex gap-3 p-4">
+            <Link
+              href={`/tools/interviewPrep/setup?type=${session.type}&role=${encodeURIComponent(session.targetRole)}&prefillDifficulty=${session.difficulty}`}
+              className="flex-1 rounded-xl bg-(--color-primary) py-3 text-center text-sm font-semibold text-white hover:bg-(--color-primary-hover)"
+            >
+              Practice Again
+            </Link>
+            <Link
+              href="/tools/interviewPrep"
+              className="flex-1 rounded-xl border border-(--color-border) py-3 text-center text-sm font-semibold text-(--color-text-secondary) hover:bg-(--color-surface-2)"
+            >
+              All Sessions
+            </Link>
+          </div>
+        </BackgroundRipple>
       </div>
     </div>
   )
