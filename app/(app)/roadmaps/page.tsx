@@ -2,6 +2,7 @@ import { auth } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
 import { getRoadmapsForUser } from '@/data/repositories/roadmaps.repo'
 import { RoadmapsList } from './_components/RoadmapsList'
+import { ContributionHeatmap } from './_components/ContributionHeatmap'
 import { Plus } from 'lucide-react'
 import Link from 'next/link'
 
@@ -26,7 +27,10 @@ export default async function RoadmapsPage() {
           New Roadmap
         </Link>
       </div>
-      <RoadmapsList roadmaps={userRoadmaps} />
+      <ContributionHeatmap />
+      <div className="mt-6">
+        <RoadmapsList roadmaps={userRoadmaps} />
+      </div>
     </div>
   )
 }
