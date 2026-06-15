@@ -9,6 +9,8 @@ from .routers import health, embed
 async def lifespan(app: FastAPI):
     from .services.embedder import Embedder
     app.state.embedder = Embedder(settings.model_name)
+    from .jobs.scheduler import start_scheduler
+    start_scheduler(app)
     yield
     app.state.embedder = None
 
