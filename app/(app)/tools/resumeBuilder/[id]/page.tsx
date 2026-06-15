@@ -10,8 +10,10 @@ import ResumeEditorPanel from './_components/ResumeEditorPanel'
 import ResumePreview from './_components/ResumePreview'
 import ATSSidebar from './_components/ATSSidebar'
 import { TailorModal } from './_components/TailorModal'
+import { CoverLetterPanel } from './_components/CoverLetterPanel'
 
 type SaveState = 'idle' | 'saving' | 'saved'
+type LeftTab = 'resume' | 'cover-letter'
 
 export default function ResumeEditorPage() {
   const { id } = useParams<{ id: string }>()
@@ -21,6 +23,7 @@ export default function ResumeEditorPage() {
   const [saveState, setSaveState] = useState<SaveState>('idle')
   const [showAts, setShowAts] = useState(false)
   const [tailorOpen, setTailorOpen] = useState(false)
+  const [leftTab, setLeftTab] = useState<LeftTab>('resume')
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   // Load
@@ -130,14 +133,46 @@ export default function ResumeEditorPage() {
       {/* Main layout */}
       <div className="flex flex-1 overflow-hidden">
         {/* Editor — 60% */}
-        <div className="w-[60%] h-full overflow-y-auto border-r border-white/10 p-5">
-          <ResumeEditorPanel
-            sections={sections}
-            onChange={handleSectionsChange}
-            targetRole={resume.targetRole ?? ''}
-            targetCompany={resume.targetCompany ?? ''}
-            jobDescription={resume.jobDescription ?? ''}
-          />
+        <div className="w-[60%] h-full overflow-y-auto border-r border-white/10 flex flex-col">
+          {/* Tab toggle */}
+          <div className="flex items-center gap-1 px-5 pt-4 pb-3 shrink-0 border-b border-white/5">
+            <button
+              type="button"
+              onClick={() => setLeftTab('resume')}
+              className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-colors ${
+                leftTab === 'resume'
+                  ? 'bg-white/10 text-white'
+                  : 'text-white/40 hover:text-white/70'
+              }`}
+            >
+              Resume
+            </button>
+            <button
+              type="button"
+              onClick={() => setLeftTab('cover-letter')}
+              className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-colors ${
+                leftTab === 'cover-letter'
+                  ? 'bg-white/10 text-white'
+                  : 'text-white/40 hover:text-white/70'
+              }`}
+            >
+              Cover Letter
+            </button>
+          </div>
+
+          <div className="flex-1 overflow-y-auto p-5">
+            {leftTab === 'resume' ? (
+              <ResumeEditorPanel
+                sections={sections}
+                onChange={handleSectionsChange}
+                targetRole={resume.targetRole ?? ''}
+                targetCompany={resume.targetCompany ?? ''}
+                jobDescription={resume.jobDescription ?? ''}
+              />
+            ) : (
+              <CoverLetterPanel resumeId={id} />
+            )}
+          </div>
         </div>
 
         {/* Preview — 40% */}
