@@ -23,7 +23,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
 
         {/* Footer note */}
         <p className="mt-8 text-center text-body-sm text-muted-foreground">
-          By continuing, you agree to Kairoo&apos;s{" "}
+          By continuing, you agree to {process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}&apos;s{" "}
           <Link href="/legal/terms" className="underline underline-offset-2 hover:text-foreground transition-colors">
             Terms
           </Link>{" "}

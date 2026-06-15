@@ -8,7 +8,7 @@ interface Props {
   searchParams: Promise<{ id?: string }>
 }
 
-export const metadata = { title: 'Skill Gap Dashboard · Kairoo' }
+export const metadata = { title: `Skill Gap Dashboard · ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}` }
 
 export default async function SkillGapPage({ searchParams }: Props) {
   const { userId } = await auth()

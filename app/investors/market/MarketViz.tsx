@@ -233,7 +233,7 @@ export function MarketHero({
             className="mx-auto mt-5 max-w-2xl text-pretty text-body-lg text-muted-foreground"
           >
             Comprehensive market research, competitive intelligence, and
-            strategic go-to-market planning for Kairoo&rsquo;s entry into the
+            strategic go-to-market planning for {process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}&rsquo;s entry into the
             $366B global education-technology market.
           </p>
 
@@ -430,7 +430,7 @@ export function TamPanel() {
     <Card variant="glass" className="h-full p-8">
       <h3 className="text-h4 text-foreground">Target Addressable Market (TAM)</h3>
       <p className="mt-1 text-body-sm text-muted-foreground">
-        From the full opportunity down to what Kairoo can realistically capture.
+        From the full opportunity down to what {process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} can realistically capture.
       </p>
       <Stack gap={5} className="mt-6">
         {tam.map((t, i) => {
@@ -546,7 +546,7 @@ const competitorCards: CompetitorCard[] = [
   },
   {
     icon: Crown,
-    title: "Kairoo Advantage",
+    title: `${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} Advantage`,
     tone: "info",
     isAdvantage: true,
     rows: [
@@ -1046,7 +1046,7 @@ const competitiveRows = [
   },
   {
     id: "kairoo",
-    platform: "Kairoo",
+    platform: `${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}`,
     type: "Our platform",
     price: "$29/month vs $92+",
     gap: "Integrated ecosystem · 3x faster · 68% cheaper",
@@ -1068,7 +1068,7 @@ export function CompetitivePricingTable() {
               </TableColumn>
               <TableColumn id="type">Category</TableColumn>
               <TableColumn id="price">Price</TableColumn>
-              <TableColumn id="gap">Gap vs. Kairoo</TableColumn>
+              <TableColumn id="gap">Gap vs. {process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}</TableColumn>
             </TableHeader>
             <TableBody items={competitiveRows}>
               {(row) => (

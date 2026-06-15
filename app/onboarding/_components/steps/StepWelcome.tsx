@@ -9,7 +9,7 @@ export function StepWelcome({ userName, onNext }: { userName: string; onNext: ()
         K
       </div>
       <TypewriterEffect
-        words={`Welcome to Kairoo, ${userName}`.split(' ').map(w => ({ text: w }))}
+        words={`Welcome to ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}, ${userName}`.split(' ').map(w => ({ text: w }))}
         className="text-2xl font-black justify-center mb-2"
       />
       <p className="text-sm text-muted-foreground mb-6 max-w-sm mx-auto leading-relaxed">

@@ -502,7 +502,7 @@ function DeckHero() {
           </h1>
           <p className="text-pretty text-body-lg text-muted-foreground">
             Comprehensive investment materials, financial projections, and
-            growth strategies for Kairoo — the future of AI-powered professional
+            growth strategies for {process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} — the future of AI-powered professional
             development. Join us in transforming how the world learns and grows.
           </p>
         </Stack>
@@ -590,7 +590,7 @@ export function DeckContent() {
 
         <Reveal delay={0.1} className="mt-12">
           <Stack gap={6}>
-            <h3 className="text-h3 text-foreground">Why Invest in Kairoo?</h3>
+            <h3 className="text-h3 text-foreground">Why Invest in {process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}?</h3>
             <Grid cols={3} gap="lg">
               {WHY_INVEST.map((item, i) => (
                 <CardContainer

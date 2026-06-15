@@ -13,9 +13,9 @@ import {
 } from "./CustomersVisuals";
 
 export const metadata: Metadata = {
-  title: "Customers — Kairoo",
+  title: `Customers — ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}`,
   description:
-    "See how professionals and organizations transform their careers with Kairoo: real success stories and the measurable impact on skill acquisition, salary, and team productivity.",
+    `See how professionals and organizations transform their careers with ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}: real success stories and the measurable impact on skill acquisition, salary, and team productivity.`,
 };
 
 /**
@@ -92,7 +92,7 @@ const outcomeHighlights = [
   {
     title: "Built for momentum",
     description:
-      "Promotions, career switches, and enterprise productivity gains — outcomes customers report after going all-in with Kairoo.",
+      `Promotions, career switches, and enterprise productivity gains — outcomes customers report after going all-in with ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}.`,
     icon: "rocket",
     span: "2x1" as const,
   },
@@ -104,7 +104,7 @@ export default function CustomersPage() {
       <CustomersHero
         titleLead="Trusted by professionals and teams who are"
         titleHighlight="leveling up"
-        subtitle="See how individuals and organizations are transforming their careers and skill development with Kairoo — from career switches and promotions to enterprise-wide productivity gains."
+        subtitle={ `See how individuals and organizations are transforming their careers and skill development with ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} — from career switches and promotions to enterprise-wide productivity gains.` }
       />
 
       <CustomersLogoMarquee
@@ -114,7 +114,7 @@ export default function CustomersPage() {
 
       <CustomersTestimonials
         heading="Success stories from across the industry"
-        description="Real outcomes from professionals who used Kairoo's AI-powered learning paths, coaching, and analytics to move their careers forward."
+        description={ `Real outcomes from professionals who used ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}'s AI-powered learning paths, coaching, and analytics to move their careers forward.` }
         items={testimonials}
       />
 

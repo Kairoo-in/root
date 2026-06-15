@@ -37,7 +37,7 @@ import { PaginationDemo } from "./PaginationDemo";
 import { InteractiveDemos } from "./InteractiveDemos";
 import { MotionDemos } from "./MotionDemos";
 
-export const metadata: Metadata = { title: "Kairoo — Style reference", robots: { index: false } };
+export const metadata: Metadata = { title: `${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} — Style reference`, robots: { index: false } };
 
 const STEPS = ["50","100","200","300","400","500","600","700","800","900","950"] as const;
 
@@ -48,12 +48,12 @@ const SAMPLE_FEATURES: Feature[] = [
 ];
 
 const SAMPLE_TESTIMONIALS: Testimonial[] = [
-  { id: "t1", quote: "Kairoo turned a vague ambition into a weekly plan I actually follow.", name: "Ada Lovelace", role: "Staff Engineer", company: "Analytical" },
+  { id: "t1", quote: `${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} turned a vague ambition into a weekly plan I actually follow.`, name: "Ada Lovelace", role: "Staff Engineer", company: "Analytical" },
   { id: "t2", quote: "The momentum tracking is the first tool that kept me honest about progress.", name: "Grace Hopper", role: "VP Engineering", company: "Compiler Co" },
 ];
 
 const SAMPLE_FAQ: FAQItem[] = [
-  { id: "q1", question: "What is Kairoo?", answer: "An AI career copilot that turns goals into a sequenced, trackable plan." },
+  { id: "q1", question: `What is ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}?`, answer: "An AI career copilot that turns goals into a sequenced, trackable plan." },
   { id: "q2", question: "Can I cancel anytime?", answer: "Yes — plans are month-to-month and you can downgrade or cancel whenever you like." },
 ];
 
@@ -73,7 +73,7 @@ const SAMPLE_LOGOS = [
 export default function StylePage() {
   return (
     <main className="mx-auto max-w-5xl px-6 py-16 space-y-12">
-      <h1 className="text-h1 text-foreground">{process.env.APP_NAME || "Kairoo"} Design System</h1>
+      <h1 className="text-h1 text-foreground">{process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} Design System</h1>
 
       <section className="space-y-4">
         <h2 className="text-h3 text-foreground">Color ramps</h2>

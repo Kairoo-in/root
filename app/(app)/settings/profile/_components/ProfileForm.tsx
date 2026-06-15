@@ -143,7 +143,7 @@ export function ProfileForm({ profile }: ProfileFormProps) {
           {user?.firstName?.[0] ?? user?.emailAddresses[0]?.emailAddress?.[0]?.toUpperCase() ?? 'K'}
         </div>
         <div className="min-w-0">
-          <div className="font-bold text-foreground truncate">{user?.fullName ?? 'Kairoo User'}</div>
+          <div className="font-bold text-foreground truncate">{user?.fullName ?? `${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} User`}</div>
           <div className="text-sm text-muted-foreground truncate">{user?.primaryEmailAddress?.emailAddress}</div>
           <div className="text-xs text-teal-400 mt-0.5">Name & email managed by Clerk</div>
         </div>
@@ -315,7 +315,7 @@ export function ProfileForm({ profile }: ProfileFormProps) {
           <textarea
             className={textareaClass}
             rows={8}
-            placeholder="Paste your resume here. Kairoo uses this to give you more personalised guidance and skill gap analysis."
+            placeholder={ `Paste your resume here. ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} uses this to give you more personalised guidance and skill gap analysis.` }
             value={form.resumeText}
             onChange={e => patch({ resumeText: e.target.value })}
           />

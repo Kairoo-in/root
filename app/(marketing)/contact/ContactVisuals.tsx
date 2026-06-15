@@ -165,7 +165,7 @@ function ContactHero({
               {...reveal(0.7)}
               className="max-w-xl text-pretty text-body-lg text-muted-foreground"
             >
-              Whether you&apos;re evaluating Kairoo for yourself or rolling it
+              Whether you&apos;re evaluating {process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} for yourself or rolling it
               out across a team, send a note and we&apos;ll get back to you —
               usually within one business day.
             </motion.p>
@@ -384,7 +384,7 @@ function WhatHappensNext() {
     {
       title: "We read every message ourselves",
       description:
-        "No bots triaging your note into a void. A real person on the Kairoo team reads what you send and replies — usually within one business day.",
+        `No bots triaging your note into a void. A real person on the ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} team reads what you send and replies — usually within one business day.`,
       span: "2x2",
       icon: <IconRenderer name="mail-check" size={20} />,
     },
@@ -408,7 +408,7 @@ function WhatHappensNext() {
     {
       title: "Career toolkit, learning paths & team analytics",
       description:
-        "We'll walk you through the parts of Kairoo that matter most for your goals and team size — and answer anything in real time.",
+        `We'll walk you through the parts of ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} that matter most for your goals and team size — and answer anything in real time.`,
       span: "2x1",
       icon: <IconRenderer name="layers" size={20} />,
     },
@@ -418,7 +418,7 @@ function WhatHappensNext() {
     <BentoGrid
       eyebrow="After you reach out"
       heading="What happens next"
-      description="No drawn-out sales gauntlet — just a clear, human path from your first message to seeing Kairoo in action."
+      description={ `No drawn-out sales gauntlet — just a clear, human path from your first message to seeing ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} in action.` }
       items={items}
     />
   );
@@ -468,7 +468,7 @@ function GlowingCTA({
               <IconRenderer name="rocket" size={26} />
             </span>
             <h2 className="text-balance text-h2 text-primary-foreground">
-              Ready to see Kairoo in action?
+              Ready to see {process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} in action?
             </h2>
             <p className="text-pretty text-body-lg text-primary-foreground/80">
               Start free in minutes, or send a message above to set up a guided

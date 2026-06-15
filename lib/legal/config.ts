@@ -16,8 +16,8 @@ export type LegalConfig = {
 };
 
 export const legal: LegalConfig = {
-  productName: "Kairoo",
-  legalEntity: "Kairoo (operated by Matters AI)", // TODO confirm registered entity
+  productName: `${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}`,
+  legalEntity: `${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} (operated by Matters AI)`, // TODO confirm registered entity
   jurisdiction: "India",                            // TODO confirm governing law
   effectiveDate: "2026-06-14",
   contactEmail: "privacy@kairoo.com",               // TODO confirm

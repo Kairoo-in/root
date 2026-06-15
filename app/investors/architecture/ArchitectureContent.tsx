@@ -577,7 +577,7 @@ function HeroSequence() {
         <h1 data-anim className="text-display mt-6 text-balance text-foreground">
           Technical Architecture —{' '}
           <span className="bg-gradient-to-r from-primary via-accent to-[color-mix(in_oklab,var(--accent)_55%,var(--foreground))] bg-clip-text text-transparent">
-            Kairoo v2.0
+            {process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} v2.0
           </span>
         </h1>
         <p data-anim className="text-body-lg mx-auto mt-6 max-w-3xl text-pretty text-muted-foreground">

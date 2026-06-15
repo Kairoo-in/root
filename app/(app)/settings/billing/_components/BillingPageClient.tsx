@@ -53,7 +53,7 @@ export function BillingPageClient({ subscription, remaining }: Props) {
           key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
           amount,
           currency: 'INR',
-          name: 'Kairoo AI',
+          name: `${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} AI`,
           description: `${planId.charAt(0).toUpperCase() + planId.slice(1)} Plan`,
           order_id: orderId,
           theme: { color: '#14b8a6' },

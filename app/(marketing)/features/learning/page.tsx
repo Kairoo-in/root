@@ -9,7 +9,7 @@ import {
 } from "./LearningVisuals";
 
 export const metadata: Metadata = {
-  title: "Intelligent Learning Paths — Kairoo",
+  title: `Intelligent Learning Paths — ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}`,
   description:
     "Curated AI learning paths, a 24/7 tutor, and project-based learning that turns any skill goal into a sequenced, hands-on curriculum.",
 };

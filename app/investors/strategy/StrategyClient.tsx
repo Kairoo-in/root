@@ -143,7 +143,7 @@ export function StrategyHero() {
           className="mt-4 max-w-2xl text-body-lg text-muted-foreground opacity-0"
         >
           Comprehensive strategic analysis, market validation, and business intelligence for
-          Kairoo — your complete guide to building and scaling a successful SaaS platform.
+          {process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} — your complete guide to building and scaling a successful SaaS platform.
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
           {HERO_PILLS.map((pill) => (
@@ -609,21 +609,21 @@ const VALUE_TONES = [
     title: "Action-Oriented Tone",
     hint: "Drives urgency and immediate activation.",
     quote:
-      "Stop wasting time on scattered resources. Kairoo delivers personalized career acceleration with AI precision, giving you the competitive edge you need today.",
+      `Stop wasting time on scattered resources. ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} delivers personalized career acceleration with AI precision, giving you the competitive edge you need today.`,
   },
   {
     icon: "shield-check",
     title: "Trust-Building Tone",
     hint: "Anchors credibility and proof.",
     quote:
-      "Trusted by thousands of professionals worldwide, Kairoo provides scientifically-backed learning methods and proven career strategies to ensure your growth investment pays dividends.",
+      `Trusted by thousands of professionals worldwide, ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} provides scientifically-backed learning methods and proven career strategies to ensure your growth investment pays dividends.`,
   },
   {
     icon: "heart-pulse",
     title: "Aspirational Tone",
     hint: "Connects to identity and ambition.",
     quote:
-      "Unlock your unlimited potential. Kairoo doesn't just teach skills—it transforms lives, turning ambitious dreams into achievable realities through intelligent guidance.",
+      `Unlock your unlimited potential. ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} doesn't just teach skills—it transforms lives, turning ambitious dreams into achievable realities through intelligent guidance.`,
   },
 ] as const;
 

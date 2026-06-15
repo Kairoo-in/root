@@ -778,7 +778,7 @@ export function AboutCta({
 export function MilestonesTimeline() {
   const milestones: TimelineItem[] = [
     { title: 'Founded', date: '2023', content: <p className="text-muted-foreground">AstraPath AI founded with a mission to democratize career intelligence.</p> },
-    { title: 'Rebranded to Kairoo', date: '2024', content: <p className="text-muted-foreground">Refined focus, new brand, same mission.</p> },
+    { title: `Rebranded to ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}`, date: '2024', content: <p className="text-muted-foreground">Refined focus, new brand, same mission.</p> },
     { title: 'AI Engine v2', date: '2025', content: <p className="text-muted-foreground">38-tool AI career engine launched with personalized roadmaps.</p> },
   ]
   return <Timeline items={milestones} className="mt-12" />

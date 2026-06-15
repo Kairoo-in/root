@@ -118,7 +118,7 @@ export function PersonaWorkflows() {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1, ease: EASE }}
         >
-          Three complete walkthroughs — each one a real sequence of Kairoo tools chained for a specific goal.
+          Three complete walkthroughs — each one a real sequence of {process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} tools chained for a specific goal.
         </motion.p>
       </div>
 
@@ -254,7 +254,7 @@ export function PersonalizationFlow() {
         <div className="rounded-2xl border border-border bg-card p-6">
           <div className="mb-4 flex items-center gap-2">
             <User className="h-4 w-4 text-teal-500" />
-            <span className="text-sm font-bold text-foreground">Your Kairoo profile</span>
+            <span className="text-sm font-bold text-foreground">Your {process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} profile</span>
             <span className="ml-auto rounded-full bg-teal-500/10 px-2 py-0.5 text-[10px] font-semibold text-teal-500">Set once</span>
           </div>
           <div className="space-y-2.5">

@@ -155,7 +155,7 @@ function LearningHero() {
           {...reveal(0.16)}
           className="max-w-2xl text-pretty text-body-lg text-muted-foreground"
         >
-          Tell Kairoo what you want to master and the AI builds the curriculum,
+          Tell {process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} what you want to master and the AI builds the curriculum,
           tutors you through it, and turns theory into portfolio-ready projects —
           scaled to your timeline and level.
         </motion.p>
@@ -254,7 +254,7 @@ const BENTO_ITEMS: BentoItem[] = [
     id: "curriculum",
     title: "A curriculum built around your goal",
     description:
-      "Name a skill and a timeline — Kairoo sequences a week-by-week path from the best-known resources, scaled to where you are now.",
+      `Name a skill and a timeline — ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} sequences a week-by-week path from the best-known resources, scaled to where you are now.`,
     icon: <IconRenderer name="route" size={22} />,
     span: "2x2",
   },
@@ -294,7 +294,7 @@ function HowItWorks() {
     <BentoGrid
       eyebrow="The learning loop"
       heading="Plan, learn, build — on one adaptive surface"
-      description="Kairoo closes the gap between a goal and the work that gets you there: a sequenced path, an always-on tutor, and projects that turn knowledge into proof."
+      description={ `${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} closes the gap between a goal and the work that gets you there: a sequenced path, an always-on tutor, and projects that turn knowledge into proof.` }
       items={BENTO_ITEMS}
       className="pt-0"
     />
@@ -368,7 +368,7 @@ function Roadmap({ comingSoon }: { comingSoon: ComingSoonCard[] }) {
 const FAQS = [
   {
     id: "how",
-    q: "How does Kairoo build my learning path?",
+    q: `How does ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} build my learning path?`,
     a: "Tell it the skill you want to master and your timeline. The AI sequences a week-by-week (or month-by-month) curriculum from well-known resources, adds a hands-on project per phase, and sets checkpoints so you can measure progress.",
   },
   {

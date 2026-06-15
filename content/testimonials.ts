@@ -6,7 +6,7 @@ export const testimonials: Testimonial[] = [
   {
     id: "explorin-user",
     quote:
-      "Kairoo's roadmap builder helped me map out exactly what I needed to learn to move from a support role into product. Having everything in one place instead of scattered tabs was a game changer.",
+      `${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}'s roadmap builder helped me map out exactly what I needed to learn to move from a support role into product. Having everything in one place instead of scattered tabs was a game changer.`,
     name: "Aryan S.",
     role: "Aspiring Product Manager",
     company: "Explorin",
@@ -22,7 +22,7 @@ export const testimonials: Testimonial[] = [
   {
     id: "quantacus-user",
     quote:
-      "We use Kairoo to onboard new team members faster and identify skill gaps early. The analytics give us something concrete to discuss in growth reviews instead of vague conversations.",
+      `We use ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} to onboard new team members faster and identify skill gaps early. The analytics give us something concrete to discuss in growth reviews instead of vague conversations.`,
     name: "Rahul K.",
     role: "Team Lead",
     company: "Quantacus",

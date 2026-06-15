@@ -8,7 +8,7 @@ import PricingVisuals, {
 } from "./PricingVisuals";
 
 export const metadata: Metadata = {
-  title: "Pricing — Kairoo",
+  title: `Pricing — ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}`,
   description:
     "Simple, transparent pricing for your AI career copilot. Start free, upgrade to Pro for unlimited paths and daily coaching, or talk to us about Enterprise. No card required to begin.",
 };
@@ -29,7 +29,7 @@ const objections: readonly PricingObjection[] = [
   {
     icon: "clock",
     title: "Quick setup",
-    body: "Get to your first AI career check-in in under five minutes. Tell Kairoo your goals and your copilot maps an actionable path — no lengthy onboarding or imports required.",
+    body: `Get to your first AI career check-in in under five minutes. Tell ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} your goals and your copilot maps an actionable path — no lengthy onboarding or imports required.`,
   },
   {
     icon: "headset",

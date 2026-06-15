@@ -14,7 +14,7 @@ export default function VerifyPage() {
       </div>
       <h2 className="text-xl font-bold text-white mb-2">Check your email</h2>
       <p className="text-zinc-400 text-sm leading-relaxed">
-        We've sent a verification link to your email address. Click it to activate your Kairoo account.
+        We've sent a verification link to your email address. Click it to activate your {process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} account.
       </p>
     </motion.div>
   )

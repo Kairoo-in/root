@@ -76,7 +76,7 @@ export function ChatInput({
       </div>
 
       <p className="text-[10px] text-muted-foreground/40 text-center mt-2">
-        Kairoo AI · Cmd+Enter to send
+        {process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} AI · Cmd+Enter to send
       </p>
     </div>
   )

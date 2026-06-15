@@ -31,3 +31,11 @@ export async function getRecentActivity(userId: string, limit = 8): Promise<Acti
     .orderBy(desc(activityLog.createdAt))
     .limit(limit)
 }
+
+export async function getAllActivity(userId: string): Promise<ActivityEntry[]> {
+  return db
+    .select()
+    .from(activityLog)
+    .where(eq(activityLog.userId, userId))
+    .orderBy(desc(activityLog.createdAt))
+}
