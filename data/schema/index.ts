@@ -1,5 +1,21 @@
-import { pgTable, text, timestamp, integer, jsonb, boolean, uuid, primaryKey } from 'drizzle-orm/pg-core'
+import { pgTable, text, timestamp, integer, jsonb, boolean, uuid, primaryKey, customType } from 'drizzle-orm/pg-core'
 import type { ResumeSections } from '@/types/resume'
+
+const vector = (dimensions: number) =>
+  customType<{ data: number[]; driverData: string }>({
+    dataType() {
+      return `vector(${dimensions})`;
+    },
+    toDriver(value: number[]) {
+      return `[${value.join(",")}]`;
+    },
+    fromDriver(value: string) {
+      return value
+        .replace(/^\[|\]$/g, "")
+        .split(",")
+        .map(Number);
+    },
+  })("embedding");
 
 export const users = pgTable('users', {
   id: text('id').primaryKey(), // Clerk user ID
@@ -238,5 +254,21 @@ export const usageBudgets = pgTable(
   },
   (t) => ({
     pk: primaryKey({ columns: [t.day, t.scope] }),
+  }),
+);
+
+// --- Shared embedding substrate (pgvector) ---
+export const embeddings = pgTable(
+  "embeddings",
+  {
+    entityType: text("entity_type").notNull(),
+    entityId: text("entity_id").notNull(),
+    contentHash: text("content_hash").notNull(),
+    embedding: vector(384),
+    model: text("model").notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  },
+  (t) => ({
+    pk: primaryKey({ columns: [t.entityType, t.entityId] }),
   }),
 );
