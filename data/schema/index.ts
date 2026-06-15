@@ -177,7 +177,6 @@ export type LearningResource = {
   title: string
   url: string
   type: 'course' | 'book' | 'article' | 'video' | 'practice'
-  completed?: boolean
 }
 
 export type LearningPlanItem = {

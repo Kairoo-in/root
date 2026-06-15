@@ -11,17 +11,8 @@ export default async function ToolPage({ params }: Props) {
   const feature = features.find(f => f.id === featureId)
   if (!feature) notFound()
 
-  const clientFeature = {
-    id: feature.id,
-    name: feature.name,
-    icon: feature.icon,
-    color: feature.color,
-    description: feature.description,
-    category: feature.category,
-    status: feature.status,
-    inputs: feature.inputs,
-    tier: feature.tier,
-  }
+  // Omit functions to prevent React 19 / Next 16 prerender error
+  const { buildUserPrompt, systemAddendum, ...clientFeature } = feature
   return <ToolPageClient feature={clientFeature} />
 }
 

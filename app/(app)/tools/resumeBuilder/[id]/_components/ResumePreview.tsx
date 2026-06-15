@@ -1,21 +1,18 @@
 'use client'
 
 import { useRef } from 'react'
-import { motion } from 'framer-motion'
 import { Printer } from 'lucide-react'
 import type { ResumeSections, ResumeTemplateId } from '@/types/resume'
 import MinimalTemplate from './templates/MinimalTemplate'
 import ModernTemplate from './templates/ModernTemplate'
 import ExecutiveTemplate from './templates/ExecutiveTemplate'
 import CreativeTemplate from './templates/CreativeTemplate'
-import { Cover } from '@/components/aceternity'
 
-const TEMPLATES: Array<{ id: ResumeTemplateId; label: string; accent: string; desc: string }> = [
-  { id: 'minimal', label: 'Minimal', accent: 'from-white/10 to-white/5', desc: 'Clean & simple' },
-  { id: 'modern', label: 'Modern', accent: 'from-violet-500/20 to-violet-500/5', desc: 'Bold accents' },
-  { id: 'executive', label: 'Executive', accent: 'from-blue-500/20 to-blue-500/5', desc: 'Authoritative' },
-  { id: 'creative', label: 'Creative', accent: 'from-emerald-500/20 to-emerald-500/5', desc: 'Stand out' },
-
+const TEMPLATES: Array<{ id: ResumeTemplateId; label: string }> = [
+  { id: 'minimal', label: 'Minimal' },
+  { id: 'modern', label: 'Modern' },
+  { id: 'executive', label: 'Executive' },
+  { id: 'creative', label: 'Creative' },
 ]
 
 interface Props {
@@ -54,32 +51,20 @@ export default function ResumePreview({ sections, templateId, onTemplateChange }
   return (
     <div className="flex flex-col h-full gap-3">
       {/* Template switcher + print */}
-      <div className="flex items-center justify-between gap-3">
-        <div className="flex items-center gap-2 flex-1 overflow-x-auto pb-0.5">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-1 p-1 rounded-lg bg-white/5 border border-white/10">
           {TEMPLATES.map((t) => (
-            <motion.button
+            <button
               key={t.id}
-              type="button"
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
               onClick={() => onTemplateChange(t.id)}
-              className={`relative shrink-0 rounded-xl border transition-all overflow-hidden ${
+              className={`px-3 py-1 rounded-md text-xs font-medium transition-colors ${
                 templateId === t.id
-                  ? 'border-violet-500/60 ring-1 ring-violet-500/40'
-                  : 'border-white/10 hover:border-white/25'
+                  ? 'bg-violet-600 text-white'
+                  : 'text-white/50 hover:text-white/80'
               }`}
             >
-              <Cover className={`bg-linear-to-br ${t.accent} px-3 py-2 min-w-[80px]`}>
-                <div className="text-xs font-semibold text-white">{t.label}</div>
-                <div className="text-[10px] text-white/40 mt-0.5">{t.desc}</div>
-              </Cover>
-              {templateId === t.id && (
-                <motion.div
-                  layoutId="template-active"
-                  className="absolute inset-0 bg-violet-500/10 rounded-xl"
-                />
-              )}
-            </motion.button>
+              {t.label}
+            </button>
           ))}
         </div>
         <button

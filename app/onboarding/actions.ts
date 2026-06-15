@@ -7,35 +7,25 @@ import { upsertProfile, markOnboardingComplete } from '@/data/repositories/profi
 interface StepData {
   currentRole?: string
   currentCompany?: string
-  yearsExperience?: number | ''
+  yearsExperience?: number
   industry?: string
   location?: string
   targetRole?: string
   targetTimeline?: string
   careerGoalShort?: string
-  careerGoalLong?: string
   skills?: string[]
-  education?: { degree: string; field: string; institution: string; year: string }[]
-  certifications?: string[]
-  resumeText?: string
-  githubUrl?: string
-  linkedinUrl?: string
-  portfolioUrl?: string
-  naukriUrl?: string
-  otherUrl?: string
   workStyle?: string
-  learningStyle?: string
+  linkedinUrl?: string
+  githubUrl?: string
+  portfolioUrl?: string
 }
 
 export async function saveOnboardingStep(step: number, data: StepData): Promise<void> {
   const { userId } = await auth()
   if (!userId) redirect('/sign-in')
 
-  const { yearsExperience, education, ...rest } = data
   await upsertProfile(userId, {
-    ...rest,
-    ...(yearsExperience !== '' && yearsExperience !== undefined ? { yearsExperience } : {}),
-    ...(education ? { education: education.map(e => ({ ...e, year: e.year ? parseInt(e.year, 10) || undefined : undefined })) } : {}),
+    ...data,
     onboardingStep: step + 1,
   })
 }
@@ -44,12 +34,9 @@ export async function completeOnboarding(data: StepData): Promise<void> {
   const { userId } = await auth()
   if (!userId) redirect('/sign-in')
 
-  const { yearsExperience, education, ...rest } = data
   await upsertProfile(userId, {
-    ...rest,
-    ...(yearsExperience !== '' && yearsExperience !== undefined ? { yearsExperience } : {}),
-    ...(education ? { education: education.map(e => ({ ...e, year: e.year ? parseInt(e.year, 10) || undefined : undefined })) } : {}),
+    ...data,
     onboardingCompleted: true,
-    onboardingStep: 7,
+    onboardingStep: 5,
   })
 }

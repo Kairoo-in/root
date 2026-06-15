@@ -33,7 +33,13 @@ import {
   CardItem,
 } from "@/components/motion/ThreeDCard";
 import { StatGrid, type StatCounterProps } from "@/components/blocks/StatCounter";
-import { TracingBeam, BackgroundRipple } from "@/components/aceternity";
+import {
+  TracingBeam,
+  Timeline,
+  AppleCardsCarousel,
+  BackgroundRipple,
+} from "@/components/aceternity";
+import type { TimelineItem, AppleCard } from "@/components/aceternity";
 
 /* ------------------------------- types ----------------------------------- */
 
@@ -261,6 +267,20 @@ export function StepsTimeline({
 }) {
   const reduce = useReducedMotion();
 
+  const carouselCards: AppleCard[] = steps.map((step, i) => ({
+    id: i,
+    title: step.title,
+    category: `Step ${step.index}`,
+    description: step.description,
+  }));
+
+  const timelineItems: TimelineItem[] = steps.map((step, i) => ({
+    title: step.title,
+    date: `Step ${step.index}`,
+    content: (
+      <p className="text-muted-foreground text-sm">{step.description}</p>
+    ),
+  }));
 
   return (
     <Section aria-labelledby="steps-heading">
@@ -295,10 +315,7 @@ export function StepsTimeline({
             initial={reduce ? false : "hidden"}
             whileInView={reduce ? undefined : "show"}
             viewport={{ once: true, amount: 0.2 }}
-            className={cn(
-              "grid grid-cols-1 gap-6 sm:grid-cols-2",
-              steps.length <= 3 ? "lg:grid-cols-3" : "lg:grid-cols-4",
-            )}
+            className="grid grid-cols-1 gap-6 lg:grid-cols-3"
           >
             {steps.map((step, i) => (
               <motion.li
@@ -336,13 +353,13 @@ export function StepsTimeline({
                     </span>
                   </div>
 
-                  {/* <Stack gap={2}>
+                  <Stack gap={2}>
                     <Badge variant="info" size="sm" className="w-fit">
                       {step.tagline}
                     </Badge>
                     <h3 className="text-h3 text-foreground">{step.title}</h3>
                     <p className="text-body-sm text-muted-foreground">{step.description}</p>
-                  </Stack> */}
+                  </Stack>
 
                   <ul className="mt-auto flex flex-col gap-2 border-t border-border pt-4">
                     {step.points.map((point) => (
@@ -372,6 +389,12 @@ export function StepsTimeline({
             ))}
           </motion.ol>
         </div>
+
+        {/* Aceternity carousel — same steps, swipeable card format */}
+        <AppleCardsCarousel cards={carouselCards} className="mb-4" />
+
+        {/* Aceternity timeline — scroll-linked vertical spine */}
+        <Timeline items={timelineItems} className="mt-4" />
 
       </Stack>
       </TracingBeam>
