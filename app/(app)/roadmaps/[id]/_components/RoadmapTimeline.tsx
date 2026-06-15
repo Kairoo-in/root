@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { CheckCircle2, Circle } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { RoadmapPhase, RoadmapStep } from '@/types/roadmap'
+import { Cover } from '@/components/aceternity'
 
 const PHASE_BORDER: Record<string, string> = {
   teal:   'border-teal-500/30 bg-teal-500/5',
@@ -57,26 +58,28 @@ export function RoadmapTimeline({ phases, onStepClick }: Props) {
                     )}
                   </div>
                   {/* Step card */}
-                  <motion.button
-                    whileHover={{ x: 2 }}
-                    onClick={() => onStepClick(phase.id, step)}
-                    className={cn(
-                      'w-52 rounded-xl border p-3 text-left transition-colors cursor-pointer mb-1',
-                      step.status === 'done'
-                        ? 'border-teal-500/20 bg-teal-500/5'
-                        : step.status === 'in_progress'
-                        ? 'border-blue-500/30 bg-blue-500/5'
-                        : 'border-border bg-card hover:border-border/70'
-                    )}
-                  >
-                    <div className={cn(
-                      'text-xs font-semibold leading-snug',
-                      step.status === 'done' ? 'line-through text-muted-foreground' : 'text-foreground'
-                    )}>
-                      {step.title}
-                    </div>
-                    <div className="text-[10px] text-muted-foreground/50 mt-1">{step.duration}</div>
-                  </motion.button>
+                  <Cover className="mb-1">
+                    <motion.button
+                      whileHover={{ x: 2 }}
+                      onClick={() => onStepClick(phase.id, step)}
+                      className={cn(
+                        'w-52 rounded-xl border p-3 text-left transition-colors cursor-pointer',
+                        step.status === 'done'
+                          ? 'border-teal-500/20 bg-teal-500/5'
+                          : step.status === 'in_progress'
+                          ? 'border-blue-500/30 bg-blue-500/5'
+                          : 'border-border bg-card hover:border-border/70'
+                      )}
+                    >
+                      <div className={cn(
+                        'text-xs font-semibold leading-snug',
+                        step.status === 'done' ? 'line-through text-muted-foreground' : 'text-foreground'
+                      )}>
+                        {step.title}
+                      </div>
+                      <div className="text-[10px] text-muted-foreground/50 mt-1">{step.duration}</div>
+                    </motion.button>
+                  </Cover>
                 </div>
               ))}
             </div>

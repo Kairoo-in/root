@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { X, ExternalLink, BookOpen, Video, FileText, Book } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { RoadmapStep } from '@/types/roadmap'
+import { AnimatedTooltip } from '@/components/aceternity'
+import type { TooltipItem } from '@/components/aceternity'
 
 const RESOURCE_ICONS: Record<RoadmapStep['resources'][number]['type'], React.ElementType> = {
   article: FileText,
@@ -84,7 +86,17 @@ export function StepDrawer({ step, phaseId, phaseTitle, onClose, onStatusChange,
               {/* Resources */}
               {step.resources.length > 0 && (
                 <div>
-                  <div className="text-[10px] text-muted-foreground uppercase tracking-wider mb-2">Resources</div>
+                  <div className="text-[10px] text-muted-foreground uppercase tracking-wider mb-3">Resources</div>
+                  {/* AnimatedTooltip preview row */}
+                  <div className="mb-3">
+                    <AnimatedTooltip
+                      items={step.resources.map((r, i): TooltipItem => ({
+                        id: i,
+                        name: r.title,
+                        designation: r.type,
+                      }))}
+                    />
+                  </div>
                   <div className="space-y-2">
                     {step.resources.map((r, i) => {
                       const Icon = RESOURCE_ICONS[r.type]

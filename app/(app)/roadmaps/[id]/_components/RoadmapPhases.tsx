@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronDown, CheckCircle2, Circle, Loader2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { RoadmapPhase, RoadmapStep } from '@/types/roadmap'
+import { GlowingEffect } from '@/components/aceternity'
 
 const COLOR_MAP: Record<string, string> = {
   teal:   'text-teal-400 bg-teal-500/10 border-teal-500/20',
@@ -69,35 +70,44 @@ export function RoadmapPhases({ phases, onStepClick, onStatusChange }: Props) {
                   className="overflow-hidden"
                 >
                   <div className="px-4 pb-4 space-y-2 border-t border-border pt-3">
-                    {phase.steps.map((step) => (
-                      <div
-                        key={step.id}
-                        className="flex items-start gap-3 rounded-xl p-3 hover:bg-muted/30 transition-colors group cursor-pointer"
-                        onClick={() => onStepClick(phase.id, step)}
-                      >
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            const next: RoadmapStep['status'] =
-                              step.status === 'todo' ? 'in_progress' :
-                              step.status === 'in_progress' ? 'done' : 'todo'
-                            onStatusChange(phase.id, step.id, next)
-                          }}
-                          className="mt-0.5 cursor-pointer"
+                    {phase.steps.map((step) => {
+                      const inner = (
+                        <div
+                          key={step.id}
+                          className="flex items-start gap-3 rounded-xl p-3 hover:bg-muted/30 transition-colors group cursor-pointer"
+                          onClick={() => onStepClick(phase.id, step)}
                         >
-                          <StepStatusIcon status={step.status} />
-                        </button>
-                        <div className="flex-1 min-w-0">
-                          <div className={cn('text-sm font-medium text-foreground', step.status === 'done' && 'line-through text-muted-foreground')}>
-                            {step.title}
+                          <button
+                            type="button"
+                            title={`Mark as ${step.status === 'todo' ? 'in progress' : step.status === 'in_progress' ? 'done' : 'to do'}`}
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              const next: RoadmapStep['status'] =
+                                step.status === 'todo' ? 'in_progress' :
+                                step.status === 'in_progress' ? 'done' : 'todo'
+                              onStatusChange(phase.id, step.id, next)
+                            }}
+                            className="mt-0.5 cursor-pointer"
+                          >
+                            <StepStatusIcon status={step.status} />
+                          </button>
+                          <div className="flex-1 min-w-0">
+                            <div className={cn('text-sm font-medium text-foreground', step.status === 'done' && 'line-through text-muted-foreground')}>
+                              {step.title}
+                            </div>
+                            <div className="text-[10px] text-teal-400 mt-0.5 font-medium">{step.duration}</div>
                           </div>
-                          <div className="text-[10px] text-teal-400 mt-0.5 font-medium">{step.duration}</div>
+                          <span className="text-[10px] text-muted-foreground/40 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
+                            +{step.xpReward} XP
+                          </span>
                         </div>
-                        <span className="text-[10px] text-muted-foreground/40 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
-                          +{step.xpReward} XP
-                        </span>
-                      </div>
-                    ))}
+                      )
+                      return step.status === 'in_progress' ? (
+                        <GlowingEffect key={step.id} color="var(--primary)" className="rounded-xl">
+                          {inner}
+                        </GlowingEffect>
+                      ) : inner
+                    })}
                   </div>
                 </motion.div>
               )}

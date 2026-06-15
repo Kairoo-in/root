@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft, ArrowRight, Sparkles, Check } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { parseRoadmapOutput } from '@/engines/ai/parsers/roadmap-parser'
+import { NoiseBackground, LampEffect } from '@/components/aceternity'
 
 const TIMELINE_OPTIONS = [
   { weeks: 4,  label: '4 weeks',  sub: 'Sprint' },
@@ -98,26 +99,29 @@ export function RoadmapWizard({ defaultGoal, defaultTargetRole }: Props) {
   }
 
   return (
+    <NoiseBackground className="rounded-2xl">
     <div>
       {/* Step indicator */}
-      <div className="flex items-center gap-2 mb-8">
-        {STEPS.map((label, i) => (
-          <div key={label} className="flex items-center gap-2">
-            <div className={cn(
-              'w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold transition-colors',
-              i < step ? 'bg-teal-500 text-black' :
-              i === step ? 'border-2 border-teal-500 text-teal-400' :
-              'border border-border text-muted-foreground/40'
-            )}>
-              {i < step ? <Check className="w-3 h-3" /> : i + 1}
+      <LampEffect className="mb-2 py-6 rounded-xl">
+        <div className="flex items-center gap-2">
+          {STEPS.map((label, i) => (
+            <div key={label} className="flex items-center gap-2">
+              <div className={cn(
+                'w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold transition-colors',
+                i < step ? 'bg-teal-500 text-black' :
+                i === step ? 'border-2 border-teal-500 text-teal-400' :
+                'border border-border text-muted-foreground/40'
+              )}>
+                {i < step ? <Check className="w-3 h-3" /> : i + 1}
+              </div>
+              <span className={cn('text-xs font-medium', i === step ? 'text-foreground' : 'text-muted-foreground/50')}>
+                {label}
+              </span>
+              {i < STEPS.length - 1 && <div className="w-6 h-px bg-border mx-1" />}
             </div>
-            <span className={cn('text-xs font-medium', i === step ? 'text-foreground' : 'text-muted-foreground/50')}>
-              {label}
-            </span>
-            {i < STEPS.length - 1 && <div className="w-6 h-px bg-border mx-1" />}
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      </LampEffect>
 
       <AnimatePresence mode="wait">
         <motion.div
@@ -268,5 +272,6 @@ export function RoadmapWizard({ defaultGoal, defaultTargetRole }: Props) {
         )}
       </div>
     </div>
+    </NoiseBackground>
   )
 }
