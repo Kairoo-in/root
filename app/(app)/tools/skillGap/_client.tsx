@@ -7,14 +7,16 @@ import { SkillRadarChart } from './_components/SkillRadarChart'
 import { PriorityMatrix } from './_components/PriorityMatrix'
 import { SkillGapCard } from './_components/SkillGapCard'
 import { LearningPlanTimeline } from './_components/LearningPlanTimeline'
+import { SalaryImpactCard } from './_components/SalaryImpactCard'
 import type { SkillAssessment } from '@/data/repositories/skillAssessments.repo'
 
 interface Props {
   assessments: SkillAssessment[]
   active: SkillAssessment | null
+  learningStyle?: string | null
 }
 
-export function SkillGapDashboardClient({ assessments, active: initialActive }: Props) {
+export function SkillGapDashboardClient({ assessments, active: initialActive, learningStyle }: Props) {
   const router = useRouter()
   const [active, setActive] = useState(initialActive)
   const [generatingPlan, setGeneratingPlan] = useState(false)
@@ -127,6 +129,9 @@ export function SkillGapDashboardClient({ assessments, active: initialActive }: 
         </div>
       </div>
 
+      {/* Salary Impact */}
+      <SalaryImpactCard gaps={active.gaps} />
+
       {/* Gap cards */}
       {active.gaps.length > 0 && (
         <div>
@@ -155,6 +160,8 @@ export function SkillGapDashboardClient({ assessments, active: initialActive }: 
                 gap={gap}
                 plan={active.learningPlan.find(p => p.skill === gap.skill)}
                 index={i}
+                learningStyle={learningStyle}
+                assessmentId={active.id}
               />
             ))}
           </div>
