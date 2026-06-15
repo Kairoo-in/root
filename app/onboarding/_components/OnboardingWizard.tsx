@@ -101,20 +101,19 @@ export function OnboardingWizard({ initialStep = 0, initialData = {} }: Props) {
     <div className="w-full max-w-xl">
       {/* Progress stepper */}
       <div className="mb-8">
-        <div className="flex items-center justify-between mb-2">
+        <div className="flex items-center justify-between mb-2 gap-1">
           {STEPS.map((label, i) => (
-            <div key={label} className="flex items-center gap-1">
-              <div className={`w-7 h-7 rounded-full border text-[11px] font-bold flex items-center justify-center transition-all ${
-                i < step ? 'bg-teal-500 border-teal-500 text-black' :
+            <>
+              <div key={label} className={`w-7 h-7 rounded-full border text-[11px] font-bold flex items-center justify-center transition-all ${i < step ? 'bg-teal-500 border-teal-500 text-black' :
                 i === step ? 'border-teal-400 text-teal-400' :
-                'border-zinc-700 text-zinc-500'
-              }`}>
+                  'border-zinc-700 text-zinc-500'
+                }`}>
                 {i < step ? '✓' : i + 1}
               </div>
               {i < STEPS.length - 1 && (
                 <div className={`h-px w-4 sm:w-6 transition-all ${i < step ? 'bg-teal-500' : 'bg-zinc-700'}`} />
               )}
-            </div>
+            </>
           ))}
         </div>
         <p className="text-xs text-zinc-500 text-center">
