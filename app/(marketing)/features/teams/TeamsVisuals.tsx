@@ -165,7 +165,7 @@ export function TeamsHero({ eyebrow, title, subtitle }: TeamsHeroProps) {
           </span>
           <span className="flex items-center gap-2">
             <IconRenderer name="sparkles" size={16} className="text-accent" />
-            Powered by Kairoo AI
+            Powered by {process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} AI
           </span>
         </motion.div>
       </Stack>

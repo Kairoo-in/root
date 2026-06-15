@@ -156,7 +156,7 @@ const PERSONALIZATION_POINTS = [
   {
     icon: User,
     title: "Your profile, always in context",
-    body: "Kairoo reads your current role, target role, years of experience, skills, and location from your profile — so every tool starts with your actual situation, not a blank slate.",
+    body: `${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} reads your current role, target role, years of experience, skills, and location from your profile — so every tool starts with your actual situation, not a blank slate.`,
   },
   {
     icon: Target,
@@ -171,7 +171,7 @@ const PERSONALIZATION_POINTS = [
   {
     icon: Zap,
     title: "Pre-filled, not empty",
-    body: "Import your LinkedIn, resume, or GitHub once and Kairoo pre-fills inputs across tools. No repetitive copy-pasting. Your context travels with you across the entire platform.",
+    body: `Import your LinkedIn, resume, or GitHub once and ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} pre-fills inputs across tools. No repetitive copy-pasting. Your context travels with you across the entire platform.`,
   },
 ];
 
@@ -187,7 +187,7 @@ export function PersonalizationSection() {
           <div>
             <h2 className="text-2xl font-black text-foreground">Built around you, not everyone</h2>
             <p className="mt-1.5 text-muted-foreground max-w-2xl">
-              Generic AI gives the same answer to everyone. Kairoo personalizes every output to your role, goals, background, and context — collected once during onboarding, used everywhere.
+              Generic AI gives the same answer to everyone. {process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} personalizes every output to your role, goals, background, and context — collected once during onboarding, used everywhere.
             </p>
           </div>
         </div>

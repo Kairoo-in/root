@@ -23,9 +23,9 @@ import {
 } from "./StrategyClient";
 
 export const metadata: Metadata = {
-  title: "SaaS Strategy & Validation Framework — Kairoo Investors",
+  title: `SaaS Strategy & Validation Framework — ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} Investors`,
   description:
-    "Comprehensive strategic analysis, market validation, and business intelligence for Kairoo: a 94/100 validation score, core problem analysis, value-proposition suite, three ideal customer profiles, MoSCoW feature prioritization, and the implementation roadmap.",
+    `Comprehensive strategic analysis, market validation, and business intelligence for ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}: a 94/100 validation score, core problem analysis, value-proposition suite, three ideal customer profiles, MoSCoW feature prioritization, and the implementation roadmap.`,
 };
 
 /* Section heading helper — consistent typographic rhythm across the page. */
@@ -119,7 +119,7 @@ export default function BusinessStrategy() {
           <CardSpotlight className="mx-auto max-w-4xl rounded-2xl p-8 text-center md:p-10">
             <p className="text-overline text-primary">Primary Value Proposition</p>
             <p className="mt-3 text-h5 font-medium text-foreground">
-              &ldquo;Kairoo transforms chaotic career development into strategic growth by
+              &ldquo;{process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} transforms chaotic career development into strategic growth by
               combining AI-powered learning paths, comprehensive career tools, and business
               intelligence in one integrated platform, helping professionals and organizations
               accelerate skill acquisition and achieve measurable career outcomes.&rdquo;

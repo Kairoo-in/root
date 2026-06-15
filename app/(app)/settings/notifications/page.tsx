@@ -18,7 +18,7 @@ export default function NotificationsPage() {
       <div className="rounded-2xl border border-border bg-card overflow-hidden">
         <div className="px-5 py-4 border-b border-border/50">
           <h2 className="text-sm font-bold text-foreground">Email Notifications</h2>
-          <p className="text-xs text-muted-foreground mt-0.5">Choose what emails you receive from Kairoo.</p>
+          <p className="text-xs text-muted-foreground mt-0.5">Choose what emails you receive from {process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}.</p>
         </div>
         {PREFS.map(pref => (
           <div key={pref.id} className="flex items-center justify-between px-5 py-4 border-b border-border/30 last:border-0">

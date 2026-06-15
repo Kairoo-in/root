@@ -12,9 +12,9 @@ import {
 import { FullToolCatalog, WorkflowSection, PersonalizationSection } from "./FeaturesExtended";
 
 export const metadata = {
-  title: "Features — 38 AI tools for your career | Kairoo",
+  title: `Features — 38 AI tools for your career | ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}`,
   description:
-    "Every tool Kairoo ships: career roadmaps, interview coaching, salary negotiation, learning paths, and 30+ more — all personalized to your role, goals, and background.",
+    `Every tool ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} ships: career roadmaps, interview coaching, salary negotiation, learning paths, and 30+ more — all personalized to your role, goals, and background.`,
 };
 
 const totalFeatures = featureRegistry.length;
@@ -89,7 +89,7 @@ const benefitTabs: BenefitTab[] = [
     id: "career",
     label: "Career",
     items: [
-      { icon: "map", title: "Dynamic Roadmaps", description: "Turn a vague goal into a week-by-week plan. Kairoo sequences milestones, skills, and resources based on your current role and target." },
+      { icon: "map", title: "Dynamic Roadmaps", description: `Turn a vague goal into a week-by-week plan. ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} sequences milestones, skills, and resources based on your current role and target.` },
       { icon: "mic", title: "Interview Coach", description: "Practice with an AI co-pilot that gives structured, role-specific feedback — STAR answers, follow-up questions, and red flags." },
       { icon: "trending-up", title: "Salary Coach", description: "Walk into compensation conversations prepared. Get market ranges, negotiation scripts, and talking points tailored to your role and location." },
       { icon: "compass", title: "Career Simulator", description: "Model a pivot from your current role to a target role — gap analysis, required skills, estimated timeline, and first steps." },
@@ -198,7 +198,7 @@ export default function FeaturesHubPage() {
         titleLead="38 AI tools."
         titleHighlight="One platform."
         titleTail="Built around you."
-        subtitle="Kairoo unifies career development, learning, and productivity into one AI command center — and every tool is personalized to your role, goals, and background from the moment you start."
+        subtitle={ `${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} unifies career development, learning, and productivity into one AI command center — and every tool is personalized to your role, goals, and background from the moment you start.` }
       />
 
       <PillarBento pillars={pillars} />
@@ -219,11 +219,11 @@ export default function FeaturesHubPage() {
       />
 
       {/* Full searchable catalog */}
-      <FullToolCatalog tools={featureRegistry} />
+      <FullToolCatalog tools={featureRegistry.map(({ buildUserPrompt, ...rest }) => rest) as never} />
 
       <FeaturesCta
         headline="Your goals deserve better than generic AI"
-        body="Kairoo knows your role, your target, your background. Every tool starts where you are."
+        body={ `${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} knows your role, your target, your background. Every tool starts where you are.` }
       />
     </>
   );

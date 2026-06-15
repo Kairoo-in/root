@@ -83,7 +83,7 @@ export default function ConnectorCard({ connector, onImport, status }: Props) {
   const acceptAttr = connector.inputType === 'pdf' ? '.pdf,application/pdf' : '.zip,application/zip'
 
   return (
-    <div className="rounded-2xl border border-border bg-card p-5 flex flex-col gap-4">
+    <div className="rounded-2xl border border-border bg-card p-5 flex flex-col gap-4 h-full">
       {/* Header */}
       <div className="flex items-start gap-3">
         <div className="mt-0.5 flex-shrink-0 w-8 h-8 rounded-lg bg-teal-500/10 flex items-center justify-center">
@@ -96,13 +96,13 @@ export default function ConnectorCard({ connector, onImport, status }: Props) {
       </div>
 
       {/* Input area */}
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 flex-1 justify-between">
         {isFileInput ? (
-          <>
+          <div className="flex flex-col gap-2 flex-1">
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              className="w-full rounded-xl border border-dashed border-border hover:border-teal-500/60 bg-background/50 hover:bg-teal-500/5 transition-colors px-4 py-4 text-center cursor-pointer group"
+              className="w-full flex-1 flex flex-col items-center justify-center min-h-[100px] rounded-xl border border-dashed border-border hover:border-teal-500/60 bg-background/50 hover:bg-teal-500/5 transition-colors px-4 py-4 text-center cursor-pointer group"
             >
               <Upload size={16} className="mx-auto mb-1.5 text-muted-foreground group-hover:text-teal-500 transition-colors" />
               {file ? (
@@ -123,36 +123,36 @@ export default function ConnectorCard({ connector, onImport, status }: Props) {
             <button
               onClick={handleImport}
               disabled={!file || status.status === 'loading'}
-              className="w-full rounded-xl bg-teal-500 hover:bg-teal-400 disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs font-semibold py-2.5 transition-colors flex items-center justify-center gap-2"
+              className="w-full rounded-xl bg-teal-500 hover:bg-teal-400 disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs font-semibold py-2.5 transition-colors flex items-center justify-center gap-2 mt-auto"
             >
               {status.status === 'loading' ? (
                 <Loader2 size={13} className="animate-spin" />
               ) : null}
               Import
             </button>
-          </>
+          </div>
         ) : isPaste ? (
-          <>
+          <div className="flex flex-col gap-2 flex-1">
             <textarea
               rows={3}
               value={inputValue}
               onChange={e => setInputValue(e.target.value)}
               placeholder={connector.inputPlaceholder}
-              className="w-full rounded-xl border border-border bg-background/50 px-3 py-2.5 text-xs text-foreground placeholder:text-muted-foreground resize-none focus:outline-none focus:ring-1 focus:ring-teal-500/60 transition"
+              className="w-full flex-1 rounded-xl border border-border bg-background/50 px-3 py-2.5 text-xs text-foreground placeholder:text-muted-foreground resize-none focus:outline-none focus:ring-1 focus:ring-teal-500/60 transition min-h-[100px]"
             />
             <button
               onClick={handleImport}
               disabled={!inputValue.trim() || status.status === 'loading'}
-              className="w-full rounded-xl bg-teal-500 hover:bg-teal-400 disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs font-semibold py-2.5 transition-colors flex items-center justify-center gap-2"
+              className="w-full rounded-xl bg-teal-500 hover:bg-teal-400 disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs font-semibold py-2.5 transition-colors flex items-center justify-center gap-2 mt-auto"
             >
               {status.status === 'loading' ? (
                 <Loader2 size={13} className="animate-spin" />
               ) : null}
               Import
             </button>
-          </>
+          </div>
         ) : (
-          <div className="flex gap-2">
+          <div className="flex gap-2 items-end flex-1">
             <input
               type="text"
               value={inputValue}

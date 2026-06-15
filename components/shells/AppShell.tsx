@@ -89,7 +89,7 @@ function SidebarNav() {
               transition={{ duration: 0.15 }}
               className="overflow-hidden whitespace-nowrap text-sm font-bold bg-linear-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent"
             >
-              Kairoo
+              {process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}
             </motion.span>
           )}
         </AnimatePresence>

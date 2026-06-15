@@ -16,9 +16,9 @@ import {
 } from "./AboutVisuals";
 
 export const metadata: Metadata = {
-  title: "About Kairoo — The right moment to grow",
+  title: `About ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} — The right moment to grow`,
   description:
-    "Kairoo turns chaotic career development into strategic growth — combining AI-powered learning paths, a complete career toolkit, and business intelligence in one integrated platform.",
+    `${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} turns chaotic career development into strategic growth — combining AI-powered learning paths, a complete career toolkit, and business intelligence in one integrated platform.`,
 };
 
 /**
@@ -148,7 +148,7 @@ const TEAM: TeamData[] = [
 
 const MISSION_PARAGRAPHS = [
   "Careers used to follow a straight line. Today, the skills that define a role can shift in just a few years, and the resources meant to help — courses, coaches, communities, tools — are scattered across a dozen tabs. The result is a lot of effort spent on the wrong things at the wrong time.",
-  "Kairoo exists to fix that. We bring AI-powered learning paths, a full career toolkit, and business intelligence together in one place, so people and the teams they belong to can stop guessing and start moving with intent. Instead of asking “what should I learn next?” and hoping, you get a clear, personalized route from where you are to where you want to be — and the tools to walk it.",
+  `${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} exists to fix that. We bring AI-powered learning paths, a full career toolkit, and business intelligence together in one place, so people and the teams they belong to can stop guessing and start moving with intent. Instead of asking “what should I learn next?” and hoping, you get a clear, personalized route from where you are to where you want to be — and the tools to walk it.`,
   "The name says it plainly: there is a right moment to grow. Our job is to help you find it, and then to make the next step obvious.",
 ];
 
@@ -159,7 +159,7 @@ export default function AboutPage() {
         titleLead="The right"
         titleHighlight="moment"
         titleTail="to grow"
-        subtitle="Kairoo turns chaotic career development into strategic growth — combining AI-powered learning paths, a complete career toolkit, and business intelligence in one integrated platform that helps professionals and teams accelerate skill acquisition and reach measurable outcomes."
+        subtitle={ `${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} turns chaotic career development into strategic growth — combining AI-powered learning paths, a complete career toolkit, and business intelligence in one integrated platform that helps professionals and teams accelerate skill acquisition and reach measurable outcomes.` }
         primaryCta={{ label: "Explore the platform", href: "/features" }}
         secondaryCta={{ label: "See pricing", href: "/sign-up" }}
       />
@@ -194,14 +194,14 @@ export default function AboutPage() {
 
       <TeamSection
         heading="Builders, learners, and career-changers"
-        description="Kairoo is built by a small, focused team that has lived the problem we’re solving — navigating career pivots, skill gaps, and the overwhelm of doing it alone. Detailed team profiles are on the way."
+        description={ `${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} is built by a small, focused team that has lived the problem we’re solving — navigating career pivots, skill gaps, and the overwhelm of doing it alone. Detailed team profiles are on the way.` }
         members={TEAM}
-        note="We keep our story honest. As Kairoo grows, we’ll introduce the people behind it here — with real names, roles, and the work they’ve shipped."
+        note={ `We keep our story honest. As ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} grows, we’ll introduce the people behind it here — with real names, roles, and the work they’ve shipped.` }
       />
 
       <AboutCta
         headline="There's a right moment to grow. Make it now."
-        body="Start with a personalized roadmap, or talk to us about rolling Kairoo out across your team."
+        body={ `Start with a personalized roadmap, or talk to us about rolling ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} out across your team.` }
         primary={{ label: "Get started", href: "/sign-up" }}
         secondary={{ label: "Talk to us", href: "/contact" }}
       />

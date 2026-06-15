@@ -191,7 +191,7 @@ export function HomeHero() {
           {...reveal(0.16)}
           className="max-w-2xl text-pretty text-body-lg text-muted-foreground"
         >
-          Stop wasting time on scattered career resources. Kairoo merges
+          Stop wasting time on scattered career resources. {process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} merges
           advanced career development tools with intelligent learning systems
           and strategic business insights — from personalized AI roadmaps to
           enterprise team analytics, everything you need to accelerate
@@ -647,7 +647,7 @@ const WORKFLOW_TABS: {
     label: "Plan",
     icon: "compass",
     headline: "Chart the route before you run",
-    body: "Set a goal and let Kairoo sequence the milestones, skills, and resources into a roadmap you can actually follow.",
+    body: `Set a goal and let ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} sequence the milestones, skills, and resources into a roadmap you can actually follow.`,
     points: [
       "Goal-to-roadmap in seconds",
       "Skill-gap detection",
@@ -694,7 +694,7 @@ export function HomeWorkflow() {
       <motion.div {...reveal(0.1)}>
         <Card variant="glass" className="overflow-hidden p-6 sm:p-8">
           <Tabs defaultSelectedKey="plan" variant="primary">
-            <Tabs.List aria-label="Kairoo workflow stages" className="mb-8">
+            <Tabs.List aria-label={ `${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} workflow stages` } className="mb-8">
               {WORKFLOW_TABS.map((t) => (
                 <Tabs.Tab key={t.id} id={t.id}>
                   <span className="inline-flex items-center gap-2">
@@ -759,7 +759,7 @@ const TESTIMONIALS: Testimonial[] = [
   {
     id: "sarah",
     quote:
-      "I went from marketing to data science in just 8 months using Kairoo. The personalized learning path saved me thousands of hours of research. I landed a $125K role at Google!",
+      `I went from marketing to data science in just 8 months using ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}. The personalized learning path saved me thousands of hours of research. I landed a \$125K role at Google!`,
     name: "Sarah Chen",
     role: "Data Scientist",
     company: "Google",
@@ -767,7 +767,7 @@ const TESTIMONIALS: Testimonial[] = [
   {
     id: "marcus",
     quote:
-      "Kairoo's AI coaching helped me navigate my promotion to Staff Engineer. The interview prep and salary negotiation tools were game-changers. Got a 40% raise!",
+      `${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}'s AI coaching helped me navigate my promotion to Staff Engineer. The interview prep and salary negotiation tools were game-changers. Got a 40% raise!`,
     name: "Marcus Rodriguez",
     role: "Staff Engineer",
     company: "Stripe",
@@ -775,7 +775,7 @@ const TESTIMONIALS: Testimonial[] = [
   {
     id: "amanda",
     quote:
-      "Our team's productivity increased 300% after implementing Kairoo. The analytics dashboard gives us incredible insights into skill gaps and development ROI.",
+      `Our team's productivity increased 300% after implementing ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}. The analytics dashboard gives us incredible insights into skill gaps and development ROI.`,
     name: "Amanda Park",
     role: "L&D Director",
     company: "Salesforce",
@@ -805,7 +805,7 @@ export function HomeSocialProof() {
       <Marquee3D items={logoItems} className="my-8 opacity-60" />
       <TestimonialGrid
         withSection={false}
-        heading="Careers transformed with Kairoo"
+        heading={ `Careers transformed with ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}` }
         description="See how professionals and organizations are accelerating their growth."
         items={TESTIMONIALS}
         variant="glass"
@@ -1068,7 +1068,7 @@ export function HomeClosingCTA() {
         <CTA
           tone="gradient"
           headline="Ready to transform your professional journey?"
-          body="Join thousands of professionals and organizations already accelerating their growth with Kairoo. 14-day free trial, set up in under 5 minutes, with 24/7 AI plus human support."
+          body={ `Join thousands of professionals and organizations already accelerating their growth with ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}. 14-day free trial, set up in under 5 minutes, with 24/7 AI plus human support.` }
           primary={{ label: "Start free trial", href: "/sign-up" }}
           secondary={{ label: "Schedule a demo", href: "/contact" }}
         />

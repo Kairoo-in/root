@@ -51,15 +51,15 @@ export default function Logo({
           className="font-bold tracking-tight text-brand-ink"
           style={{ fontSize: size * 0.72 }}
         >
-          Kairoo
+          {process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}
         </span>
       )}
-      <span className="sr-only">Kairoo</span>
+      <span className="sr-only">{process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}</span>
     </span>
   );
 
   return href ? (
-    <Link href={href} aria-label="Kairoo home">
+    <Link href={href} aria-label={ `${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} home` }>
       {glyph}
     </Link>
   ) : (

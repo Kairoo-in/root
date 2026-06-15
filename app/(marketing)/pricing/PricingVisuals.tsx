@@ -162,7 +162,7 @@ function PricingHero() {
           className="max-w-2xl text-pretty text-body-lg text-muted-foreground"
         >
           Start free with your AI career copilot. Upgrade to Pro when you&apos;re ready to
-          move faster, or talk to us about rolling Kairoo out across your team.
+          move faster, or talk to us about rolling {process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} out across your team.
         </motion.p>
 
         <motion.div {...reveal(0.78)} className="flex flex-col items-center gap-3 sm:flex-row">
@@ -379,7 +379,7 @@ function Objections({
           Built to remove the guesswork
         </h2>
         <p className="mt-4 text-body-lg text-muted-foreground">
-          Three reasons people feel comfortable starting with Kairoo today.
+          Three reasons people feel comfortable starting with {process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} today.
         </p>
       </motion.div>
 
@@ -459,7 +459,7 @@ function IncludedBento() {
     {
       title: "Your AI career copilot, on every plan",
       description:
-        "From the free Explorer tier up, Kairoo maps an actionable path from your goals — no plan locks you out of the core experience.",
+        `From the free Explorer tier up, ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} maps an actionable path from your goals — no plan locks you out of the core experience.`,
       span: "2x2",
       icon: <IconRenderer name="compass" size={20} />,
     },
@@ -542,7 +542,7 @@ function GlowingCTA() {
             </h2>
             <p className="text-pretty text-body-lg text-primary-foreground/80">
               Spin up your AI career copilot in minutes — no credit card, no risk. See where
-              Kairoo can take you.
+              {process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} can take you.
             </p>
             <div className="mt-2 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
               <Link

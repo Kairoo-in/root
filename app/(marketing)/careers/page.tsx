@@ -3,9 +3,9 @@ import Link from "next/link";
 import { MapPin, Clock, Users, Zap, Heart, Code2, Megaphone, BarChart3, Pen, Globe } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Careers — Kairoo",
+  title: `Careers — ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}`,
   description:
-    "Join Kairoo — we're building the AI-powered career platform for the next generation of professionals. Part-time roles, internships, and student contributor positions open.",
+    `Join ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} — we're building the AI-powered career platform for the next generation of professionals. Part-time roles, internships, and student contributor positions open.`,
 };
 
 const OPEN_ROLES = [
@@ -29,7 +29,7 @@ const OPEN_ROLES = [
     type: "Part-time / Remote",
     icon: Megaphone,
     description:
-      "Own our presence on LinkedIn, Twitter/X, and college communities. Help us reach the professionals and students who need Kairoo most.",
+      `Own our presence on LinkedIn, Twitter/X, and college communities. Help us reach the professionals and students who need ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} most.`,
     requirements: [
       "Strong written communication",
       "Active on professional or student communities",
@@ -43,7 +43,7 @@ const OPEN_ROLES = [
     type: "Part-time / Remote",
     icon: Pen,
     description:
-      "Research career paths, write guides, and help populate the knowledge base that makes Kairoo smarter. Your work directly improves AI outputs for thousands of users.",
+      `Research career paths, write guides, and help populate the knowledge base that makes ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} smarter. Your work directly improves AI outputs for thousands of users.`,
     requirements: [
       "Strong research and writing skills",
       "Curious about careers, skilling, and hiring",
@@ -57,7 +57,7 @@ const OPEN_ROLES = [
     type: "Internship / Remote",
     icon: BarChart3,
     description:
-      "Help us understand how people use Kairoo, surface insights from usage patterns, and inform product decisions. Great role for someone learning analytics or data science.",
+      `Help us understand how people use ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}, surface insights from usage patterns, and inform product decisions. Great role for someone learning analytics or data science.`,
     requirements: [
       "Familiarity with SQL or Python basics",
       "Interest in product analytics",
@@ -71,7 +71,7 @@ const OPEN_ROLES = [
     type: "Part-time / Remote",
     icon: Zap,
     description:
-      "Help tune and improve the AI features that power Kairoo's 38+ tools. You'll write, test, and evaluate prompts and contribute to our AI feature registry.",
+      `Help tune and improve the AI features that power ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}'s 38+ tools. You'll write, test, and evaluate prompts and contribute to our AI feature registry.`,
     requirements: [
       "Hands-on experience with LLMs (OpenAI, Anthropic, etc.)",
       "Interest in career AI or learning tech",
@@ -85,7 +85,7 @@ const OPEN_ROLES = [
     type: "Flexible / Your Campus",
     icon: Globe,
     description:
-      "Represent Kairoo at your college or university. Spread the word in placement cells, coding clubs, and student communities. Paid role with performance incentives.",
+      `Represent ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} at your college or university. Spread the word in placement cells, coding clubs, and student communities. Paid role with performance incentives.`,
     requirements: [
       "Currently enrolled student",
       "Well-connected on campus",
@@ -115,7 +115,7 @@ export default function CareersPage() {
           </span>
         </h1>
         <p className="mb-8 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-          Kairoo is a small team building an AI-powered career and learning platform for the next generation of professionals. We&apos;re early, ambitious, and looking for people who want to grow alongside us — students, recent grads, and part-timers very welcome.
+          {process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} is a small team building an AI-powered career and learning platform for the next generation of professionals. We&apos;re early, ambitious, and looking for people who want to grow alongside us — students, recent grads, and part-timers very welcome.
         </p>
         <div className="flex flex-wrap gap-3">
           <a href="mailto:careers@kairoo.in"

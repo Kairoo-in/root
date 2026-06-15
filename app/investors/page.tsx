@@ -19,9 +19,9 @@ import {
 } from "./InvestorsClient";
 
 export const metadata: Metadata = {
-  title: "Investors — Kairoo",
+  title: `Investors — ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}`,
   description:
-    "Everything you need to understand Kairoo as an investment opportunity: a $2.5M Series A into a $366B market. Business strategy, market analysis, the full investor deck, and technical architecture.",
+    `Everything you need to understand ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} as an investment opportunity: a \$2.5M Series A into a \$366B market. Business strategy, market analysis, the full investor deck, and technical architecture.`,
 };
 
 /* ------------------------------------------------------------------ */
@@ -59,7 +59,7 @@ const sections: NavCard[] = [
     href: "/investors/architecture",
     title: "Technical Architecture",
     description:
-      "System design, platform stack, and the engineering approach behind Kairoo.",
+      `System design, platform stack, and the engineering approach behind ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}.`,
     icon: "drafting-compass",
     meta: "Cloud-native",
     span: "wide",
@@ -146,8 +146,8 @@ export default function InvestorsPage() {
         eyebrow="Series A — now raising"
         headline="Invest in the"
         highlight="future of career growth"
-        tail="with Kairoo."
-        subhead="Everything you need to understand Kairoo as an investment opportunity — a $2.5M raise into a $366B market, validated and ready to scale."
+        tail={ `with ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}.` }
+        subhead={ `Everything you need to understand ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} as an investment opportunity — a \$2.5M raise into a \$366B market, validated and ready to scale.` }
         pills={heroPills}
         primaryCta={{ href: "/investors/deck", label: "View the deck" }}
         secondaryCta={{ href: "/investors/strategy", label: "Read the strategy" }}

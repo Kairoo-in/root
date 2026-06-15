@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation'
 import { getProfile } from '@/data/repositories/profiles.repo'
 import { AssessPageClient } from './_client'
 
-export const metadata = { title: 'Assess Your Skills · Kairoo' }
+export const metadata = { title: `Assess Your Skills · ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}` }
 
 export default async function AssessPage() {
   const { userId } = await auth()

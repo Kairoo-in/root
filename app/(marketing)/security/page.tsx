@@ -23,9 +23,9 @@ import {
 } from "./SecurityVisuals";
 
 export const metadata: Metadata = {
-  title: "Security & Trust | Kairoo",
+  title: `Security & Trust | ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}`,
   description:
-    "How Kairoo protects your data: a layered security model across network, application, and data; our compliance posture (SOC 2, GDPR, HIPAA, ISO 27001) framed honestly as in-progress; and the performance targets we hold ourselves to.",
+    `How ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} protects your data: a layered security model across network, application, and data; our compliance posture (SOC 2, GDPR, HIPAA, ISO 27001) framed honestly as in-progress; and the performance targets we hold ourselves to.`,
 };
 
 /* -------------------------------------------------------------------------- */
@@ -242,9 +242,9 @@ const MONITORING = [
 const FAQ_ITEMS: FAQItem[] = [
   {
     id: "certified",
-    question: "Is Kairoo certified for SOC 2, ISO 27001, or HIPAA today?",
+    question: `Is ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} certified for SOC 2, ISO 27001, or HIPAA today?`,
     answer:
-      "We are intentionally precise here: Kairoo is built to be compliance-ready and our controls are mapped to these frameworks, but we do not claim active certifications we have not yet completed. SOC 2 Type II, ISO 27001, and full HIPAA safeguards (including a BAA) are in progress on our roadmap. GDPR practices are already part of how we handle personal data.",
+      `We are intentionally precise here: ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} is built to be compliance-ready and our controls are mapped to these frameworks, but we do not claim active certifications we have not yet completed. SOC 2 Type II, ISO 27001, and full HIPAA safeguards (including a BAA) are in progress on our roadmap. GDPR practices are already part of how we handle personal data.`,
   },
   {
     id: "encryption",
@@ -254,7 +254,7 @@ const FAQ_ITEMS: FAQItem[] = [
   },
   {
     id: "stack",
-    question: "What does Kairoo run on?",
+    question: `What does ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} run on?`,
     answer:
       "The product is built on Next.js with a Gemini-backed AI gateway in our engines/ai layer. AI-assisted features call our models through this controlled gateway rather than exposing model access directly, so requests stay authenticated, rate-limited, and auditable.",
   },
@@ -275,7 +275,7 @@ export default function SecurityPage() {
         titleLead="Security built in,"
         titleHighlight="claims kept"
         titleTail="honest"
-        subtitle="Kairoo protects your career and learning data with a layered security model, a transparent compliance posture, and performance targets we measure ourselves against — no overstated badges, just the practices behind them."
+        subtitle={ `${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} protects your career and learning data with a layered security model, a transparent compliance posture, and performance targets we measure ourselves against — no overstated badges, just the practices behind them.` }
         primaryCta={{ label: "Talk to us about security", href: "/contact" }}
         secondaryCta={{ label: "See how it works", href: "/how-it-works" }}
         badges={[
@@ -325,7 +325,7 @@ export default function SecurityPage() {
       {/* Compliance posture cards + procurement callout. */}
       <SecurityCompliance
         heading="Where we stand on the frameworks"
-        subtitle="Each framework below shows what it covers and exactly where Kairoo sits today — stated plainly."
+        subtitle={ `Each framework below shows what it covers and exactly where ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} sits today — stated plainly.` }
         items={COMPLIANCE}
         callout={{
           body:

@@ -55,7 +55,7 @@ export default function Footer() {
         <Separator className="my-10" />
 
         <p className="text-caption text-muted-foreground">
-          &copy; {year} Kairoo
+          &copy; {year} {process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}
         </p>
       </Container>
     </footer>

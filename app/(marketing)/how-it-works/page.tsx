@@ -18,9 +18,9 @@ import {
 import { PersonaWorkflows, PersonalizationFlow } from "./HowItWorksExtended";
 
 export const metadata: Metadata = {
-  title: "How It Works — Real workflows, real outcomes | Kairoo",
+  title: `How It Works — Real workflows, real outcomes | ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}`,
   description:
-    "See exactly how Kairoo works: your profile drives every tool, real workflow chains for job search, promotion, and career switches — powered by a Gemini-backed AI engine.",
+    `See exactly how ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} works: your profile drives every tool, real workflow chains for job search, promotion, and career switches — powered by a Gemini-backed AI engine.`,
 };
 
 const readyCount = featureRegistry.filter((f) => f.status === "ready").length;
@@ -32,7 +32,7 @@ const STEPS: StepVM[] = [
     title: "Set your context once",
     tagline: "Your profile powers everything",
     description:
-      "Tell Kairoo where you are and where you want to go — current role, target role, skills, experience, location. Import from LinkedIn, GitHub, or your resume. This context flows into every tool automatically so nothing starts from scratch.",
+      `Tell ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} where you are and where you want to go — current role, target role, skills, experience, location. Import from LinkedIn, GitHub, or your resume. This context flows into every tool automatically so nothing starts from scratch.`,
     icon: "user-check",
     points: [
       "One-time onboarding: role, goals, background, skills",
@@ -60,7 +60,7 @@ const STEPS: StepVM[] = [
     title: "Run it — get something real",
     tagline: "Outputs you can actually use",
     description:
-      "Your context meets the tool's purpose-built prompt in Kairoo's Gemini-backed AI engine. The result is a concrete artifact — a roadmap, a negotiation script, a tailored cover letter, a learning path. Not a generic reply. Something you can act on.",
+      `Your context meets the tool's purpose-built prompt in ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}'s Gemini-backed AI engine. The result is a concrete artifact — a roadmap, a negotiation script, a tailored cover letter, a learning path. Not a generic reply. Something you can act on.`,
     icon: "zap",
     points: [
       "Structured, usable output — not just prose",
@@ -155,15 +155,15 @@ const STACK_FACTS: StackFactVM[] = [
 const FAQ_ITEMS = [
   {
     id: "personalization",
-    question: "How does Kairoo personalize outputs to me?",
+    question: `How does ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} personalize outputs to me?`,
     answer:
-      "During onboarding you tell Kairoo your current role, target role, years of experience, skills, location, and career goals. You can also import your profile from LinkedIn, GitHub, or a resume PDF. This context is automatically attached to every tool you run — so a roadmap built for a junior software engineer in Bangalore targeting a senior PM role looks completely different from one built for a marketing manager in Mumbai targeting a founder track.",
+      `During onboarding you tell ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} your current role, target role, years of experience, skills, location, and career goals. You can also import your profile from LinkedIn, GitHub, or a resume PDF. This context is automatically attached to every tool you run — so a roadmap built for a junior software engineer in Bangalore targeting a senior PM role looks completely different from one built for a marketing manager in Mumbai targeting a founder track.`,
   },
   {
     id: "models",
-    question: "What AI powers Kairoo?",
+    question: `What AI powers ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}?`,
     answer:
-      "Kairoo's reasoning runs through a server-side AI gateway built on Google's Gemini models. Each feature uses a purpose-built prompt rather than a generic chat interface — results stay focused on the specific task you're running.",
+      `${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}'s reasoning runs through a server-side AI gateway built on Google's Gemini models. Each feature uses a purpose-built prompt rather than a generic chat interface — results stay focused on the specific task you're running.`,
   },
   {
     id: "import",
@@ -179,7 +179,7 @@ const FAQ_ITEMS = [
   },
   {
     id: "control",
-    question: "Does Kairoo act on my behalf automatically?",
+    question: `Does ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} act on my behalf automatically?`,
     answer:
       "No. Every tool produces an artifact — a roadmap, a script, a cover letter, a learning path — for you to review, edit, and decide what to do with. You stay in control of what happens next.",
   },
@@ -197,7 +197,7 @@ export default function HowItWorksPage() {
       <HowItWorksHero
         eyebrow="How it works"
         words={["Profile.", "Pick.", "Run.", "Grow."]}
-        subtitle="Kairoo personalizes every tool to your role, goals, and background — set your context once and 38+ AI tools start working specifically for you."
+        subtitle={ `${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} personalizes every tool to your role, goals, and background — set your context once and 38+ AI tools start working specifically for you.` }
         primaryCta={{ label: "Explore the tools", href: "/features" }}
         secondaryCta={{ label: "Start free", href: "/sign-up" }}
       />
@@ -207,7 +207,7 @@ export default function HowItWorksPage() {
       {/* The 4-step flow */}
       <StepsTimeline
         heading="Four steps, every workflow"
-        subtitle="From onboarding to a concrete outcome — every Kairoo tool follows the same path. Set your context once and the whole platform works for you."
+        subtitle={ `From onboarding to a concrete outcome — every ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} tool follows the same path. Set your context once and the whole platform works for you.` }
         steps={STEPS}
       />
 
@@ -227,7 +227,7 @@ export default function HowItWorksPage() {
       {/* Honest tech stack */}
       <StackShowcase
         heading="The real stack behind the platform"
-        subtitle="No mystery. Here's exactly what Kairoo runs on."
+        subtitle={ `No mystery. Here's exactly what ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} runs on.` }
         facts={STACK_FACTS}
         blueprint={{
           heading: "Want the full engineering picture?",
@@ -239,7 +239,7 @@ export default function HowItWorksPage() {
       <FAQ title="How it works in practice" items={FAQ_ITEMS} />
 
       <CTA
-        headline="Start with your goals — Kairoo does the rest"
+        headline={ `Start with your goals — ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} does the rest` }
         body="Set up your profile in 5 minutes and get your first AI-personalized roadmap immediately."
         primary={{ label: "Get started free", href: "/sign-up" }}
         secondary={{ label: "Browse all tools", href: "/features" }}

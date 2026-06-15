@@ -9,9 +9,9 @@ import ContactVisuals, {
 } from "./ContactVisuals";
 
 export const metadata: Metadata = {
-  title: "Contact Kairoo — Talk to us or book a demo",
+  title: `Contact ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} — Talk to us or book a demo`,
   description:
-    "Get in touch with the Kairoo team. Send a message, book a product demo, reach support, or connect with investor relations.",
+    `Get in touch with the ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} team. Send a message, book a product demo, reach support, or connect with investor relations.`,
 };
 
 /**
@@ -30,11 +30,11 @@ const FAQ_ITEMS: FAQItem[] = [
     id: "demo",
     question: "What happens after I request a demo?",
     answer:
-      "We'll reply by email to find a time that works, then walk you through Kairoo's career toolkit, learning paths, and team analytics — focused on your goals and team size.",
+      `We'll reply by email to find a time that works, then walk you through ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}'s career toolkit, learning paths, and team analytics — focused on your goals and team size.`,
   },
   {
     id: "trial",
-    question: "Do I need to talk to anyone to try Kairoo?",
+    question: `Do I need to talk to anyone to try ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}?`,
     answer:
       "No. The Free plan lets you start on your own with one active career path and weekly AI check-ins. Reach out here when you want a guided tour or are evaluating Pro or Enterprise.",
   },
@@ -54,7 +54,7 @@ const CHANNELS: ContactChannel[] = [
   {
     icon: "message-square",
     title: "Support",
-    body: "Already using Kairoo? We're here to help — reach our support team directly.",
+    body: `Already using ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}? We're here to help — reach our support team directly.`,
     href: `mailto:${site.supportEmail}`,
     linkLabel: site.supportEmail,
   },
