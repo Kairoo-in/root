@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, integer, jsonb, boolean, uuid } from 'drizzle-orm/pg-core'
+import { pgTable, text, timestamp, integer, jsonb, boolean, uuid, primaryKey } from 'drizzle-orm/pg-core'
 import type { ResumeSections } from '@/types/resume'
 
 export const users = pgTable('users', {
@@ -226,3 +226,17 @@ export const rateLimitBuckets = pgTable("rate_limit_buckets", {
   windowStart: timestamp("window_start").defaultNow().notNull(),
   count: integer("count").notNull().default(0),
 })
+
+// --- Durable daily budget guard (replaces in-memory counters) ---
+export const usageBudgets = pgTable(
+  "usage_budgets",
+  {
+    day: text("day").notNull(), // 'YYYY-MM-DD' (UTC)
+    scope: text("scope").notNull().default("global"),
+    reqCount: integer("req_count").notNull().default(0),
+    tokenEstimate: integer("token_estimate").notNull().default(0),
+  },
+  (t) => ({
+    pk: primaryKey({ columns: [t.day, t.scope] }),
+  }),
+);

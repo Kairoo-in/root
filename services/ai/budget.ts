@@ -1,27 +1,40 @@
-// Coarse daily budget guard for free-tier protection. In-memory (resets on restart / not multi-instance) - fine for now; swap for KV later.
-const DAY_MS = 24 * 60 * 60_000;
+import { sql } from "drizzle-orm";
+import { db } from "@/data/client";
+
 const MAX_REQ_PER_DAY = Number(process.env.AI_DAILY_REQUEST_CAP ?? 5000);
 const MAX_TOKENS_PER_DAY = Number(process.env.AI_DAILY_TOKEN_CAP ?? 2_000_000);
 
-let windowStart = 0;
-let reqCount = 0;
-let tokenEstimate = 0;
+export async function checkBudget(
+  estTokens: number,
+  scope = "global",
+): Promise<{ ok: boolean; reason?: string }> {
+  const day = new Date().toISOString().slice(0, 10); // YYYY-MM-DD UTC
+  try {
+    const rows = (await db.execute(sql`
+      INSERT INTO usage_budgets (day, scope, req_count, token_estimate)
+      VALUES (${day}, ${scope}, 1, ${estTokens})
+      ON CONFLICT (day, scope) DO UPDATE SET
+        req_count = usage_budgets.req_count + 1,
+        token_estimate = usage_budgets.token_estimate + ${estTokens}
+      RETURNING req_count, token_estimate
+    `)) as unknown as { rows: { req_count: number; token_estimate: number }[] };
 
-function rollIfNeeded(now: number) {
-  if (now - windowStart >= DAY_MS) { windowStart = now; reqCount = 0; tokenEstimate = 0; }
+    const row = rows.rows[0];
+    if (row && row.req_count > MAX_REQ_PER_DAY)
+      return { ok: false, reason: "daily request cap reached" };
+    if (row && row.token_estimate > MAX_TOKENS_PER_DAY)
+      return { ok: false, reason: "daily token cap reached" };
+    return { ok: true };
+  } catch (e) {
+    console.error("[checkBudget] db error, failing open:", e);
+    return { ok: true };
+  }
 }
 
-/** Call before generating. `estTokens` ~ ceil(inputChars/4) + expected output. */
-export function checkBudget(estTokens: number, now = Date.now()): { ok: boolean; reason?: string } {
-  rollIfNeeded(now);
-  if (reqCount >= MAX_REQ_PER_DAY) return { ok: false, reason: "daily request cap reached" };
-  if (tokenEstimate + estTokens >= MAX_TOKENS_PER_DAY) return { ok: false, reason: "daily token cap reached" };
-  reqCount += 1;
-  tokenEstimate += estTokens;
-  return { ok: true };
-}
-
-export function estimateTokens(inputs: Record<string, string>, expectedOutput = 700): number {
+export function estimateTokens(
+  inputs: Record<string, string>,
+  expectedOutput = 700,
+): number {
   const inChars = Object.values(inputs).join("").length;
   return Math.ceil(inChars / 4) + expectedOutput;
 }
