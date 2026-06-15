@@ -1,8 +1,9 @@
 'use client'
-import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
-import { Map, Calendar, CheckCircle, Clock, Archive, Plus } from 'lucide-react'
+import { Map, CheckCircle, Clock, Archive, Plus } from 'lucide-react'
 import { CardSpotlight } from '@/components/aceternity/CardSpotlight'
+import { Timeline } from '@/components/aceternity'
+import type { TimelineItem } from '@/components/aceternity'
 import { cn } from '@/lib/utils'
 
 type Roadmap = { id: string; title: string; goal: string; status: string; createdAt: Date }
@@ -34,34 +35,29 @@ export function RoadmapsList({ roadmaps }: { roadmaps: Roadmap[] }) {
     )
   }
 
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      {roadmaps.map((rm, i) => {
-        const cfg = statusConfig[rm.status as keyof typeof statusConfig] ?? statusConfig.active
-        return (
-          <motion.div key={rm.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06 }}>
-            <CardSpotlight
-              className="rounded-2xl border border-border bg-card p-5 cursor-pointer hover:-translate-y-0.5 hover:border-teal-500/25 transition-all h-full flex flex-col"
-              onClick={() => router.push(`/roadmaps/${rm.id}`)}
-            >
-              <div className="flex items-start justify-between mb-3">
-                <div className="w-9 h-9 rounded-xl bg-teal-500/10 border border-teal-500/20 flex items-center justify-center">
-                  <Map className="w-4.5 h-4.5 text-teal-400" />
-                </div>
-                <span className={cn('text-[10px] font-semibold px-2 py-0.5 rounded-full border', cfg.color, cfg.bg, cfg.border)}>
-                  {cfg.label}
-                </span>
-              </div>
-              <h3 className="font-bold text-sm text-foreground mb-1">{rm.title}</h3>
-              <p className="text-[11.5px] text-muted-foreground line-clamp-2 flex-1">{rm.goal}</p>
-              <div className="flex items-center gap-1.5 mt-3 text-[10px] text-muted-foreground/60">
-                <Calendar className="w-3 h-3" />
-                {new Date(rm.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
-              </div>
-            </CardSpotlight>
-          </motion.div>
-        )
-      })}
-    </div>
-  )
+  const items: TimelineItem[] = roadmaps.map((rm) => {
+    const cfg = statusConfig[rm.status as keyof typeof statusConfig] ?? statusConfig.active
+    return {
+      title: rm.title,
+      date: new Date(rm.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }),
+      content: (
+        <CardSpotlight
+          className="rounded-2xl border border-border bg-card p-5 cursor-pointer hover:-translate-y-0.5 hover:border-teal-500/25 transition-all flex flex-col"
+          onClick={() => router.push(`/roadmaps/${rm.id}`)}
+        >
+          <div className="flex items-start justify-between mb-3">
+            <div className="w-9 h-9 rounded-xl bg-teal-500/10 border border-teal-500/20 flex items-center justify-center">
+              <Map className="w-4.5 h-4.5 text-teal-400" />
+            </div>
+            <span className={cn('text-[10px] font-semibold px-2 py-0.5 rounded-full border', cfg.color, cfg.bg, cfg.border)}>
+              {cfg.label}
+            </span>
+          </div>
+          <p className="text-[11.5px] text-muted-foreground line-clamp-2 flex-1">{rm.goal}</p>
+        </CardSpotlight>
+      ),
+    }
+  })
+
+  return <Timeline items={items} />
 }

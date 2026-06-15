@@ -7,6 +7,7 @@ import IconRenderer from "@/components/IconRenderer";
 
 import {
   InvestorsHero,
+  InvestorsTracingWrap,
   NavCards,
   MetricsBand,
   AskCard,
@@ -153,6 +154,7 @@ export default function InvestorsPage() {
         ribbon={heroRibbon}
       />
 
+      <InvestorsTracingWrap>
       {/* Navigation hub */}
       <Section className="pt-4">
         <Reveal>
@@ -235,6 +237,7 @@ export default function InvestorsPage() {
           />
         </Container>
       </Section>
+      </InvestorsTracingWrap>
     </>
   );
 }

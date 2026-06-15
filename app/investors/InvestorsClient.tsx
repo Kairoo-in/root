@@ -17,6 +17,7 @@ import {
   CardItem,
 } from "@/components/motion/ThreeDCard";
 import IconRenderer from "@/components/IconRenderer";
+import { BackgroundBoxes, GlowingEffect, TracingBeam } from "@/components/aceternity";
 
 /* -------------------------------------------------------------------------- */
 /* Shared scroll-reveal primitive                                             */
@@ -120,6 +121,9 @@ export function InvestorsHero({
     <section className="relative overflow-hidden">
       {/* token-only gradient fill for the count-up numbers (no raw color) */}
       <style>{`.ribbon-stat .text-data{background-image:linear-gradient(120deg,var(--primary),color-mix(in oklab,var(--accent) 80%,var(--primary)));}`}</style>
+
+      <BackgroundBoxes className="absolute inset-0 -z-10 opacity-30" rows={14} cols={22} />
+
       {/* layered token-only ambient gradients */}
       <div
         aria-hidden
@@ -483,6 +487,7 @@ export function WhyNowBento({
 export function MetricsBand({ items }: { items: StatCounterProps[] }) {
   return (
     <Reveal>
+      <GlowingEffect>
       <Card variant="glass" className="overflow-hidden p-2">
         <StatGrid
           items={items}
@@ -490,6 +495,7 @@ export function MetricsBand({ items }: { items: StatCounterProps[] }) {
           className="gap-px [&>div]:items-center [&>div]:rounded-xl [&>div]:bg-card/40 [&>div]:p-6 [&>div]:text-center [&_.text-data]:text-h2"
         />
       </Card>
+      </GlowingEffect>
     </Reveal>
   );
 }
@@ -557,4 +563,12 @@ export function ClosingCta({
       </Card>
     </Reveal>
   );
+}
+
+/* -------------------------------------------------------------------------- */
+/* TracingBeam wrapper for the post-hero scroll sections                      */
+/* -------------------------------------------------------------------------- */
+
+export function InvestorsTracingWrap({ children }: { children: ReactNode }) {
+  return <TracingBeam className="py-12">{children}</TracingBeam>;
 }

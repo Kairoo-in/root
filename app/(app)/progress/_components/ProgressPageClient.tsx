@@ -2,6 +2,7 @@
 import { motion } from 'framer-motion'
 import { Trophy, Flame, Zap, TrendingUp, Star } from 'lucide-react'
 import { CardSpotlight } from '@/components/aceternity/CardSpotlight'
+import { GlowingEffect, ShimmerLoader } from '@/components/aceternity'
 import { cn } from '@/lib/utils'
 import { features } from '@/engines/ai/features/registry'
 import type { DerivedStats } from '@/data/repositories/stats.repo'
@@ -42,6 +43,15 @@ export function ProgressPageClient({ stats }: Props) {
   const topFeatures = stats?.topFeatures ?? []
   const maxActivity = Math.max(...weeklyActivity, 1)
 
+  if (stats === null) {
+    return (
+      <div className="p-6 max-w-4xl mx-auto space-y-5">
+        <ShimmerLoader lines={3} className="mb-4" />
+        <ShimmerLoader lines={5} />
+      </div>
+    )
+  }
+
   return (
     <div className="p-6 max-w-4xl mx-auto space-y-5">
       <div>
@@ -76,7 +86,7 @@ export function ProgressPageClient({ stats }: Props) {
       {/* Stats row */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {[
-          { label: 'Day Streak', value: `${streak} 🔥`, icon: Flame, color: 'text-orange-400', bg: 'bg-orange-500/10' },
+          { label: 'Day Streak', value: `${streak}`, icon: Flame, color: 'text-orange-400', bg: 'bg-orange-500/10' },
           { label: 'Total AI Runs', value: totalRuns.toString(), icon: Zap, color: 'text-teal-400', bg: 'bg-teal-500/10' },
           { label: 'Current Level', value: `Level ${level}`, icon: Trophy, color: 'text-amber-400', bg: 'bg-amber-500/10' },
           { label: 'This Week', value: weeklyActivity.reduce((a, b) => a + b, 0).toString(), icon: TrendingUp, color: 'text-emerald-400', bg: 'bg-emerald-500/10' },
