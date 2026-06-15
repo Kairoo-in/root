@@ -48,7 +48,7 @@ const navGroups: NavGroup[] = [
       { label: 'Roadmaps', href: '/roadmaps', icon: Map },
       { label: 'Interview Prep', href: '/tools/interviewPrep', icon: Briefcase },
       { label: 'Resume Builder', href: '/tools/resumeBuilder', icon: FileText },
-      { label: 'Skill Gap', href: '/tools/skillGapAnalysis', icon: Zap },
+      { label: 'Skill Gap', href: '/tools/skillGap', icon: Zap },
       { label: 'All Tools', href: '/tools', icon: Grid3x3, badge: '38' },
     ],
   },
@@ -112,7 +112,7 @@ export function Sidebar() {
         <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-teal-400 to-teal-600 shadow-lg shadow-teal-500/20">
           <span className="text-sm font-bold text-white">K</span>
         </div>
-        <span className="text-base font-semibold tracking-tight text-foreground">Kairoo</span>
+        <span className="text-base font-semibold tracking-tight text-foreground">{process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}</span>
         <span className="ml-auto flex h-5 items-center rounded-md bg-teal-500/15 px-1.5 text-[10px] font-bold uppercase tracking-wider text-teal-400">
           AI
         </span>

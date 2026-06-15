@@ -825,6 +825,137 @@ Name actual open-source repos on GitHub that do something similar.`,
     inputs: [],
     buildUserPrompt: notBuilt,
   },
+
+  // ---- Missing learning features referenced in sidebar ----
+  {
+    id: 'studyPlan', name: 'Study Plans', icon: 'book-open', color: 'blue-500',
+    description: 'Build a focused, week-by-week study plan for any exam, topic, or skill',
+    category: 'learning', status: 'ready',
+    tier: 'deep',
+    maxOutputTokens: 5000,
+    inputs: [
+      { id: 'subject', label: 'What you want to study', type: 'text', placeholder: 'e.g. AWS Solutions Architect exam, IELTS, calculus, system design', required: true },
+      { id: 'deadline', label: 'Deadline or timeframe', type: 'text', placeholder: 'e.g. 6 weeks, exam on July 20', required: true },
+      { id: 'level', label: 'Current level', type: 'select', placeholder: 'Where you are now', options: ['Complete beginner', 'Some basics', 'Intermediate', 'Need a refresh'] },
+      { id: 'hoursPerDay', label: 'Hours per day available', type: 'number', placeholder: 'e.g. 2' },
+    ],
+    buildUserPrompt: (i) => `You are an expert learning strategist building a personalised study plan.
+${line('Subject / goal', i.subject)}${line('Deadline / timeframe', i.deadline)}${line('Current level', i.level)}${line('Hours per day', i.hoursPerDay)}
+
+Build a week-by-week study plan in markdown. Be radically specific:
+
+REQUIREMENTS:
+- Name the exact resource for each topic (book chapter, course module, YouTube video/playlist, official docs page)
+- Include ACTUAL resource names: e.g. "AWS Certified Solutions Architect Study Guide by Ben Piper (Sybex)", "Stephane Maarek's AWS SAA course on Udemy", "TutorialsDojo practice exams (tutorialsdojo.com)", "freeCodeCamp full exam prep on YouTube"
+- Give daily/weekly hour breakdown
+- Include active recall techniques (not just "read" — specify flashcards, practice tests, spaced repetition with Anki)
+- Mark which topics are highest exam/assessment weight
+- Include practice test schedule (when to take them and which ones)
+
+Format each week:
+## Week N: [Theme]
+**Topics:** list each topic
+**Daily breakdown (X hrs/day):**
+- Day 1–2: [Topic] — [Specific resource: title, platform, URL or where to get it]
+- Day 3–4: [Topic] — [Specific resource]
+- Day 5–6: Practice / review — [Specific practice resource]
+- Day 7: Rest + light review
+**Active recall:** [specific technique for this week's content]
+**Milestone check:** what you should be able to do/score by end of week
+
+End with:
+## Final Week / Exam Sprint
+## Recommended Tools
+Name specific apps: Anki (ankiweb.net) for flashcards, Quizlet, Notion for notes, etc.`,
+  },
+  {
+    id: 'conceptExplainer', name: 'Concept Explainer', icon: 'lightbulb', color: 'yellow-500',
+    description: 'Get any concept explained clearly with examples, analogies, and where to go deeper',
+    category: 'learning', status: 'ready',
+    tier: 'balanced',
+    maxOutputTokens: 3500,
+    inputs: [
+      { id: 'concept', label: 'Concept to explain', type: 'text', placeholder: 'e.g. database indexing, compound interest, TCP/IP handshake', required: true },
+      { id: 'background', label: 'Your background (optional)', type: 'text', placeholder: 'e.g. I know basic Python but no CS theory' },
+      { id: 'depth', label: 'Depth', type: 'select', placeholder: 'How deep to go', options: ['ELI5 (very simple)', 'Clear overview', 'Technical depth', 'Expert level'] },
+    ],
+    buildUserPrompt: (i) => `You are a world-class explainer — think Richard Feynman meets a senior engineer. Make this genuinely click.
+${line('Concept', i.concept)}${line('Background', i.background)}${line('Depth requested', i.depth || 'Clear overview')}
+
+## The Core Idea (1 paragraph)
+Explain from first principles. WHY does this exist — what problem does it solve? Pitch it at the stated background level.
+
+## The Analogy That Makes It Click
+One real-world analogy. Then: where does the analogy break down? (Knowing where an analogy fails is part of understanding the concept.)
+
+## How It Actually Works
+Step by step. If there's a process/sequence, walk through every step. If it's a formula or model, build it up from components. Include a concrete minimal example.
+
+## Visual or Diagram (described in text)
+Describe a diagram or visual that would help — ASCII if possible, or a clear verbal description.
+
+## The Most Common Misconception
+What do people usually get wrong when first learning this? Why?
+
+## How It Connects to Other Concepts
+What does understanding this unlock? What does it depend on?
+
+## Quick Self-Test
+3 questions to verify understanding. Give answers below a "Reveal" heading.
+
+## Where to Go Deeper
+2–3 specific resources ordered by effort:
+1. [Quick win — specific article/video that explains this in 10 min: title + URL]
+2. [Intermediate — specific course chapter, book chapter, or documentation page]
+3. [Deep mastery — specific book or full course with author/platform]`,
+  },
+  {
+    id: 'practiceQuizzes', name: 'Practice Quizzes', icon: 'check-square', color: 'green-500',
+    description: 'Generate practice questions and quizzes on any topic to test your knowledge',
+    category: 'learning', status: 'ready',
+    tier: 'balanced',
+    maxOutputTokens: 4000,
+    inputs: [
+      { id: 'topic', label: 'Topic to quiz on', type: 'text', placeholder: 'e.g. React hooks, SQL joins, system design concepts, STAR interview method', required: true },
+      { id: 'level', label: 'Difficulty', type: 'select', placeholder: 'Difficulty level', options: ['Beginner', 'Intermediate', 'Advanced', 'Mixed'] },
+      { id: 'questionCount', label: 'Number of questions', type: 'select', placeholder: 'How many questions', options: ['5 questions', '10 questions', '15 questions', '20 questions'] },
+      { id: 'format', label: 'Question format', type: 'select', placeholder: 'Format', options: ['Multiple choice', 'Short answer', 'True/False', 'Mixed formats'] },
+    ],
+    buildUserPrompt: (i) => `You are a rigorous examiner creating a high-quality practice quiz.
+${line('Topic', i.topic)}${line('Difficulty', i.level || 'Mixed')}${line('Number of questions', i.questionCount || '10 questions')}${line('Format', i.format || 'Mixed formats')}
+
+Generate the quiz in markdown. Follow this structure exactly:
+
+---
+# Practice Quiz: ${i.topic || 'Topic'}
+**Difficulty:** ${i.level || 'Mixed'} | **Questions:** ${i.questionCount || '10'}
+---
+
+For each question:
+**Q[N].** [Question text]
+${i.format === 'Multiple choice' || i.format === 'Mixed formats' ? `
+A) [Option]
+B) [Option]
+C) [Option]
+D) [Option]` : ''}
+*(Write your answer before reading further)*
+
+---
+After ALL questions, add a section:
+
+## Answer Key & Explanations
+
+**Q[N]. Correct answer: [X]**
+**Explanation:** [2–4 sentences explaining WHY this is correct, and why the wrong options are wrong. Reference the underlying concept, not just "because it is".]
+**Common mistake:** [What people often confuse here]
+**Go deeper:** [One specific resource to read/watch if they got this wrong — name the article/video/docs page]
+
+QUALITY RULES:
+- Questions must test genuine understanding, not trivia or rote recall
+- Wrong answer choices (distractors) must be plausible — not obviously wrong
+- Advanced questions should require synthesis across concepts
+- At least 30% of questions should test application ("given this scenario, what happens?") not just definition`,
+  },
 ];
 
 /** id -> feature lookup map (derived; keeps the documented `featureRegistry` export). */
