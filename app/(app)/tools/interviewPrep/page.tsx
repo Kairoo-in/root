@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { getUserSessions, getInterviewStats } from '@/data/repositories/interview.repo'
 import { HubClientSection } from './_components/HubClientSection'
+import { WeaknessHeatmap } from './_components/WeaknessHeatmap'
 
 export default async function InterviewPrepHub() {
   const { userId } = await auth()
@@ -36,6 +37,9 @@ export default async function InterviewPrepHub() {
           </div>
         ))}
       </div>
+
+      {/* Weakness patterns analytics */}
+      <WeaknessHeatmap />
 
       {/* Continue in-progress session */}
       {inProgress && (

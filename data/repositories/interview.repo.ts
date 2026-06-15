@@ -160,3 +160,56 @@ export async function getInterviewStats(userId: string): Promise<InterviewStats>
     avgScore,
   }
 }
+
+// ── Analytics ─────────────────────────────────────────────────────────────────
+
+export interface WeaknessPatterns {
+  avgScore: number
+  topMissedKeywords: Array<{ keyword: string; count: number }>
+  avgByType: Array<{ type: string; avg: number; count: number }>
+  totalExchanges: number
+}
+
+// Get weakness patterns across all sessions for a user
+export async function getWeaknessPatterns(userId: string): Promise<WeaknessPatterns> {
+  const exchanges = await db
+    .select()
+    .from(interviewExchanges)
+    .innerJoin(interviewSessions, eq(interviewExchanges.sessionId, interviewSessions.id))
+    .where(eq(interviewSessions.userId, userId))
+    .orderBy(desc(interviewSessions.createdAt))
+    .limit(100)
+
+  // Aggregate keyword misses
+  const keywordMisses: Record<string, number> = {}
+  let totalStarScore = 0
+  let totalExchanges = 0
+  const scoresByType: Record<string, number[]> = {}
+
+  for (const row of exchanges) {
+    const ex = row.interview_exchanges
+    const sess = row.interview_sessions
+    if (ex.starScore !== null) {
+      totalStarScore += ex.starScore
+      totalExchanges++
+      if (!scoresByType[sess.type]) scoresByType[sess.type] = []
+      scoresByType[sess.type].push(ex.starScore)
+    }
+    const missed = (ex.keywords ?? []).filter(k => !(ex.keywordsUsed ?? []).includes(k))
+    missed.forEach(k => { keywordMisses[k] = (keywordMisses[k] ?? 0) + 1 })
+  }
+
+  const avgScore = totalExchanges > 0 ? Math.round(totalStarScore / totalExchanges) : 0
+  const topMissedKeywords = Object.entries(keywordMisses)
+    .sort(([, a], [, b]) => b - a)
+    .slice(0, 8)
+    .map(([keyword, count]) => ({ keyword, count }))
+
+  const avgByType = Object.entries(scoresByType).map(([type, scores]) => ({
+    type,
+    avg: Math.round(scores.reduce((a, b) => a + b, 0) / scores.length),
+    count: scores.length,
+  }))
+
+  return { avgScore, topMissedKeywords, avgByType, totalExchanges }
+}
