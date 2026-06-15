@@ -1,4 +1,5 @@
-import { pgTable, text, timestamp, integer, jsonb, boolean } from 'drizzle-orm/pg-core'
+import { pgTable, text, timestamp, integer, jsonb, boolean, uuid } from 'drizzle-orm/pg-core'
+import type { ResumeSections } from '@/types/resume'
 
 export const users = pgTable('users', {
   id: text('id').primaryKey(), // Clerk user ID
@@ -127,4 +128,21 @@ export const interviewExchanges = pgTable('interview_exchanges', {
   duration: integer('duration'),
   order: integer('order').notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
+})
+
+export const resumes = pgTable('resumes', {
+  id: text('id').primaryKey(), // nanoid
+  userId: text('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
+  name: text('name').notNull().default('Untitled Resume'),
+  targetRole: text('target_role'),
+  targetCompany: text('target_company'),
+  jobDescription: text('job_description'),
+  sections: jsonb('sections').$type<ResumeSections>().notNull(),
+  templateId: text('template_id', { enum: ['minimal', 'modern', 'executive', 'creative'] })
+    .notNull()
+    .default('minimal'),
+  atsScore: integer('ats_score'),
+  isDefault: boolean('is_default').notNull().default(false),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
 })
