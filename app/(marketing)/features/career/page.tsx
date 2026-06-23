@@ -19,7 +19,7 @@ import {
 
 const careerTitle = `Career & Coaching Tools - ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}`;
 const careerDesc =
-  `The full ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} career toolkit: AI tools for roadmaps, interviews, salary negotiation, performance reviews, networking, and more - the real, single-source catalog from our AI engine.`;
+  `The full ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} career toolkit: AI tools for roadmaps, interviews, salary negotiation, performance reviews, networking - the single-source catalog from our AI engine.`;
 
 export const metadata: Metadata = {
   title: careerTitle,

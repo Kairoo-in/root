@@ -17,7 +17,7 @@ import {
 
 const aboutTitle = `About ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} - The right moment to grow`;
 const aboutDesc =
-  `${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} turns chaotic career development into strategic growth - combining AI-powered learning paths, a complete career toolkit, and business intelligence in one integrated platform.`;
+  `${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} turns career development into strategic growth: AI-powered learning paths, a career toolkit, and business intelligence in one integrated platform.`;
 
 export const metadata: Metadata = {
   title: aboutTitle,

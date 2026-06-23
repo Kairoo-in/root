@@ -19,7 +19,7 @@ import { PersonaWorkflows, PersonalizationFlow } from "./HowItWorksExtended";
 
 const howTitle = `How It Works - Real workflows, real outcomes | ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"}`;
 const howDesc =
-  `See exactly how ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} works: your profile drives every tool, real workflow chains for job search, promotion, and career switches - powered by a Gemini-backed AI engine.`;
+  `How ${process.env.NEXT_PUBLIC_APP_NAME || "Kairoo"} works: your profile drives every tool, with workflow chains for job search, promotion, and career switches - powered by a Gemini-backed AI engine.`;
 
 export const metadata: Metadata = {
   title: howTitle,
